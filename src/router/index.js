@@ -1,13 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+import accountsRoutes from "../modules/accounts/router";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      name: "home",
-      component: () => import("@/views/HomeView.vue"),
+      redirect: { name: "login" },
     },
+    ...accountsRoutes,
   ],
 });
 
