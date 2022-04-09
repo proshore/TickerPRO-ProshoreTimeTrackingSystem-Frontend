@@ -20,10 +20,12 @@ defineProps({
 </script>
 
 <template>
-  <label :for="name" class="form-label">{{ label }} </label>
+  <label :for="name" class="form-label"
+    >{{ label }} <span class="required-asterisk">*</span></label
+  >
   <input
     :type="type"
-    class="form-control"
+    class="form-control mb-3"
     :id="name"
     :name="name"
     :value="modelValue"
@@ -31,3 +33,9 @@ defineProps({
     required
   />
 </template>
+
+<style>
+.required-asterisk {
+  color: red;
+}
+</style>
