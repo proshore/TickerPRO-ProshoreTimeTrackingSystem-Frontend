@@ -8,15 +8,16 @@ import BaseInput from "@/components/BaseInput.vue";
 import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword";
 
+import Api from "@/services/API";
+
 const form = ref({
   email: "",
   password: "",
 });
 const errors = ref([]);
 
-function handleLogin() {
+async function handleLogin() {
   errors.value = [];
-  console.log(form.value);
 
   // Email validation
   const { isValid: validE, errorMessage: errorE } = validateEmail(
@@ -36,7 +37,29 @@ function handleLogin() {
     errors.value.push(errorP);
   }
 
-  // TODO: if errors array is empty, only then submit
+  // if no errors
+  if (errors.value.length === 0) {
+    const userObj = {
+      email: form.value.email,
+      password: form.value.password,
+    };
+
+    // TODO: Services directory and cors error
+    try {
+      // CSRF cookie request
+      const firstResponse = await Api.get("/sanctum/csrf-cookie");
+      console.log(firstResponse);
+
+      // login user
+      const response = await Api.post(
+        "/api/user/login",
+        JSON.stringify(userObj)
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 </script>
 

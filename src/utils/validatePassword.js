@@ -4,11 +4,11 @@ export default function (value) {
     return { isValid: false, errorMessage: "Password field is required." };
   }
 
-  // if password length is less than 8
-  if (value.length < 8) {
+  // if password length is less than 6
+  if (value.length < 6) {
     return {
       isValid: false,
-      errorMessage: "Password length must be greater than 8 characters.",
+      errorMessage: "Password length must be greater than 6 characters.",
     };
   }
 
