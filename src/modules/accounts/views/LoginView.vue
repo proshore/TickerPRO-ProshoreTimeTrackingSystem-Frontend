@@ -1,23 +1,38 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 
 import H1Text from "@/components/H1Text.vue";
 import PText from "@/components/PText.vue";
 import BaseInput from "@/components/BaseInput.vue";
+import BaseErrorUI from "@/components/BaseErrorUI.vue";
 
 import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword";
 
-import Api from "@/services/API";
+import API from "@/services/API";
+
+const router = useRouter();
 
 const form = ref({
   email: "",
   password: "",
 });
+const emailError = ref("");
+const passwordError = ref("");
 const errors = ref([]);
+
+const disableLoginButton = computed(() => {
+  if (form.value.email === "" || form.value.password === "") {
+    return true;
+  }
+  return false;
+});
 
 async function handleLogin() {
   errors.value = [];
+  emailError.value = "";
+  passwordError.value = "";
 
   // Email validation
   const { isValid: validE, errorMessage: errorE } = validateEmail(
@@ -25,7 +40,8 @@ async function handleLogin() {
   );
 
   if (!validE) {
-    errors.value.push(errorE);
+    emailError.value = errorE;
+    form.value.email = "";
   }
 
   // Password validation
@@ -34,30 +50,30 @@ async function handleLogin() {
   );
 
   if (!validP) {
-    errors.value.push(errorP);
+    passwordError.value = errorP;
+    form.value.password = "";
   }
 
   // if no errors
-  if (errors.value.length === 0) {
+  if (errors.value.length === 0 && !passwordError.value && !emailError.value) {
     const userObj = {
       email: form.value.email,
       password: form.value.password,
     };
 
-    // TODO: Services directory and cors error
     try {
-      // CSRF cookie request
-      const firstResponse = await Api.get("/sanctum/csrf-cookie");
-      console.log(firstResponse);
-
       // login user
-      const response = await Api.post(
-        "/api/user/login",
-        JSON.stringify(userObj)
-      );
-      console.log(response);
+      const response = await API.post("/api/user/login", userObj);
+      const { data, status, statusText } = response;
+      if (data && status === 200 && statusText === "OK") {
+        router.push({ name: "dashboard" });
+      }
     } catch (error) {
-      console.log(error);
+      if (error.response.status === 401) {
+        errors.value.push("Invalid email or password.");
+        form.value.email = "";
+        form.value.password = "";
+      }
     }
   }
 }
@@ -68,11 +84,11 @@ async function handleLogin() {
   <PText text="Welcome back!" />
 
   <!-- Show error messages -->
-  <ul v-if="errors.length">
-    <li v-for="error in errors" :key="error">
-      {{ error }}
-    </li>
-  </ul>
+  <div v-if="errors.length">
+    <div v-for="error in errors" :key="error">
+      <BaseErrorUI :error="error" />
+    </div>
+  </div>
 
   <form @submit.prevent="handleLogin">
     <div class="mb-3">
@@ -81,15 +97,29 @@ async function handleLogin() {
         name="email"
         label="Email address"
         v-model="form.email"
+        :error="emailError"
       />
       <BaseInput
         type="password"
         name="password"
         label="Password"
         v-model="form.password"
+        :error="passwordError"
       />
     </div>
 
-    <button type="submit" class="btn btn-secondary">Log in</button>
+    <button
+      type="submit"
+      class="btn btn-secondary"
+      :disabled="disableLoginButton"
+    >
+      Log in
+    </button>
   </form>
 </template>
+
+<style>
+.error-list {
+  color: red;
+}
+</style>
