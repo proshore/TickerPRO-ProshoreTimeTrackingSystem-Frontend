@@ -4,10 +4,10 @@ import envVariables from "@/config/envVariables";
 
 const { BACKEND_URI } = envVariables;
 
-const Api = axios.create({
+const API = axios.create({
   baseURL: `${BACKEND_URI}`,
 });
 
-Api.defaults.withCredentials = true;
+API.defaults.withCredentials = true;
 
-export default Api;
+export default API;
