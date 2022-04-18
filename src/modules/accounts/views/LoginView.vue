@@ -73,6 +73,10 @@ async function handleLogin() {
         errors.value.push("Invalid email or password.");
         form.value.email = "";
         form.value.password = "";
+      } else {
+        errors.value.push("Could not login right now. Please try again later.");
+        form.value.email = "";
+        form.value.password = "";
       }
     }
   }
