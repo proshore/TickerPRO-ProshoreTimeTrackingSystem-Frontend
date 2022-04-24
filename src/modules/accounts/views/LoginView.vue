@@ -114,7 +114,7 @@ async function handleLogin() {
 
     <button
       type="submit"
-      class="btn btn-secondary"
+      class="btn btn-primary"
       :disabled="disableLoginButton"
     >
       Log in
