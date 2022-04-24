@@ -24,3 +24,5 @@
 | eslint-plugin-vue           | ^8.2.0  | development |
 | prettier                    | ^2.5.1  | development |
 | vite                        | ^2.8.4  | development |
+| bootstrap                   | ^5.1.3  | production  |
+| bootstrap-icons             | ^1.8.1  | production  |
