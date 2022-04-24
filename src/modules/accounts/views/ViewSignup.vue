@@ -33,19 +33,33 @@ const confirmpasswordError = ref("");
 const tokenError = ref("");
 const errors = ref([]);
 
+// const disableSignupButton = computed(() => {
+//   if (
+//     form.value.name === "" ||
+//     form.value.email === "" ||
+//     form.value.password === "" ||
+//     form.value.password !== form.value.password_confirmation
+//   ) {
+//     return true;
+//   }
+//   return false;
+// });
+
 const disableSignupButton = computed(() => {
-  if (
+  return !!(
     form.value.name === "" ||
     form.value.email === "" ||
     form.value.password === "" ||
     form.value.password !== form.value.password_confirmation
-  ) {
-    return true;
-  }
-  return false;
+  );
 });
 
 async function handleSignup() {
+  console.log(
+    form.value.name,
+    form.value.email,
+    form.value.password_confirmation
+  );
   errors.value = [];
   nameError.value = "";
   emailError.value = "";
@@ -125,13 +139,12 @@ async function handleSignup() {
       // login user
       const response = await API.post("/api/user/register", userObj);
       const { data } = response;
-      if (data ) {
-        router.push({ name: "registered" });
+      if (data) {
+        router.push({ name: "/accounts/registersuccess" });
       }
     } catch (error) {
       if (error.response.status === 401) {
-        errors.value.push("Invalid email or password.");
-        form.value.email = "";
+        errors.value.push("Invalid password.");
         form.value.password = "";
       } else {
         errors.value.push(
