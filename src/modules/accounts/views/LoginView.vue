@@ -7,12 +7,10 @@ import PText from "@/components/PText.vue";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseErrorUI from "@/components/BaseErrorUI.vue";
 
-import apiUrl from "@/apiRoutesName/accounts";
-
 import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword";
 
-import API from "@/services/API";
+import services from "../services";
 
 const router = useRouter();
 
@@ -65,7 +63,7 @@ async function handleLogin() {
 
     try {
       // login user
-      const response = await API.post(apiUrl.LOGIN_URL, userObj);
+      const response = await services.loginUser(userObj);
       const { data, status, statusText } = response;
       if (data && status === 200 && statusText === "OK") {
         router.push({ name: "dashboard" });
