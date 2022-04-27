@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, RouterLink } from "vue-router";
 
 import H1Text from "@/components/H1Text.vue";
 import PText from "@/components/PText.vue";
@@ -113,6 +113,9 @@ async function handleLogin() {
         :error="passwordError"
       />
     </div>
+
+    <RouterLink :to="{ name: 'forgotPassword' }">Forgot password?</RouterLink
+    ><br />
 
     <button
       type="submit"
