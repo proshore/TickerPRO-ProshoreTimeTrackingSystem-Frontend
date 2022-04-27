@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 import BaseFormHeading from "@/components/BaseFormHeading.vue";
 import BaseInput from "@/components/BaseInput.vue";
@@ -12,6 +13,8 @@ import { resetPassword } from "../services";
 const email = ref("");
 const emailError = ref("");
 const errors = ref([]);
+
+const router = useRouter();
 
 async function handleResetPassword() {
   emailError.value = "";
@@ -29,7 +32,7 @@ async function handleResetPassword() {
       const response = await resetPassword(email.value);
       const { status, statusText } = response;
       if (status === 200 && statusText === "OK") {
-        console.log("Email send successfully");
+        router.push({ name: "passwordResetSent" });
       }
     } catch (error) {
       errors.value.push("Something went wrong, please try again later");
