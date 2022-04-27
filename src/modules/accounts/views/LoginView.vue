@@ -69,8 +69,10 @@ async function handleLogin() {
         router.push({ name: "dashboard" });
       }
     } catch (error) {
-      if (error.response.status === 401) {
-        errors.value.push("Invalid email or password.");
+      if (error.message === "Network Error") {
+        errors.value.push("Something went wrong, please try again later.");
+      } else if (error.response.status === 401) {
+        errors.value.push("Please enter valid email or password.");
         form.value.email = "";
         form.value.password = "";
       } else {
