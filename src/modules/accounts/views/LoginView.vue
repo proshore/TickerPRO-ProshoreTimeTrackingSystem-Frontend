@@ -114,7 +114,7 @@ async function handleLogin() {
       />
     </div>
 
-    <RouterLink :to="{ name: 'forgotPassword' }">Forgot password?</RouterLink
+    <RouterLink :to="{ name: 'passwordForgot' }">Forgot password?</RouterLink
     ><br />
 
     <button
