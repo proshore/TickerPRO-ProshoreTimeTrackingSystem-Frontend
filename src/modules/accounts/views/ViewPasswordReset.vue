@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 import BaseFormHeading from "@/components/BaseFormHeading.vue";
 import BaseInput from "@/components/BaseInput.vue";
@@ -9,25 +9,28 @@ import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword";
 import validatePasswordConfirm from "@/utils/validatePasswordConfirm";
 
+import { passwordReset } from "../services";
+
 const route = useRoute();
+const router = useRouter();
+
 const token = route.query.token;
 
 const form = ref({
   email: "",
   password: "",
-  password_confirmation: "",
+  passwordConfirmation: "",
 });
 const emailError = ref("");
 const passwordError = ref("");
 const passwordConfirmationError = ref("");
+const error = ref("");
 
-/**
- * TODO: Remove novalidate from FORM
- */
 async function handlePasswordReset() {
   emailError.value = "";
   passwordError.value = "";
   passwordConfirmationError.value = "";
+  error.value = "";
 
   const { isValid: validE, errorMessage: errorE } = validateEmail(
     form.value.email
@@ -36,7 +39,7 @@ async function handlePasswordReset() {
     form.value.password
   );
   const { isValid: validPC, errorMessage: errorPC } = validatePasswordConfirm(
-    form.value.password_confirmation,
+    form.value.passwordConfirmation,
     form.value.password
   );
 
@@ -52,7 +55,7 @@ async function handlePasswordReset() {
 
   if (!validPC) {
     passwordConfirmationError.value = errorPC;
-    form.value.password_confirmation = "";
+    form.value.passwordConfirmation = "";
   }
 
   // if no errors
@@ -60,7 +63,18 @@ async function handlePasswordReset() {
     (emailError.value === "") & (passwordError.value === "") &&
     passwordConfirmationError.value === ""
   ) {
-    console.log("Form submitted successfully");
+    const data = {
+      email: form.value.email,
+      password: form.value.password,
+      password_confirmation: form.value.passwordConfirmation,
+      token,
+    };
+    try {
+      await passwordReset(data);
+      router.push({ name: "login" });
+    } catch (err) {
+      error.value = "Something went wrong, please try again later.";
+    }
   }
 }
 </script>
@@ -70,6 +84,12 @@ async function handlePasswordReset() {
     title="Password Reset"
     shortDesc="Enter the following fields to reset password."
   />
+
+  <!-- Error -->
+  <div v-if="error" class="alert alert-danger text-danger" role="alert">
+    {{ error }}
+  </div>
+
   <form @submit.prevent="handlePasswordReset">
     <BaseInput
       type="email"
@@ -82,7 +102,7 @@ async function handlePasswordReset() {
     <BaseInput
       type="password"
       name="password"
-      label="Password"
+      label="New password"
       v-model="form.password"
       :error="passwordError"
     />
@@ -91,7 +111,7 @@ async function handlePasswordReset() {
       type="password"
       name="password-confirmation"
       label="Confirm password"
-      v-model="form.password_confirmation"
+      v-model="form.passwordConfirmation"
       :error="passwordConfirmationError"
     />
 

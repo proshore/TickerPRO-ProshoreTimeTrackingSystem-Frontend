@@ -10,4 +10,8 @@ const passwordResetSend = async (email) => {
   return await API.post(apiUrl.FORGOT_PASSWORD_URL, { email });
 };
 
-export { loginUser, passwordResetSend };
+const passwordReset = async (data) => {
+  return await API.post(apiUrl.PASSWORD_RESET_URL, data);
+};
+
+export { loginUser, passwordResetSend, passwordReset };
