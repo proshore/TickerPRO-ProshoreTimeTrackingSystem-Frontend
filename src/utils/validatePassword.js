@@ -1,16 +1,16 @@
 export default function (value) {
+  const response = { isValid: true, errorMessage: "" };
+
   // if value is empty
   if (!value) {
-    return { isValid: false, errorMessage: "Password field is required." };
+    response.isValid = false;
+    response.errorMessage = "Password field is required";
+    return response;
+  } else if (value.length < 6) {
+    // if password length is less than 6
+    response.isValid = false;
+    response.errorMessage = "Password length must be at least 6 characters.";
+    return response;
   }
-
-  // if password length is less than 6
-  if (value.length < 6) {
-    return {
-      isValid: false,
-      errorMessage: "Password length must be greater than 6 characters.",
-    };
-  }
-
-  return { isValid: true, errorMessage: "" };
+  return response;
 }
