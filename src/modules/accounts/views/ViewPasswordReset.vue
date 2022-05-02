@@ -5,6 +5,10 @@ import { useRoute } from "vue-router";
 import BaseFormHeading from "@/components/BaseFormHeading.vue";
 import BaseInput from "@/components/BaseInput.vue";
 
+import validateEmail from "@/utils/validateEmail";
+import validatePassword from "@/utils/validatePassword";
+import validatePasswordConfirm from "@/utils/validatePasswordConfirm";
+
 const route = useRoute();
 const token = route.query.token;
 
@@ -17,9 +21,47 @@ const emailError = ref("");
 const passwordError = ref("");
 const passwordConfirmationError = ref("");
 
+/**
+ * TODO: Remove novalidate from FORM
+ */
 async function handlePasswordReset() {
-  console.log(form.value);
-  console.log(token);
+  emailError.value = "";
+  passwordError.value = "";
+  passwordConfirmationError.value = "";
+
+  const { isValid: validE, errorMessage: errorE } = validateEmail(
+    form.value.email
+  );
+  const { isValid: validP, errorMessage: errorP } = validatePassword(
+    form.value.password
+  );
+  const { isValid: validPC, errorMessage: errorPC } = validatePasswordConfirm(
+    form.value.password_confirmation,
+    form.value.password
+  );
+
+  if (!validE) {
+    emailError.value = errorE;
+    form.value.email = "";
+  }
+
+  if (!validP) {
+    passwordError.value = errorP;
+    form.value.password = "";
+  }
+
+  if (!validPC) {
+    passwordConfirmationError.value = errorPC;
+    form.value.password_confirmation = "";
+  }
+
+  // if no errors
+  if (
+    (emailError.value === "") & (passwordError.value === "") &&
+    passwordConfirmationError.value === ""
+  ) {
+    console.log("Form submitted successfully");
+  }
 }
 </script>
 
