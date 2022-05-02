@@ -10,7 +10,7 @@ import BaseErrorUI from "@/components/BaseErrorUI.vue";
 import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword";
 
-import services from "../services";
+import { loginUser } from "../services";
 
 const router = useRouter();
 
@@ -63,7 +63,7 @@ async function handleLogin() {
 
     try {
       // login user
-      const response = await services.loginUser(userObj);
+      const response = await loginUser(userObj);
       const { data, status, statusText } = response;
       if (data && status === 200 && statusText === "OK") {
         router.push({ name: "dashboard" });
