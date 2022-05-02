@@ -8,7 +8,7 @@ import BaseErrorUI from "@/components/BaseErrorUI.vue";
 
 import validateEmail from "@/utils/validateEmail";
 
-import { resetPassword } from "../services";
+import { passwordResetSend } from "../services";
 
 const email = ref("");
 const emailError = ref("");
@@ -16,7 +16,7 @@ const errors = ref([]);
 
 const router = useRouter();
 
-async function handleResetPassword() {
+async function handlePasswordForgot() {
   emailError.value = "";
   errors.value = [];
 
@@ -29,7 +29,7 @@ async function handleResetPassword() {
 
   if (emailError.value === "" && errors.value.length === 0) {
     try {
-      const response = await resetPassword(email.value);
+      const response = await passwordResetSend(email.value);
       const { status, statusText } = response;
       if (status === 200 && statusText === "OK") {
         router.push({ name: "passwordResetSent" });
@@ -55,7 +55,7 @@ async function handleResetPassword() {
     </div>
   </div>
 
-  <form @submit.prevent="handleResetPassword">
+  <form @submit.prevent="handlePasswordForgot">
     <BaseInput
       type="email"
       name="email"
@@ -64,6 +64,6 @@ async function handleResetPassword() {
       :error="emailError"
     />
 
-    <button class="btn btn-secondary mt-3">Reset password</button>
+    <button class="btn btn-secondary mt-3">Password reset send</button>
   </form>
 </template>

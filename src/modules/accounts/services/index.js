@@ -6,8 +6,8 @@ const loginUser = async (newUser) => {
   return await API.post(apiUrl.LOGIN_URL, newUser);
 };
 
-const resetPassword = async (email) => {
+const passwordResetSend = async (email) => {
   return await API.post(apiUrl.FORGOT_PASSWORD_URL, { email });
 };
 
-export { loginUser, resetPassword };
+export { loginUser, passwordResetSend };
