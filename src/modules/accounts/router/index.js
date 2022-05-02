@@ -1,4 +1,4 @@
-const LoginView = () => import("../views/LoginView.vue");
+const ViewLogin = () => import("../views/ViewLogin.vue");
 const ViewPasswordForgot = () => import("../views/ViewPasswordForgot.vue");
 const ViewPasswordResetSent = () =>
   import("../views/ViewPasswordResetSent.vue");
@@ -8,7 +8,7 @@ const accountsRoutes = [
   {
     path: "/accounts/login",
     name: "login",
-    component: LoginView,
+    component: ViewLogin,
   },
   {
     path: "/accounts/password-forgot",
