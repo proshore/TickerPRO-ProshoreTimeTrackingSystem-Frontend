@@ -10,7 +10,7 @@ const accountsRoutes = [
   },
   {
     path: "/accounts/registersuccess",
-    name: "register",
+    name: "registerSuccess",
     component: ViewRegister,
   },
   {
