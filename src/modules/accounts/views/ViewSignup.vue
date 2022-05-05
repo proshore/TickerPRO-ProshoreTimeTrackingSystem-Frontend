@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 import H1Text from "@/components/H1Text.vue";
 import BaseSpan from "@/components/BaseSpan.vue";
@@ -11,47 +11,38 @@ import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword";
 import validateName from "@/utils/validateName";
 import validateConfirmPassword from "@/utils/validateConfirmPassword";
-import validateToken from "@/utils/validateToken";
 
-import API from "@/services/API";
+import { signupUser } from "../services";
 
 const router = useRouter();
+const route = useRoute();
 
-// eslint-disable-next-line no-unused-vars
+const token = route.params.token;
+const email = route.query.email;
+
 const form = ref({
   name: "",
-  email: "",
+  email: email,
   password: "",
   password_confirmation: "",
-  token: "",
 });
 
 const nameError = ref("");
 const emailError = ref("");
 const passwordError = ref("");
 const confirmpasswordError = ref("");
-const tokenError = ref("");
 const errors = ref([]);
 
-// const disableSignupButton = computed(() => {
-//   if (
-//     form.value.name === "" ||
-//     form.value.email === "" ||
-//     form.value.password === "" ||
-//     form.value.password !== form.value.password_confirmation
-//   ) {
-//     return true;
-//   }
-//   return false;
-// });
-
 const disableSignupButton = computed(() => {
-  return !!(
+  if (
     form.value.name === "" ||
     form.value.email === "" ||
     form.value.password === "" ||
     form.value.password !== form.value.password_confirmation
-  );
+  ) {
+    return true;
+  }
+  return false;
 });
 
 async function handleSignup() {
@@ -60,7 +51,6 @@ async function handleSignup() {
   emailError.value = "";
   passwordError.value = "";
   confirmpasswordError.value = "";
-  tokenError.value = "";
 
   //Name validation
   const { isValid: validN, errorMessage: errorN } = validateName(
@@ -104,17 +94,6 @@ async function handleSignup() {
     form.value.password_confirmation = "";
   }
 
-  // Token validation
-  const { isValid: validT, errorMessage: errorT } = validateToken(
-    form.value.token
-  );
-
-  if (!validT) {
-    tokenError.value = errorT;
-    form.value.token = "";
-  }
-
-  // if no errors
   if (
     errors.value.length === 0 &&
     !nameError.value &&
@@ -122,42 +101,17 @@ async function handleSignup() {
     !emailError.value &&
     !confirmpasswordError.value
   ) {
-    // const userObj = {
-    //   name: form.value.name,
-    //   email: form.value.email,
-    //   password: form.value.password,
-    //   password_confirmation: form.value.password_confirmation,
-    //   token : form.value.token,
-    // };
-
+    const data = {
+      name: form.value.name,
+      email: form.value.email,
+      password: form.value.password,
+      password_confirmation: form.value.password_confirmation,
+      token,
+    };
+    console.log(data);
     try {
-      // Signup user
-      // API.defaults.withCredentials = false;
-      // API.get("/sanctum/csrf-cookie")
-      //   .then((resp) => {
-      //     console.log("Binita");
-      //     console.log(resp.headers["set-cookie"][0]);
-      //   })
-      //   .catch((error) => console.log(error));
-
-      // axios.get('https://ccbackend.herokuapp.com/sanctum/csrf-cookie').then(resp => {
-
-      // console.log(resp.headers['set-cookie'][0]);
-      // }).catch(error => console.log(error))
-
-      const response = await API.post("/api/user/register", {
-        name: form.value.name,
-        email: form.value.email,
-        password: form.value.password,
-        password_confirmation: form.value.password_confirmation,
-        token: form.value.token,
-      });
-      console.log(response);
-      const { data, status } = response;
-      console.log(data, status);
-      if (data) {
-        router.push({ name: "registerSuccess" });
-      }
+      await signupUser(data);
+      router.push({ name: "login" });
     } catch (error) {
       // console.log(error)
       if (error.response.status === 401) {
@@ -204,6 +158,7 @@ async function handleSignup() {
         v-model="form.email"
         :error="emailError"
       />
+
       <BaseInput
         type="password"
         name="password"
@@ -217,14 +172,6 @@ async function handleSignup() {
         label="Confirm Password"
         v-model="form.password_confirmation"
         :error="confirmpasswordError"
-      />
-
-      <BaseInput
-        type="text"
-        name="token"
-        label="token"
-        v-model="form.token"
-        :error="tokenError"
       />
     </div>
     <button
