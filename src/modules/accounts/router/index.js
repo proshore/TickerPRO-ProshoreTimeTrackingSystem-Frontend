@@ -4,7 +4,7 @@ const ViewRegister = () => import("../views/ViewRegister.vue");
 
 const accountsRoutes = [
   {
-    path: "/accounts/signup",
+    path: "/accounts/signup/:token",
     name: "signup",
     component: ViewSignup,
   },
