@@ -13,7 +13,5 @@ export default function (value) {
     response.errorMessage = "Please enter an valid email.";
     return response;
   }
-
   return response;
 }
-

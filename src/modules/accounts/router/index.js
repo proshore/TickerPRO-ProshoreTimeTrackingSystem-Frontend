@@ -7,12 +7,12 @@ const ViewPasswordResetSent = () =>
 const ViewPasswordReset = () => import("../views/ViewPasswordReset.vue");
 
 const accountsRoutes = [
-   {
+  {
     path: "/accounts/signup/:token",
     name: "signup",
     component: ViewSignup,
   },
-   {
+  {
     path: "/accounts/registersuccess",
     name: "registerSuccess",
     component: ViewRegister,

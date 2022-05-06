@@ -1,4 +1,3 @@
-
 const Signup_URL = "/api/user/register";
 const LOGIN_URL = "/api/user/login";
 const FORGOT_PASSWORD_URL = "/api/user/forgot-password";

@@ -19,4 +19,3 @@ const passwordReset = async (data) => {
 };
 
 export { signupUser, loginUser, passwordResetSend, passwordReset };
-
