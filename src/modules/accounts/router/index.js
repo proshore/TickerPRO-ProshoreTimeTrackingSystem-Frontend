@@ -21,7 +21,7 @@ const accountsRoutes = [
     component: ViewPasswordResetSent,
   },
   {
-    path: "/accounts/password-reset",
+    path: "/reset-password",
     name: "passwordReset",
     component: ViewPasswordReset,
   },
