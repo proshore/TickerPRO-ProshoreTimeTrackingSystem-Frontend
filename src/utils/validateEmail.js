@@ -1,14 +1,19 @@
 export default function (value) {
+  const response = { isValid: true, errorMessage: "" };
+  const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+
   // if the value is empty
   if (!value) {
-    return { isValid: false, errorMessage: "Email field is required." };
+    response.isValid = false;
+    response.errorMessage = "Email field is required.";
+    return response;
+  } else if (!regex.test(value)) {
+    // if email is not valid
+    response.isValid = false;
+    response.errorMessage = "Please enter an valid email.";
+    return response;
   }
 
-  // if email is not valid
-  const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-  if (!regex.test(value)) {
-    return { isValid: false, errorMessage: "Invalid email." };
-  }
-
-  return { isValid: true, errorMessage: "" };
+  return response;
 }
+

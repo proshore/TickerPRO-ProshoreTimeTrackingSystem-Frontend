@@ -8,7 +8,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      redirect: { name: "signup" },
+      redirect: { name: "login" },
     },
     ...accountsRoutes,
     ...dashboardRoutes,
