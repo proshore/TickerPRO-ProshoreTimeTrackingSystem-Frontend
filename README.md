@@ -18,6 +18,7 @@
 | vue                         | ^3.2.31 | production  |
 | vue-router                  | ^4.0.12 | production  |
 | bootstrap                   | ^5.1.3  | production  |
+| @popperjs/core              | ^2.11.5 | production  |
 | bootstrap-icons             | ^1.8.1  | production  |
 | axios                       | ^0.26.1 | production  |
 | @rushstack/eslint-patch     | ^1.1.0  | development |
