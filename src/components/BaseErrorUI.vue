@@ -13,11 +13,12 @@ defineProps({
 
 <style lang="scss">
 .error-message {
+  display: block;
   color: red;
-  font-weight: bold;
+  font-weight: 400;
   border: 2px solid red;
   padding: 0.4rem 1.2rem;
-  margin: 1rem 0;
+  margin: 0.8rem 0;
   border-radius: 5px;
 }
 </style>
