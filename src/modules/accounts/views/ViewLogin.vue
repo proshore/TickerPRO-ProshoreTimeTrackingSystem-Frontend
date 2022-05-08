@@ -2,15 +2,16 @@
 import { ref, computed } from "vue";
 import { useRouter, RouterLink } from "vue-router";
 
-import H1Text from "@/components/H1Text.vue";
-import PText from "@/components/PText.vue";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseErrorUI from "@/components/BaseErrorUI.vue";
+import BaseFormHeading from "@/components/BaseFormHeading.vue";
 
 import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword";
 
 import { loginUser } from "../services";
+
+import logo from "@/assets/images/logo.svg";
 
 const router = useRouter();
 
@@ -86,49 +87,62 @@ async function handleLogin() {
 </script>
 
 <template>
-  <H1Text text="Log in to Ticker." />
-  <PText text="Welcome back!" />
+  <img :src="logo" alt="Ticker logo" class="logo" />
 
-  <!-- Show error messages -->
-  <div v-if="errors.length">
-    <div v-for="error in errors" :key="error">
-      <BaseErrorUI :error="error" />
+  <div class="d-grid col-md-8 col-lg-5 mx-auto">
+    <BaseFormHeading title="Log in" shortDesc="Welcome back!" />
+
+    <!-- Show error messages -->
+    <div v-if="errors.length">
+      <div v-for="error in errors" :key="error">
+        <BaseErrorUI :error="error" />
+      </div>
     </div>
+
+    <form @submit.prevent="handleLogin">
+      <div class="mb-3">
+        <BaseInput
+          type="email"
+          name="email"
+          label="Email address"
+          v-model="form.email"
+          :error="emailError"
+        />
+        <BaseInput
+          type="password"
+          name="password"
+          label="Password"
+          v-model="form.password"
+          :error="passwordError"
+        />
+      </div>
+
+      <RouterLink :to="{ name: 'passwordForgot' }" class="forgot-password"
+        >Forgot password?</RouterLink
+      >
+
+      <div class="d-grid">
+        <button
+          type="submit"
+          class="btn btn-primary text-white"
+          :disabled="disableLoginButton"
+        >
+          Log in
+        </button>
+      </div>
+    </form>
   </div>
-
-  <form @submit.prevent="handleLogin">
-    <div class="mb-3">
-      <BaseInput
-        type="email"
-        name="email"
-        label="Email address"
-        v-model="form.email"
-        :error="emailError"
-      />
-      <BaseInput
-        type="password"
-        name="password"
-        label="Password"
-        v-model="form.password"
-        :error="passwordError"
-      />
-    </div>
-
-    <RouterLink :to="{ name: 'passwordForgot' }">Forgot password?</RouterLink
-    ><br />
-
-    <button
-      type="submit"
-      class="btn btn-secondary"
-      :disabled="disableLoginButton"
-    >
-      Log in
-    </button>
-  </form>
 </template>
 
 <style>
 .error-list {
   color: red;
+}
+
+.forgot-password {
+  font-size: 0.8rem;
+  color: #9e9c9c;
+  display: block;
+  margin-bottom: 1em;
 }
 </style>

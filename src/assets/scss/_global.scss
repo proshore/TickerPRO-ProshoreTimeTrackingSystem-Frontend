@@ -8,4 +8,15 @@
 
 #app {
   font-family: "Poppins", sans-serif;
+
+  a {
+    text-decoration: none;
+  }
+
+  .logo {
+    max-width: 200px;
+    display: block;
+    margin: 2.5em 0 2em 0;
+    margin-left: -1em;
+  }
 }
