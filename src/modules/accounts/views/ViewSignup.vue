@@ -24,13 +24,13 @@ const form = ref({
   name: "",
   email: email,
   password: "",
-  password_confirmation: "",
+  passwordConfirmation: "",
 });
 
 const nameError = ref("");
 const emailError = ref("");
 const passwordError = ref("");
-const confirmpasswordError = ref("");
+const confirmPasswordError = ref("");
 const errors = ref([]);
 
 const disableSignupButton = computed(() => {
@@ -38,7 +38,7 @@ const disableSignupButton = computed(() => {
     form.value.name === "" ||
     form.value.email === "" ||
     form.value.password === "" ||
-    form.value.password !== form.value.password_confirmation
+    form.value.password !== form.value.passwordConfirmation
   ) {
     return true;
   }
@@ -50,7 +50,7 @@ async function handleSignup() {
   nameError.value = "";
   emailError.value = "";
   passwordError.value = "";
-  confirmpasswordError.value = "";
+  confirmPasswordError.value = "";
 
   //Name validation
   const { isValid: validN, errorMessage: errorN } = validateName(
@@ -85,13 +85,13 @@ async function handleSignup() {
   // Confirm Password validation
   const { isValid: validCP, errorMessage: errorCP } = validateConfirmPassword(
     form.value.password,
-    form.value.password_confirmation
+    form.value.passwordConfirmation
   );
 
   if (!validCP) {
-    confirmpasswordError.value = errorCP;
+    confirmPasswordError.value = errorCP;
     form.value.password = "";
-    form.value.password_confirmation = "";
+    form.value.passwordConfirmation = "";
   }
 
   if (
@@ -99,13 +99,13 @@ async function handleSignup() {
     !nameError.value &&
     !passwordError.value &&
     !emailError.value &&
-    !confirmpasswordError.value
+    !confirmPasswordError.value
   ) {
     const data = {
       name: form.value.name,
       email: form.value.email,
       password: form.value.password,
-      password_confirmation: form.value.password_confirmation,
+      password_confirmation: form.value.passwordConfirmation,
       token,
     };
     console.log(data);
@@ -121,7 +121,7 @@ async function handleSignup() {
         errors.value.push(error);
         form.value.email = "";
         form.value.password = "";
-        form.value.password_confirmation = "";
+        form.value.passwordConfirmation = "";
       }
     }
   }
@@ -170,8 +170,8 @@ async function handleSignup() {
         type="password"
         name="confirm_password"
         label="Confirm Password"
-        v-model="form.password_confirmation"
-        :error="confirmpasswordError"
+        v-model="form.passwordConfirmation"
+        :error="confirmPasswordError"
       />
     </div>
     <button
