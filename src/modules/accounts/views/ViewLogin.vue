@@ -135,10 +135,6 @@ async function handleLogin() {
 </template>
 
 <style>
-.error-list {
-  color: red;
-}
-
 .forgot-password {
   font-size: 0.8rem;
   color: #9e9c9c;
