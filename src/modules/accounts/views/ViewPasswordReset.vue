@@ -11,6 +11,8 @@ import validatePasswordConfirm from "@/utils/validatePasswordConfirm";
 
 import { passwordReset } from "../services";
 
+import logo from "@/assets/images/logo.svg";
+
 const route = useRoute();
 const router = useRouter();
 
@@ -80,41 +82,56 @@ async function handlePasswordReset() {
 </script>
 
 <template>
-  <BaseFormHeading
-    title="Password Reset"
-    shortDesc="Enter the following fields to reset password."
-  />
+  <img :src="logo" alt="Ticker logo" class="logo" />
 
-  <!-- Error -->
-  <div v-if="error" class="alert alert-danger text-danger" role="alert">
-    {{ error }}
+  <div class="d-grid col-md-8 col-lg-5 mx-auto">
+    <BaseFormHeading
+      title="Password Reset"
+      shortDesc="Reset password to restart your journey with Ticker."
+    />
+
+    <!-- Error -->
+    <div v-if="error" class="alert alert-danger text-danger" role="alert">
+      {{ error }}
+    </div>
+
+    <form @submit.prevent="handlePasswordReset">
+      <BaseInput
+        type="email"
+        name="email"
+        label="Email address"
+        v-model="form.email"
+        :error="emailError"
+      />
+
+      <BaseInput
+        type="password"
+        name="password"
+        label="New password"
+        v-model="form.password"
+        :error="passwordError"
+      />
+
+      <BaseInput
+        type="password"
+        name="password-confirmation"
+        label="Confirm password"
+        v-model="form.passwordConfirmation"
+        :error="passwordConfirmationError"
+      />
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary text-white mt-3">
+          Password reset
+        </button>
+      </div>
+
+      <p class="mt-4">
+        Never mind!
+        <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal"
+          ><u> Take me back to login</u></RouterLink
+        >
+      </p>
+    </form>
   </div>
-
-  <form @submit.prevent="handlePasswordReset">
-    <BaseInput
-      type="email"
-      name="email"
-      label="Email address"
-      v-model="form.email"
-      :error="emailError"
-    />
-
-    <BaseInput
-      type="password"
-      name="password"
-      label="New password"
-      v-model="form.password"
-      :error="passwordError"
-    />
-
-    <BaseInput
-      type="password"
-      name="password-confirmation"
-      label="Confirm password"
-      v-model="form.passwordConfirmation"
-      :error="passwordConfirmationError"
-    />
-
-    <button type="submit" class="btn btn-primary mt-3">Password reset</button>
-  </form>
 </template>
