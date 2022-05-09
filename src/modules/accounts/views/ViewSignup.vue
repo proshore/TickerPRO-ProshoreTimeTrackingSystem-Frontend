@@ -141,7 +141,7 @@ async function handleSignup() {
     <form @submit.prevent="handleSignup">
       <div class="mb-3">
         <BaseInput
-          type="name"
+          type="text"
           name="name"
           label="Full Name"
           v-model="form.name"
