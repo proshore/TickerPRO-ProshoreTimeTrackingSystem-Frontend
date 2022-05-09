@@ -2,10 +2,9 @@
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-import H1Text from "@/components/H1Text.vue";
-import BaseSpan from "@/components/BaseSpan.vue";
 import BaseInput from "@/components/BaseInput.vue";
-import BaseErrorUI from "@/components/BaseErrorUI.vue";
+import BaseFormHeading from "@/components/BaseFormHeading.vue";
+import BaseAlert from "@/components/BaseAlert.vue";
 
 import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword";
@@ -13,6 +12,8 @@ import validateName from "@/utils/validateName";
 import validateConfirmPassword from "@/utils/validateConfirmPassword";
 
 import { signupUser } from "../services";
+
+import logo from "@/assets/images/logo.svg";
 
 const router = useRouter();
 const route = useRoute();
@@ -128,66 +129,68 @@ async function handleSignup() {
 }
 </script>
 <template>
-  <H1Text text="Sign Up" />
-  <p>
-    Already a member?
-    <a href="login"> <BaseSpan text="Log In" class="login" /></a>
-  </p>
+  <img :src="logo" alt="Ticker logo" class="logo" />
 
-  <!-- Show error messages -->
-  <div v-if="errors.length">
-    <div v-for="error in errors" :key="error">
-      <BaseErrorUI :error="error" />
+  <div class="d-grid col-md-8 col-lg-5 mx-auto">
+    <BaseFormHeading title="Sign up" shortDesc="Start using Ticker for free." />
+
+    <!-- Show error messages -->
+    <div v-if="errors.length">
+      <div v-for="error in errors" :key="error">
+        <BaseAlert :message="error" hex-font-color="ff0000" />
+      </div>
     </div>
+
+    <form @submit.prevent="handleSignup">
+      <div class="mb-3">
+        <BaseInput
+          type="name"
+          name="name"
+          label="Full Name"
+          v-model="form.name"
+          :error="nameError"
+        />
+
+        <BaseInput
+          type="email"
+          name="email"
+          label="Email address"
+          v-model="form.email"
+          :error="emailError"
+        />
+
+        <BaseInput
+          type="password"
+          name="password"
+          label="Password"
+          v-model="form.password"
+          :error="passwordError"
+        />
+        <BaseInput
+          type="password"
+          name="confirm-password"
+          label="Confirm password"
+          v-model="form.passwordConfirmation"
+          :error="confirmPasswordError"
+        />
+      </div>
+
+      <div class="d-grid">
+        <button
+          type="submit"
+          class="btn btn-primary text-white"
+          :disabled="disableSignupButton"
+        >
+          Sign up
+        </button>
+      </div>
+
+      <p class="mt-4">
+        Already have an account?
+        <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal"
+          ><u>Login</u></RouterLink
+        >
+      </p>
+    </form>
   </div>
-
-  <form @submit.prevent="handleSignup">
-    <div class="mb-3">
-      <BaseInput
-        type="name"
-        name="name"
-        label="Full Name"
-        v-model="form.name"
-        :error="nameError"
-      />
-
-      <BaseInput
-        type="email"
-        name="email"
-        label="Email address"
-        v-model="form.email"
-        :error="emailError"
-      />
-
-      <BaseInput
-        type="password"
-        name="password"
-        label="Password"
-        v-model="form.password"
-        :error="passwordError"
-      />
-      <BaseInput
-        type="password"
-        name="confirm_password"
-        label="Confirm Password"
-        v-model="form.passwordConfirmation"
-        :error="confirmPasswordError"
-      />
-    </div>
-    <button
-      type="submit"
-      class="btn btn-primary"
-      :disabled="disableSignupButton"
-    >
-      Sign Up
-    </button>
-  </form>
 </template>
-
-<style>
-.login {
-  color: rgb(18, 124, 245);
-  cursor: pointer;
-  font-weight: bold;
-}
-</style>
