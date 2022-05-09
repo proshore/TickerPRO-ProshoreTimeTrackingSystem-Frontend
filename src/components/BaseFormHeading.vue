@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <h1 class="form-heading-title">{{ title }}</h1>
+  <h2 class="form-heading-title">{{ title }}</h2>
   <p class="form-heading-description">{{ shortDesc }}</p>
 </template>
 
