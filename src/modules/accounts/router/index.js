@@ -7,7 +7,7 @@ const ViewPasswordReset = () => import("../views/ViewPasswordReset.vue");
 
 const accountsRoutes = [
   {
-    path: "/accounts/signup/:token",
+    path: "/register/:token",
     name: "signup",
     component: ViewSignup,
   },
