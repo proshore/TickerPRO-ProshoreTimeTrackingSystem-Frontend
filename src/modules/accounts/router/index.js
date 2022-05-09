@@ -1,6 +1,5 @@
 const ViewLogin = () => import("../views/ViewLogin.vue");
 const ViewSignup = () => import("../views/ViewSignup.vue");
-const ViewRegister = () => import("../views/ViewRegister.vue");
 const ViewPasswordForgot = () => import("../views/ViewPasswordForgot.vue");
 const ViewPasswordResetSent = () =>
   import("../views/ViewPasswordResetSent.vue");
@@ -11,11 +10,6 @@ const accountsRoutes = [
     path: "/accounts/signup/:token",
     name: "signup",
     component: ViewSignup,
-  },
-  {
-    path: "/accounts/registersuccess",
-    name: "registerSuccess",
-    component: ViewRegister,
   },
   {
     path: "/accounts/login",
