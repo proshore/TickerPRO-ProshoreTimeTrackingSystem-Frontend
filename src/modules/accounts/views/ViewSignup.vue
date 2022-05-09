@@ -39,7 +39,7 @@ const disableSignupButton = computed(() => {
     form.value.name === "" ||
     form.value.email === "" ||
     form.value.password === "" ||
-    form.value.password !== form.value.passwordConfirmation
+    form.value.passwordConfirmation === ""
   ) {
     return true;
   }
@@ -91,7 +91,6 @@ async function handleSignup() {
 
   if (!validCP) {
     confirmPasswordError.value = errorCP;
-    form.value.password = "";
     form.value.passwordConfirmation = "";
   }
 
@@ -109,18 +108,15 @@ async function handleSignup() {
       password_confirmation: form.value.passwordConfirmation,
       token,
     };
-    console.log(data);
     try {
       await signupUser(data);
       router.push({ name: "login" });
     } catch (error) {
-      // console.log(error)
       if (error.response.status === 401) {
-        errors.value.push("Invalid password.");
-        form.value.password = "";
-      } else {
-        errors.value.push(error);
+        errors.value.push("Please enter an valid email.");
         form.value.email = "";
+      } else {
+        errors.value.push("Something went wrong, please try again later.");
         form.value.password = "";
         form.value.passwordConfirmation = "";
       }
@@ -128,6 +124,7 @@ async function handleSignup() {
   }
 }
 </script>
+
 <template>
   <img :src="logo" alt="Ticker logo" class="logo" />
 
