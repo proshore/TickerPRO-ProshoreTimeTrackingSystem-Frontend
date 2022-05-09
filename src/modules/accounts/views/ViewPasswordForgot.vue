@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, RouterLink } from "vue-router";
 
 import BaseFormHeading from "@/components/BaseFormHeading.vue";
 import BaseInput from "@/components/BaseInput.vue";
@@ -9,6 +9,8 @@ import BaseErrorUI from "@/components/BaseErrorUI.vue";
 import validateEmail from "@/utils/validateEmail";
 
 import { passwordResetSend } from "../services";
+
+import logo from "@/assets/images/logo.svg";
 
 const email = ref("");
 const emailError = ref("");
@@ -43,27 +45,39 @@ async function handlePasswordForgot() {
 </script>
 
 <template>
-  <BaseFormHeading
-    title="Reset password"
-    shortDesc="Forgotten your password? Enter your email address below, and we'll email instructions for setting a new one."
-  />
+  <img :src="logo" alt="Ticker logo" class="logo" />
 
-  <!-- Show error messages -->
-  <div v-if="errors.length">
-    <div v-for="error in errors" :key="error">
-      <BaseErrorUI :error="error" />
-    </div>
-  </div>
-
-  <form @submit.prevent="handlePasswordForgot">
-    <BaseInput
-      type="email"
-      name="email"
-      label="Email address"
-      v-model="email"
-      :error="emailError"
+  <div class="d-grid col-md-8 col-lg-5 mx-auto">
+    <BaseFormHeading
+      title="Reset password"
+      shortDesc="To reset your password, enter the email address you use to login."
     />
 
-    <button class="btn btn-secondary mt-3">Password reset send</button>
-  </form>
+    <!-- Show error messages -->
+    <div v-if="errors.length">
+      <div v-for="error in errors" :key="error">
+        <BaseErrorUI :error="error" />
+      </div>
+    </div>
+
+    <form @submit.prevent="handlePasswordForgot">
+      <BaseInput
+        type="email"
+        name="email"
+        label="Email address"
+        v-model="email"
+        :error="emailError"
+      />
+
+      <div class="d-grid">
+        <button class="btn btn-primary mt-3 text-white">Get reset link</button>
+      </div>
+    </form>
+    <p class="mt-4">
+      Never mind!
+      <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal"
+        ><u> Take me back to login</u></RouterLink
+      >
+    </p>
+  </div>
 </template>
