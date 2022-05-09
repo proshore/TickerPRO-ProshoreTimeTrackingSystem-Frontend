@@ -4,7 +4,7 @@ import { useRouter, RouterLink } from "vue-router";
 
 import BaseFormHeading from "@/components/BaseFormHeading.vue";
 import BaseInput from "@/components/BaseInput.vue";
-import BaseErrorUI from "@/components/BaseErrorUI.vue";
+import BaseAlert from "@/components/BaseAlert.vue";
 
 import validateEmail from "@/utils/validateEmail";
 
@@ -56,7 +56,7 @@ async function handlePasswordForgot() {
     <!-- Show error messages -->
     <div v-if="errors.length">
       <div v-for="error in errors" :key="error">
-        <BaseErrorUI :error="error" />
+        <BaseAlert :message="error" hex-font-color="ff0000" />
       </div>
     </div>
 

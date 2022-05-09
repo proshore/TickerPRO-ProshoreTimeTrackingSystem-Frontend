@@ -4,6 +4,7 @@ import { useRoute, useRouter } from "vue-router";
 
 import BaseFormHeading from "@/components/BaseFormHeading.vue";
 import BaseInput from "@/components/BaseInput.vue";
+import BaseAlert from "@/components/BaseAlert.vue";
 
 import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword";
@@ -91,9 +92,7 @@ async function handlePasswordReset() {
     />
 
     <!-- Error -->
-    <div v-if="error" class="alert alert-danger text-danger" role="alert">
-      {{ error }}
-    </div>
+    <BaseAlert :message="error" hex-font-color="ff0000" />
 
     <form @submit.prevent="handlePasswordReset">
       <BaseInput
