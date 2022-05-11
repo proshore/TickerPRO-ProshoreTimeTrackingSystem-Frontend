@@ -53,44 +53,37 @@ async function handleSignup() {
   passwordError.value = "";
   confirmPasswordError.value = "";
 
-  //Name validation
-  const { isValid: validN, errorMessage: errorN } = validateName(
+  const { isValid: validName, errorMessage: errorName } = validateName(
     form.value.name
   );
+  const { isValid: validEmail, errorMessage: errorEmail } = validateEmail(
+    form.value.email
+  );
+  const { isValid: validPassword, errorMessage: errorPassword } =
+    validatePassword(form.value.password);
+  const { isValid: validConfirmPassword, errorMessage: errorConfirmPassword } =
+    validateConfirmPassword(
+      form.value.password,
+      form.value.passwordConfirmation
+    );
 
-  if (!validN) {
-    nameError.value = errorN;
+  if (!validName) {
+    nameError.value = errorName;
     form.value.name = "";
   }
 
-  // Email validation
-  const { isValid: validE, errorMessage: errorE } = validateEmail(
-    form.value.email
-  );
-
-  if (!validE) {
-    emailError.value = errorE;
+  if (!validEmail) {
+    emailError.value = errorEmail;
     form.value.email = "";
   }
 
-  // Password validation
-  const { isValid: validP, errorMessage: errorP } = validatePassword(
-    form.value.password
-  );
-
-  if (!validP) {
-    passwordError.value = errorP;
+  if (!validPassword) {
+    passwordError.value = errorPassword;
     form.value.password = "";
   }
 
-  // Confirm Password validation
-  const { isValid: validCP, errorMessage: errorCP } = validateConfirmPassword(
-    form.value.password,
-    form.value.passwordConfirmation
-  );
-
-  if (!validCP) {
-    confirmPasswordError.value = errorCP;
+  if (!validConfirmPassword) {
+    confirmPasswordError.value = errorConfirmPassword;
     form.value.passwordConfirmation = "";
   }
 

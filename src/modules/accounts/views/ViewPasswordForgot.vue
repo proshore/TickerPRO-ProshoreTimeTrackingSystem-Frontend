@@ -22,10 +22,12 @@ async function handlePasswordForgot() {
   emailError.value = "";
   errors.value = [];
 
-  const { isValid: validE, errorMessage: errorE } = validateEmail(email.value);
+  const { isValid: validEmail, errorMessage: errorEmail } = validateEmail(
+    email.value
+  );
 
-  if (!validE) {
-    emailError.value = errorE;
+  if (!validEmail) {
+    emailError.value = errorEmail;
     email.value = "";
   }
 

@@ -35,29 +35,29 @@ async function handlePasswordReset() {
   passwordConfirmationError.value = "";
   error.value = "";
 
-  const { isValid: validE, errorMessage: errorE } = validateEmail(
+  const { isValid: validEmail, errorMessage: errorEmail } = validateEmail(
     form.value.email
   );
-  const { isValid: validP, errorMessage: errorP } = validatePassword(
-    form.value.password
-  );
-  const { isValid: validPC, errorMessage: errorPC } = validatePasswordConfirm(
-    form.value.passwordConfirmation,
-    form.value.password
-  );
+  const { isValid: validPassword, errorMessage: errorPassword } =
+    validatePassword(form.value.password);
+  const { isValid: validConfirmPassword, errorMessage: errorConfirmPassword } =
+    validatePasswordConfirm(
+      form.value.passwordConfirmation,
+      form.value.password
+    );
 
-  if (!validE) {
-    emailError.value = errorE;
+  if (!validEmail) {
+    emailError.value = errorEmail;
     form.value.email = "";
   }
 
-  if (!validP) {
-    passwordError.value = errorP;
+  if (!validPassword) {
+    passwordError.value = errorPassword;
     form.value.password = "";
   }
 
-  if (!validPC) {
-    passwordConfirmationError.value = errorPC;
+  if (!validConfirmPassword) {
+    passwordConfirmationError.value = errorConfirmPassword;
     form.value.passwordConfirmation = "";
   }
 
