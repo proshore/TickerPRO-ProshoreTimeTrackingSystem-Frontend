@@ -8,6 +8,7 @@ import BaseAlert from "@/components/BaseAlert.vue";
 
 import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword";
+import setUser from "@/utils/setUser.js";
 
 import { loginUser } from "../services";
 
@@ -61,9 +62,12 @@ async function handleLogin() {
     try {
       // login user
       const response = await loginUser(userObj);
-      const { data, status, statusText } = response;
-      if (data && status === 200 && statusText === "OK") {
-        router.push({ name: "dashboard" });
+      const { data, status } = response;
+      if (data && status === 200) {
+        // set user to local storage
+        setUser(data);
+
+        router.push({ name: "teams" });
       }
     } catch (error) {
       if (error.message === "Network Error") {
