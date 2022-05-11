@@ -36,7 +36,7 @@ defineProps({
     @input="$emit('update:modelValue', $event.target.value)"
     required
   />
-  <div v-if="error" class="form-text text-danger">{{ error }}</div>
+  <div v-if="error" class="form-text text-danger" v-text="error" />
 </template>
 
 <style>
