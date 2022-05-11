@@ -22,9 +22,12 @@ const styleObject = ref({
 </script>
 
 <template>
-  <span class="alert-message" v-if="message" :style="styleObject">{{
-    message
-  }}</span>
+  <span
+    class="alert-message"
+    v-if="message"
+    :style="styleObject"
+    v-text="message"
+  />
 </template>
 
 <style lang="scss">

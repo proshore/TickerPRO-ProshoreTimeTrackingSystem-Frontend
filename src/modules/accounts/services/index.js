@@ -1,9 +1,9 @@
-import apiUrl from "@/apiRoutesName/accounts";
+import apiUrl from "@/constants/routes/accounts";
 
 import API from "@/services/API";
 
 const signupUser = async (data) => {
-  return await API.post(apiUrl.Signup_URL, data);
+  return await API.post(apiUrl.SIGNUP_URL, data);
 };
 
 const loginUser = async (newUser) => {

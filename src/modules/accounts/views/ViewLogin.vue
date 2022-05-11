@@ -35,23 +35,19 @@ async function handleLogin() {
   emailError.value = "";
   passwordError.value = "";
 
-  // Email validation
-  const { isValid: validE, errorMessage: errorE } = validateEmail(
+  const { isValid: validEmail, errorMessage: errorEmail } = validateEmail(
     form.value.email
   );
+  const { isValid: validPassword, errorMessage: errorPassword } =
+    validatePassword(form.value.password);
 
-  if (!validE) {
-    emailError.value = errorE;
+  if (!validEmail) {
+    emailError.value = errorEmail;
     form.value.email = "";
   }
 
-  // Password validation
-  const { isValid: validP, errorMessage: errorP } = validatePassword(
-    form.value.password
-  );
-
-  if (!validP) {
-    passwordError.value = errorP;
+  if (!validPassword) {
+    passwordError.value = errorPassword;
     form.value.password = "";
   }
 

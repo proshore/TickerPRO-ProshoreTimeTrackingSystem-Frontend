@@ -12,8 +12,8 @@ defineProps({
 </script>
 
 <template>
-  <h2 class="form-heading-title">{{ title }}</h2>
-  <p class="form-heading-description">{{ shortDesc }}</p>
+  <h2 class="form-heading-title" v-text="title" />
+  <p class="form-heading-description" v-text="shortDesc" />
 </template>
 
 <style lang="scss">

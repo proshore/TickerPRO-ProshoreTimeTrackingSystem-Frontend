@@ -1,8 +1,8 @@
 import axios from "axios";
 
-import envVariables from "@/config/envVariables";
+import envApp from "@/config/app";
 
-const { BACKEND_URI } = envVariables;
+const { BACKEND_URI } = envApp;
 
 const API = axios.create({
   baseURL: `${BACKEND_URI}`,
