@@ -67,7 +67,7 @@ async function handleLogin() {
         // set user to local storage
         setUser(data);
 
-        router.push({ name: "dashboard" });
+        router.push({ name: "teams" });
       }
     } catch (error) {
       if (error.message === "Network Error") {
