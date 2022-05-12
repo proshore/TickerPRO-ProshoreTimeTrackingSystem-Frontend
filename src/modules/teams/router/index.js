@@ -5,6 +5,9 @@ const teamsRoutes = [
     path: "/teams",
     name: "teams",
     component: ViewTeams,
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 

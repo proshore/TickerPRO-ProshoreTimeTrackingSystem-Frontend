@@ -18,4 +18,10 @@ const passwordReset = async (data) => {
   return await API.post(apiUrl.PASSWORD_RESET_URL, data);
 };
 
-export { signupUser, loginUser, passwordResetSend, passwordReset };
+const logoutUser = async (token) => {
+  return await API.get(apiUrl.LOGOUT_URL, {
+    headers: { Authorization: token },
+  });
+};
+
+export { signupUser, loginUser, passwordResetSend, passwordReset, logoutUser };

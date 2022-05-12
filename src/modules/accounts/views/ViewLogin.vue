@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import { useRouter, RouterLink } from "vue-router";
+import { useRoute, useRouter, RouterLink } from "vue-router";
 
 import BaseInput from "@/components/BaseInput.vue";
 import BaseFormHeading from "@/components/BaseFormHeading.vue";
@@ -15,6 +15,9 @@ import { loginUser } from "../services";
 import logo from "@/assets/images/logo.svg";
 
 const router = useRouter();
+const route = useRoute();
+
+const next = route.query.next;
 
 const form = ref({
   email: "",
@@ -67,7 +70,11 @@ async function handleLogin() {
         // set user to local storage
         setUser(data);
 
-        router.push({ name: "teams" });
+        if (next) {
+          router.push(next);
+        } else {
+          router.push({ name: "teams" });
+        }
       }
     } catch (error) {
       if (error.message === "Network Error") {
