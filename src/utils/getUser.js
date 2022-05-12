@@ -4,5 +4,5 @@ export default function getUser() {
   if (user) {
     return JSON.parse(user);
   }
-  return {};
+  return undefined;
 }
