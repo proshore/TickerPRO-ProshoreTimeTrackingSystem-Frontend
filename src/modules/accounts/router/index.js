@@ -1,3 +1,5 @@
+import logout from "../utils/logoutUser";
+
 const ViewLogin = () => import("../views/ViewLogin.vue");
 const ViewSignup = () => import("../views/ViewSignup.vue");
 const ViewPasswordForgot = () => import("../views/ViewPasswordForgot.vue");
@@ -45,6 +47,14 @@ const accountsRoutes = [
     meta: {
       requiresAuth: false,
     },
+  },
+  {
+    path: "/accounts/logout",
+    name: "logout",
+    meta: {
+      requiresAuth: true,
+    },
+    beforeEnter: [logout],
   },
 ];
 
