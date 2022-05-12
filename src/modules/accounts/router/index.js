@@ -10,26 +10,41 @@ const accountsRoutes = [
     path: "/register/:token",
     name: "signup",
     component: ViewSignup,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: "/accounts/login",
     name: "login",
     component: ViewLogin,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: "/accounts/password-forgot",
     name: "passwordForgot",
     component: ViewPasswordForgot,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: "/accounts/password-reset-sent",
     name: "passwordResetSent",
     component: ViewPasswordResetSent,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: "/reset-password",
     name: "passwordReset",
     component: ViewPasswordReset,
+    meta: {
+      requiresAuth: false,
+    },
   },
 ];
 

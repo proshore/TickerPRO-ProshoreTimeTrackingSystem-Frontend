@@ -5,6 +5,9 @@ const dashboardRoutes = [
     path: "/dashboard",
     name: "dashboard",
     component: DashboardView,
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 
