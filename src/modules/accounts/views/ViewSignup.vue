@@ -13,7 +13,9 @@ import validateConfirmPassword from "@/utils/validateConfirmPassword";
 
 import { signupUser } from "../services";
 
-import logo from "@/assets/images/logo.svg";
+import Logo from "@/config/app";
+
+const { LOGO_PATH } = Logo;
 
 const router = useRouter();
 const route = useRoute();
@@ -119,7 +121,7 @@ async function handleSignup() {
 </script>
 
 <template>
-  <img :src="logo" alt="Ticker logo" class="logo" />
+  <img :src="LOGO_PATH" alt="Ticker logo" class="logo" />
 
   <div class="d-grid col-md-8 col-lg-5 mx-auto">
     <BaseFormHeading title="Sign up" shortDesc="Start using Ticker for free." />
