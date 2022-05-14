@@ -1,7 +1,7 @@
-<script setup></script>
+<script setup>
+import TheSidebarVue from "@/components/TheSidebar.vue";
+</script>
 
 <template>
-  <h1>Welcome, to the Dashboard!</h1>
+  <TheSidebarVue />
 </template>
-
-<style></style>
