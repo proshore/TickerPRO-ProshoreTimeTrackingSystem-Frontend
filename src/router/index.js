@@ -5,6 +5,7 @@ import getUser from "@/utils/getUser";
 import accountsRoutes from "@/modules/accounts/router";
 import dashboardRoutes from "@/modules/dashboard/router";
 import teamsRoutes from "@/modules/teams/router";
+import trackerRoutes from "@/modules/tracker/router";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,6 +20,7 @@ const router = createRouter({
     ...accountsRoutes,
     ...dashboardRoutes,
     ...teamsRoutes,
+    ...trackerRoutes,
   ],
 });
 
@@ -28,7 +30,7 @@ router.beforeEach((to, from) => {
   if (to.meta.requiresAuth && !isLoggedIn) {
     return { name: "login", query: { next: to.fullPath } };
   } else if (isLoggedIn && !to.meta.requiresAuth) {
-    return { name: "dashboard" };
+    return { name: "tracker" };
   }
 });
 
