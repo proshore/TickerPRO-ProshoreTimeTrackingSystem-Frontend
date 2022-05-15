@@ -1,11 +1,10 @@
 import { logoutUser } from "../services";
 
-import getUser from "@/utils/getUser";
+import getToken from "@/utils/getToken";
 
 export default async function logout(to) {
   try {
-    const { token_type, access_token } = getUser();
-    const token = `${token_type} ${access_token}`;
+    const token = getToken();
 
     const response = await logoutUser(token);
     if (response.status === 200) {
