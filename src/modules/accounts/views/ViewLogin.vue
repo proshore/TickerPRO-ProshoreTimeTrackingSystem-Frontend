@@ -73,7 +73,7 @@ async function handleLogin() {
         if (next) {
           router.push(next);
         } else {
-          router.push({ name: "teams" });
+          router.push({ name: "tracker" });
         }
       }
     } catch (error) {
