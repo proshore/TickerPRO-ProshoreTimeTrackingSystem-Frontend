@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
 import BaseInput from "@/components/BaseInput.vue";
 import BaseFormHeading from "@/components/BaseFormHeading.vue";
@@ -15,7 +15,6 @@ import { signupUser } from "../services";
 
 import logo from "@/assets/images/logo.svg";
 
-const router = useRouter();
 const route = useRoute();
 
 const token = route.params.token;
@@ -33,6 +32,7 @@ const emailError = ref("");
 const passwordError = ref("");
 const confirmPasswordError = ref("");
 const errors = ref([]);
+const signupSuccess = ref(false);
 
 const disableSignupButton = computed(() => {
   if (
@@ -52,6 +52,7 @@ async function handleSignup() {
   emailError.value = "";
   passwordError.value = "";
   confirmPasswordError.value = "";
+  signupSuccess.value = false;
 
   const { isValid: validName, errorMessage: errorName } = validateName(
     form.value.name
@@ -103,7 +104,13 @@ async function handleSignup() {
     };
     try {
       await signupUser(data);
-      router.push({ name: "login" });
+      signupSuccess.value = true;
+
+      // empty form fields after successful signup
+      form.value.name = "";
+      form.value.email = "";
+      form.value.password = "";
+      form.value.passwordConfirmation = "";
     } catch (error) {
       if (error.response.status === 401) {
         errors.value.push("Please enter an valid email.");
@@ -123,6 +130,28 @@ async function handleSignup() {
 
   <div class="d-grid col-md-8 col-lg-5 mx-auto">
     <BaseFormHeading title="Sign up" shortDesc="Start using Ticker for free." />
+
+    <!-- Signup success -->
+    <div v-if="signupSuccess" class="alert alert-success" role="alert">
+      Signup successfully!
+      <RouterLink
+        :to="{ name: 'login' }"
+        class="alert-link text-decoration-underline"
+        >Login</RouterLink
+      >
+      to start using Ticker.
+    </div>
+
+    <!-- Reset success -->
+    <div v-if="passwordResetSuccess" class="alert alert-success" role="alert">
+      Password reset successfully!
+      <RouterLink
+        :to="{ name: 'login' }"
+        class="alert-link text-decoration-underline"
+        >Login</RouterLink
+      >
+      to start using Ticker.
+    </div>
 
     <!-- Show error messages -->
     <div v-if="errors.length">
