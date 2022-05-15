@@ -30,7 +30,7 @@ router.beforeEach((to, from) => {
   if (to.meta.requiresAuth && !isLoggedIn) {
     return { name: "login", query: { next: to.fullPath } };
   } else if (isLoggedIn && !to.meta.requiresAuth) {
-    return { name: "dashboard" };
+    return { name: "tracker" };
   }
 });
 
