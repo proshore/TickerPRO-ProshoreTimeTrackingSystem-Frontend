@@ -1,15 +1,108 @@
+<script setup>
+import { ref, onBeforeMount } from "vue";
+import validateName from "@/utils/validateName";
+import validateEmail from "@/utils/validateEmail";
+import validateRoleId from "@/utils/validateRoleId";
+import axios from "axios";
+const rescource_url = "https://ccbackend.herokuapp.com/api/all-roles";
+
+const user = ref({
+  name: "",
+  email: "",
+  role_id: "",
+  listRole: [],
+  valid: true,
+  message: null,
+  text: "",
+  errorText: "",
+});
+
+const errorName = ref("");
+const errorEmail = ref("");
+const errorRoleId = ref("");
+
+onBeforeMount(async () => {
+  const result = await axios.get(rescource_url);
+  user.value.listRole = result.data.roles;
+});
+
+const checkForm = async () => {
+  errorName.value = "";
+  errorEmail.value = "";
+  errorRoleId.value = "";
+  user.value.text = "";
+  user.value.errorText = "";
+
+  const { isValid: validN, errorMessage: errorN } = validateName(
+    user.value.name
+  );
+  if (!validN) {
+    errorName.value = errorN;
+    user.value.name = "";
+  }
+
+  const { isValid: validE, errorMessage: errorE } = validateEmail(
+    user.value.email
+  );
+  if (!validE) {
+    errorEmail.value = errorE;
+    user.value.email = "";
+  }
+
+  const { isValid: validR, errorMessage: errorR } = validateRoleId(
+    user.value.role_id
+  );
+  if (!validR) {
+    errorRoleId.value = errorR;
+    user.value.role_id = "";
+  }
+
+  try {
+    if (user.value.name && user.value.email && user.value.role_id) {
+      console.log(user.value.name, user.value.email, user.value.role_id);
+      const response = await axios.post(
+        "https://ccbackend.herokuapp.com/api/admin/invite",
+        {
+          name: user.value.name,
+          email: user.value.email,
+          role_id: user.value.role_id,
+          user_id: 1,
+        },
+
+        {
+          headers: {
+            Authorization: "Bearer 82|nhJTr5oA8VBcKNo3k3xepyFoNb1HpQ43NoWcPohU",
+          },
+        }
+      );
+      if (response.status == 200) {
+        user.value.text = "Member successfully Invited";
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    user.value.errorText = "Sorry! The email already exist";
+  }
+};
+</script>
+
 <template>
-  <form
-    name="checkForm"
-    @submit.prevent="checkForm"
-    method="post"
-    v-if="!savingSuccessful"
-  >
-    <!--<div class="success" v-if="savingSuccessful">
-      {{ user.value.text }}
-    </div>-->
+  <img src="../images/Group 28.svg" />
+  <form @submit.prevent="checkForm">
     <h3>Add Team Members</h3>
     <h6>Sending Invitations to the user</h6>
+    <div
+      id="success"
+      class="alert alert-success"
+      v-if="user.text"
+      v-text="user.text"
+    />
+    <div
+      id="failure"
+      class="alert alert-danger"
+      v-if="user.errorText"
+      v-text="user.errorText"
+    />
     <div class="mb-3">
       <label class="form-label">Username<span>*</span></label>
       <input
@@ -58,86 +151,6 @@
   </form>
 </template>
 
-<script setup>
-import { ref, onBeforeMount } from "vue";
-import validateName from "@/utils/validateName";
-import validateEmail from "@/utils/validateEmail";
-import validateRoleId from "@/utils/validateRoleId";
-import axios from "axios";
-const rescource_url = "https://ccbackend.herokuapp.com/api/all-roles";
-
-const user = ref({
-  name: "",
-  email: "",
-  role_id: "",
-  listRole: [],
-  valid: true,
-  success: false,
-  message: null,
-  /*text: "Successfully Invited",*/
-});
-
-const errorName = ref("");
-const errorEmail = ref("");
-const errorRoleId = ref("");
-
-onBeforeMount(async () => {
-  const result = await axios.get(rescource_url);
-  user.value.listRole = result.data.roles;
-});
-
-const checkForm = async () => {
-  errorName.value = "";
-  errorEmail.value = "";
-  errorRoleId.value = "";
-
-  const { isValid: validN, errorMessage: errorN } = validateName(
-    user.value.name
-  );
-  if (!validN) {
-    errorName.value = errorN;
-    user.value.name = "";
-  }
-
-  const { isValid: validE, errorMessage: errorE } = validateEmail(
-    user.value.email
-  );
-  if (!validE) {
-    errorEmail.value = errorE;
-    user.value.email = "";
-  }
-
-  const { isValid: validR, errorMessage: errorR } = validateRoleId(
-    user.value.role_id
-  );
-  if (!validR) {
-    errorRoleId.value = errorR;
-    user.value.role_id = "";
-  }
-
-  if (user.value.name && user.value.email && user.value.role_id) {
-    console.log(user.value.name, user.value.email, user.value.role_id);
-    const response = await axios.post(
-      "https://ccbackend.herokuapp.com/api/admin/invite",
-      {
-        name: user.value.name,
-        email: user.value.email,
-        role_id: user.value.role_id,
-        user_id: 1,
-      },
-
-      {
-        headers: {
-          Authorization: "Bearer 82|nhJTr5oA8VBcKNo3k3xepyFoNb1HpQ43NoWcPohU",
-        },
-      }
-    );
-    console.log(response);
-    response.$toast.success(`Invitation success.`);
-  }
-};
-</script>
-
 <style scoped>
 form {
   width: 40%;
@@ -159,14 +172,16 @@ button {
   width: 100%;
   height: 35px;
   margin-top: 10px;
-  background-color: #fdb142;
+  background-color: #fa602d;
   color: white;
   border: none;
   font-size: 18px;
+  opacity: 1;
+  transition: 0.3s;
 }
 
 button:hover {
-  background-color: #fdc87a;
+  opacity: 0.6;
 }
 
 .err {
@@ -175,5 +190,13 @@ button:hover {
 
 label span {
   color: red;
+}
+
+#success {
+  text-align: center;
+}
+
+#failure {
+  text-align: center;
 }
 </style>

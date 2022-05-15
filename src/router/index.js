@@ -13,6 +13,16 @@ const router = createRouter({
       name: "addTeam",
       component: () => import("@/views/AddTeam.vue"),
     },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "PageNotFound",
+      component: () => import("@/views/PageNotFound.vue"),
+    },
+    {
+      path: "/addProject",
+      name: "addProject",
+      component: () => import("@/views/addProject.vue"),
+    },
   ],
 });
 
