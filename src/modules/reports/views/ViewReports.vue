@@ -1,10 +1,8 @@
 <script setup>
-import TheLogoutLink from "@/components/TheLogoutLink.vue";
 import TheSidebarVue from "../../../components/TheSidebar.vue";
 </script>
 
 <template>
   <TheSidebarVue />
-  <h1>Teams page</h1>
-  <TheLogoutLink />
+  <h1>Reports</h1>
 </template>

@@ -38,7 +38,7 @@ const ToggleMenu = () => {
         <span class="material-symbols-rounded"> view_kanban </span>
         <span class="text">Projects</span>
       </RouterLink>
-      <RouterLink to="/team" class="button">
+      <RouterLink :to="{ name: 'teams' }" class="button">
         <span class="material-symbols-rounded"> group </span>
         <span class="text">Team</span>
       </RouterLink>
