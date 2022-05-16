@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "vue";
 
+import { getAllRoles } from "../services";
+
 import BaseInput from "@/components/BaseInput.vue";
 
 const name = ref("");
@@ -10,6 +12,20 @@ const nameError = ref("");
 const emailError = ref("");
 const roleError = ref("");
 const successInvite = ref(false);
+const roles = ref([]);
+
+async function allRoles() {
+  try {
+    const response = await getAllRoles();
+    roles.value = response.data.roles;
+
+    console.log(roles.value);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+allRoles();
 
 async function handleInviteMember() {
   nameError.value = "";
@@ -90,12 +106,16 @@ async function handleInviteMember() {
               <select
                 class="form-select mt-2"
                 aria-label="roles select menu"
+                v-if="roles.length"
                 v-model="role"
                 required
               >
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option
+                  v-for="r in roles"
+                  :key="r.id"
+                  :value="r.id"
+                  v-text="`${r.role.toUpperCase()}`"
+                />
               </select>
               <div
                 v-if="roleError"
