@@ -38,7 +38,7 @@ handleInvitedMembers();
   <div class="mt-5 fw-bold fs-5">
     Members <span v-if="totalMembers" v-text="`(${totalMembers})`" />
   </div>
-  <div class="mt-2 border border-bottom-0 rounded">
+  <div class="mt-3 border border-bottom-0 rounded">
     <table class="table table-hover">
       <thead class="text-primary">
         <tr>
