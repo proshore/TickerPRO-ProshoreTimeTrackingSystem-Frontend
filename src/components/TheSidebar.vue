@@ -29,12 +29,12 @@ const ToggleMenu = () => {
         <span class="material-symbols-rounded"> dashboard </span>
         <span class="text">Dashboard</span>
       </RouterLink> -->
-      <RouterLink to="/timetracker" class="button">
+      <RouterLink :to="{ name: 'timetracker' }" class="button">
         <span class="material-symbols-rounded"> schedule </span>
         <span class="text">Time Tracker</span>
       </RouterLink>
       <h3>Manage</h3>
-      <RouterLink to="/projects" class="button">
+      <RouterLink :to="{ name: 'projects' }" class="button">
         <span class="material-symbols-rounded"> view_kanban </span>
         <span class="text">Projects</span>
       </RouterLink>
@@ -42,11 +42,11 @@ const ToggleMenu = () => {
         <span class="material-symbols-rounded"> group </span>
         <span class="text">Team</span>
       </RouterLink>
-      <RouterLink to="/clients" class="button">
+      <RouterLink :to="{ name: 'clients' }" class="button">
         <span class="material-symbols-rounded"> person </span>
         <span class="text">Clients</span>
       </RouterLink>
-      <RouterLink to="/reports" class="button">
+      <RouterLink :to="{ name: 'reports' }" class="button">
         <span class="material-symbols-rounded"> bar_chart </span>
         <span class="text">Reports</span>
       </RouterLink>
@@ -54,7 +54,7 @@ const ToggleMenu = () => {
 
     <div class="flex"></div>
     <div class="menu">
-      <RouterLink to="/settings" class="button">
+      <RouterLink :to="{ name: 'works' }" class="button">
         <span id="work" class="material-symbols-rounded"> next_week </span>
         <span id="text-work" class="text">Proshore Work</span>
       </RouterLink>
