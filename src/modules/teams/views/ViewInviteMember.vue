@@ -30,7 +30,7 @@ async function handleInviteMember() {
   <!-- Button trigger modal -->
   <button
     type="button"
-    class="btn btn-primary text-white"
+    class="btn btn-sm btn-primary text-white"
     data-bs-toggle="modal"
     data-bs-target="#exampleModal"
   >
