@@ -6,4 +6,12 @@ const getAllRoles = async () => {
   return await API.get(apiUrl.ALL_ROLES_URL);
 };
 
-export { getAllRoles };
+const inviteMember = async (data, token) => {
+  return await API.post(apiUrl.INVITE_MEMBER_URL, data, {
+    headers: {
+      Authorization: token,
+    },
+  });
+};
+
+export { getAllRoles, inviteMember };

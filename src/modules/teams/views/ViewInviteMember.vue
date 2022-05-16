@@ -1,9 +1,15 @@
 <script setup>
 import { ref } from "vue";
 
-import { getAllRoles } from "../services";
+import { getAllRoles, inviteMember } from "../services";
+
+import getUser from "@/utils/getUser";
+import getToken from "@/utils/getToken";
+import validateName from "@/utils/validateName";
+import validateEmail from "@/utils/validateEmail";
 
 import BaseInput from "@/components/BaseInput.vue";
+import BaseAlert from "@/components/BaseAlert.vue";
 
 const name = ref("");
 const email = ref("");
@@ -13,15 +19,14 @@ const emailError = ref("");
 const roleError = ref("");
 const successInvite = ref(false);
 const roles = ref([]);
+const errors = ref([]);
 
 async function allRoles() {
   try {
     const response = await getAllRoles();
     roles.value = response.data.roles;
-
-    console.log(roles.value);
   } catch (error) {
-    console.log(error);
+    errors.value.push("Something went wrong, please try again later.");
   }
 }
 
@@ -31,14 +36,57 @@ async function handleInviteMember() {
   nameError.value = "";
   emailError.value = "";
   roleError.value = "";
+  errors.value = [];
   successInvite.value = false;
-  console.log(name.value, email.value, role.value);
 
-  successInvite.value = true;
+  const { isValid: validName, errorMessage: errorName } = validateName(
+    name.value
+  );
+  const { isValid: validEmail, errorMessage: errorEmail } = validateEmail(
+    email.value
+  );
 
-  name.value = "";
-  email.value = "";
-  role.value = "";
+  if (!validName) {
+    nameError.value = errorName;
+    name.value = "";
+  }
+
+  if (!validEmail) {
+    emailError.value = errorEmail;
+    email.value = "";
+  }
+
+  if (
+    nameError.value === "" &&
+    emailError.value === "" &&
+    errors.value.length === 0
+  ) {
+    try {
+      const {
+        user: { id },
+      } = getUser();
+
+      const memberInfo = {
+        name: name.value,
+        email: email.value,
+        role_id: role.value,
+        user_id: id,
+      };
+      const token = getToken();
+
+      const response = await inviteMember(memberInfo, token);
+      if (response.status === 200) {
+        successInvite.value = true;
+
+        // empty form fields
+        name.value = "";
+        email.value = "";
+        role.value = "";
+      }
+    } catch (error) {
+      errors.value.push("Something went wrong, please try again later.");
+    }
+  }
 }
 </script>
 
@@ -74,12 +122,17 @@ async function handleInviteMember() {
         </div>
         <div class="modal-body">
           <!-- Success invite -->
-          <div
+          <BaseAlert
             v-if="successInvite"
-            class="alert alert-success mb-0"
-            role="alert"
-          >
-            Invite send successfully!
+            message="Invite send successfully!"
+            hex-font-color="198754"
+          />
+
+          <!-- Show error messages -->
+          <div v-if="errors.length">
+            <div v-for="error in errors" :key="error">
+              <BaseAlert :message="error" hex-font-color="ff0000" />
+            </div>
           </div>
 
           <form @submit.prevent="handleInviteMember">
