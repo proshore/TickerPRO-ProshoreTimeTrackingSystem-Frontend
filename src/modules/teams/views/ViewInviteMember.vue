@@ -78,6 +78,11 @@ async function handleInviteMember() {
       if (response.status === 200) {
         successInvite.value = true;
 
+        // reset successInvite after 3 seconds
+        setTimeout(() => {
+          successInvite.value = false;
+        }, 3000);
+
         // empty form fields
         name.value = "";
         email.value = "";
