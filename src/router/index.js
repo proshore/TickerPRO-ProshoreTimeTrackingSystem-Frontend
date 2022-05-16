@@ -9,6 +9,7 @@ import timetrackerRoutes from "@/modules/timetracker/router";
 import projectsRoutes from "@/modules/projects/router";
 import clientsRoutes from "@/modules/clients/router";
 import reportsRoutes from "@/modules/reports/router";
+import worksRoutes from "@/modules/works/router";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,7 @@ const router = createRouter({
     ...projectsRoutes,
     ...clientsRoutes,
     ...reportsRoutes,
+    ...worksRoutes,
   ],
 });
 

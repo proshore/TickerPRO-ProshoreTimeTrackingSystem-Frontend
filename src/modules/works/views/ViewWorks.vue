@@ -4,8 +4,5 @@ import TheSidebarVue from "../../../components/TheSidebar.vue";
 
 <template>
   <TheSidebarVue />
-  <main id="client-page">
-    <h1>Clients</h1>
-    <P>This is the Clients</P>
-  </main>
+  <h1>Works page</h1>
 </template>
