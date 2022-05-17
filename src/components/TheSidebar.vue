@@ -71,8 +71,8 @@ aside {
   overflow: hidden;
   padding: 1rem;
   border: solid 1px #eeeaea;
-  position: absolute;
-  left: -1px;
+  position: relative;
+  right: 8rem;
 
   background-color: var(--light);
   color: var(--grey);

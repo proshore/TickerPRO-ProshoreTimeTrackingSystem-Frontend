@@ -5,6 +5,9 @@ import TheSidebarVue from "../../../components/TheSidebar.vue";
 
 <template>
   <TheSidebarVue />
-  <h1>Teams page</h1>
+  <main id="team-page">
+    <h1>Teams page</h1>
+  </main>
+
   <TheLogoutLink />
 </template>

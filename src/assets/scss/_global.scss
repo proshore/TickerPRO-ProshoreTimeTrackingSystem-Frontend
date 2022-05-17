@@ -49,12 +49,13 @@ button {
   background: none;
 }
 
-.app {
+.container {
   display: flex;
 
   main {
     flex: 1 1 0;
-    padding: 5rem;
+    padding-top: 5rem;
+    right: 10vh;
 
     @media (max-width: 768px) {
       padding-left: 1rem;
