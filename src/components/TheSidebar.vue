@@ -66,7 +66,7 @@ const ToggleMenu = () => {
 aside {
   display: flex;
   flex-direction: column;
-  width: calc(2rem + 32px);
+  width: calc(2.2rem + 32px);
   min-height: 100vh;
   overflow: hidden;
   padding: 1rem;
