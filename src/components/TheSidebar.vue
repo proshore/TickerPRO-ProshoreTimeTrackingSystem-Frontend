@@ -29,24 +29,24 @@ const ToggleMenu = () => {
         <span class="material-symbols-rounded"> dashboard </span>
         <span class="text">Dashboard</span>
       </RouterLink> -->
-      <RouterLink :to="{ name: 'timetracker' }" class="button">
+      <RouterLink :to="{ name: 'timetracker' }" class="sidebar-link">
         <span class="material-symbols-rounded"> schedule </span>
         <span class="text">Time Tracker</span>
       </RouterLink>
       <h3>Manage</h3>
-      <RouterLink :to="{ name: 'projects' }" class="button">
+      <RouterLink :to="{ name: 'projects' }" class="sidebar-link">
         <span class="material-symbols-rounded"> view_kanban </span>
         <span class="text">Projects</span>
       </RouterLink>
-      <RouterLink :to="{ name: 'teams' }" class="button">
+      <RouterLink :to="{ name: 'teams' }" class="sidebar-link">
         <span class="material-symbols-rounded"> group </span>
         <span class="text">Team</span>
       </RouterLink>
-      <RouterLink :to="{ name: 'clients' }" class="button">
+      <RouterLink :to="{ name: 'clients' }" class="sidebar-link">
         <span class="material-symbols-rounded"> person </span>
         <span class="text">Clients</span>
       </RouterLink>
-      <RouterLink :to="{ name: 'reports' }" class="button">
+      <RouterLink :to="{ name: 'reports' }" class="sidebar-link">
         <span class="material-symbols-rounded"> bar_chart </span>
         <span class="text">Reports</span>
       </RouterLink>
@@ -54,7 +54,7 @@ const ToggleMenu = () => {
 
     <div class="flex"></div>
     <div class="menu">
-      <RouterLink :to="{ name: 'works' }" class="button">
+      <RouterLink :to="{ name: 'works' }" class="sidebar-link">
         <span id="work" class="material-symbols-rounded"> next_week </span>
         <span id="text-work" class="text">Proshore Work</span>
       </RouterLink>
@@ -119,7 +119,7 @@ aside {
   }
 
   h3,
-  .button .text {
+  .sidebar-link .text {
     opacity: 0;
     transition: 0.3s ease-out;
   }
@@ -135,7 +135,7 @@ aside {
   .menu {
     margin: 0 -1rem;
 
-    .button {
+    .sidebar-link {
       display: flex;
       align-items: center;
       text-decoration: none;
@@ -189,10 +189,10 @@ aside {
       }
     }
     h3,
-    .button .text {
+    .sidebar-link .text {
       opacity: 1;
     }
-    .button {
+    .sidebar-link {
       .material-symbols-rounded {
         margin-left: 1rem;
       }
