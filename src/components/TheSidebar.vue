@@ -66,7 +66,7 @@ const ToggleMenu = () => {
 aside {
   display: flex;
   flex-direction: column;
-  width: calc(2.2rem + 32px);
+  width: calc(2rem + 32px);
   min-height: 100vh;
   overflow: hidden;
   padding: 1rem;
@@ -161,7 +161,7 @@ aside {
         }
         #work,
         #text-work {
-          color: var(--blue);
+          color: var(--black);
         }
       }
       &.router-link-exact-active {
@@ -173,7 +173,7 @@ aside {
         }
         #work,
         #text-work {
-          color: var(--blue);
+          color: var(--black);
         }
       }
     }
