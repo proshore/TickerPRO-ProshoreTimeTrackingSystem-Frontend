@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute, RouterLink } from "vue-router";
 
 import BaseFormHeading from "@/components/BaseFormHeading.vue";
 import BaseInput from "@/components/BaseInput.vue";
@@ -15,7 +15,6 @@ import { passwordReset } from "../services";
 import logo from "@/assets/images/logo.svg";
 
 const route = useRoute();
-const router = useRouter();
 
 const token = route.query.token;
 
@@ -28,12 +27,14 @@ const emailError = ref("");
 const passwordError = ref("");
 const passwordConfirmationError = ref("");
 const error = ref("");
+const passwordResetSuccess = ref(false);
 
 async function handlePasswordReset() {
   emailError.value = "";
   passwordError.value = "";
   passwordConfirmationError.value = "";
   error.value = "";
+  passwordResetSuccess.value = false;
 
   const { isValid: validEmail, errorMessage: errorEmail } = validateEmail(
     form.value.email
@@ -74,7 +75,12 @@ async function handlePasswordReset() {
     };
     try {
       await passwordReset(data);
-      router.push({ name: "login" });
+      passwordResetSuccess.value = true;
+
+      // empty form fields after successful password reset
+      form.value.email = "";
+      form.value.password = "";
+      form.value.passwordConfirmation = "";
     } catch (err) {
       error.value = "Something went wrong, please try again later.";
     }
@@ -90,6 +96,17 @@ async function handlePasswordReset() {
       title="Password Reset"
       shortDesc="Reset password to restart your journey with Ticker."
     />
+
+    <!-- Reset success -->
+    <div v-if="passwordResetSuccess" class="alert alert-success" role="alert">
+      Password reset successfully!
+      <RouterLink
+        :to="{ name: 'login' }"
+        class="alert-link text-decoration-underline"
+        >Login</RouterLink
+      >
+      to start using Ticker.
+    </div>
 
     <!-- Error -->
     <BaseAlert :message="error" hex-font-color="ff0000" />
