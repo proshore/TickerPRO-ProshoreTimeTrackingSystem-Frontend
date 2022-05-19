@@ -7,6 +7,8 @@ import dashboardRoutes from "@/modules/dashboard/router";
 import teamsRoutes from "@/modules/teams/router";
 import trackerRoutes from "@/modules/tracker/router";
 
+const ViewPageNotFound = () => import("@/views/ViewPageNotFound.vue");
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -20,7 +22,15 @@ const router = createRouter({
     ...accountsRoutes,
     ...dashboardRoutes,
     ...teamsRoutes,
-    ...trackerRoutes,
+     ...trackerRoutes,
+    {
+      path: "/:pathMatch(.*)*",
+      name: "PageNotFound",
+      component: ViewPageNotFound,
+      meta: {
+        requiresAuth: false,
+      },
+    },
   ],
 });
 
