@@ -1,4 +1,6 @@
 <script setup>
+import { RouterLink } from "vue-router";
+
 import logo from "@/assets/images/logo.svg";
 import pageNotFound from "@/assets/images/page-not-found.svg";
 </script>
@@ -7,12 +9,10 @@ import pageNotFound from "@/assets/images/page-not-found.svg";
   <div>
     <img :src="logo" alt="Ticker logo" class="logo" />
     <div class="d-grid col-md-6 col-lg-5 mx-auto text-md-center">
-      <h1 class="fs-3 text-primary fw-normal">
-        Oops! That Page can't be found.
-      </h1>
+      <h1 class="fs-3 text-primary fw-bold">Oops! That Page can't be found.</h1>
       <p>It looks like nothing was found at this location.</p>
       <div class="btn btn-sm home-button">
-        <a type="submit" href="/">Go To Home</a>
+        <RouterLink :to="{ name: 'home' }">Go to Home</RouterLink>
       </div>
     </div>
 

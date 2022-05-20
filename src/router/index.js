@@ -14,6 +14,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
+      name: "home",
       redirect: { name: "login" },
       meta: {
         requiresAuth: false,
@@ -22,7 +23,7 @@ const router = createRouter({
     ...accountsRoutes,
     ...dashboardRoutes,
     ...teamsRoutes,
-     ...trackerRoutes,
+    ...trackerRoutes,
     {
       path: "/:pathMatch(.*)*",
       name: "PageNotFound",
