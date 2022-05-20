@@ -20,3 +20,41 @@
     margin-left: -1em;
   }
 }
+
+:root {
+  --primary: #fa602d;
+  --black: #000;
+  --blue: #040458;
+  --light: #ffff;
+  --grey: #9d9d9d;
+  --grey-two: #bdbdbd;
+  --lightgrey: #e4e4e4;
+  --sidebar-width: 230px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+.container {
+  display: flex;
+
+  main {
+    flex: 1 1 0;
+    padding-top: 5rem;
+    right: 10vh;
+
+    @media (max-width: 768px) {
+      padding-left: 1rem;
+    }
+  }
+}

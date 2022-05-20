@@ -4,4 +4,5 @@ import TheSidebar from "@/components/TheSidebar.vue";
 
 <template>
   <TheSidebar />
+  <h1>Reports</h1>
 </template>

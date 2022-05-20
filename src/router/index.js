@@ -5,6 +5,10 @@ import getUser from "@/utils/getUser";
 import accountsRoutes from "@/modules/accounts/router";
 import dashboardRoutes from "@/modules/dashboard/router";
 import teamsRoutes from "@/modules/teams/router";
+import projectsRoutes from "@/modules/projects/router";
+import clientsRoutes from "@/modules/clients/router";
+import reportsRoutes from "@/modules/reports/router";
+import worksRoutes from "@/modules/works/router";
 import trackerRoutes from "@/modules/tracker/router";
 
 const ViewPageNotFound = () => import("@/views/ViewPageNotFound.vue");
@@ -23,6 +27,10 @@ const router = createRouter({
     ...accountsRoutes,
     ...dashboardRoutes,
     ...teamsRoutes,
+    ...projectsRoutes,
+    ...clientsRoutes,
+    ...reportsRoutes,
+    ...worksRoutes,
     ...trackerRoutes,
     {
       path: "/:pathMatch(.*)*",
