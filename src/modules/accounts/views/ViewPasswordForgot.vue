@@ -39,7 +39,11 @@ async function handlePasswordForgot() {
         router.push({ name: "passwordResetSent" });
       }
     } catch (error) {
-      errors.value.push("Something went wrong, please try again later");
+      if (error.response.status === 404) {
+        errors.value.push(error.response.data.message);
+      } else {
+        errors.value.push("Something went wrong, please try again later");
+      }
       email.value = "";
     }
   }
