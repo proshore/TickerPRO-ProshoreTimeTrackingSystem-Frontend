@@ -2,9 +2,7 @@
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
 
-import Logo from "@/config/app";
-
-const { LOGO_PATH } = Logo;
+import logo from "@/assets/images/logo.svg";
 
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true");
 const ToggleMenu = () => {
@@ -15,7 +13,7 @@ const ToggleMenu = () => {
 
 <template>
   <aside :class="`${is_expanded && 'is-expanded'}`">
-    <div class="logo"><img :src="LOGO_PATH" alt="ticker" /></div>
+    <div class="logo"><img :src="logo" alt="ticker" /></div>
     <div class="menu-toggle-wrap">
       <button class="menu-toggle" @click="ToggleMenu">
         <span class="material-symbols-rounded">

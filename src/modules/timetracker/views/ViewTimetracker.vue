@@ -1,8 +1,8 @@
 <script setup>
-import TheSidebarVue from "../../../components/TheSidebar.vue";
+import TheSidebar from "@/components/TheSidebar.vue";
 </script>
 
 <template>
-  <TheSidebarVue />
+  <TheSidebar />
   <h1>Timetracker</h1>
 </template>

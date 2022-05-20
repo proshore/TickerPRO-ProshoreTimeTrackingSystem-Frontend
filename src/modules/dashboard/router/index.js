@@ -1,4 +1,4 @@
-const DashboardView = () => import("@/components/TheSidebar.vue");
+const DashboardView = () => import("../views/DashboardView.vue");
 
 const dashboardRoutes = [
   {

@@ -1,9 +1,9 @@
 <script setup>
-import TheSidebarVue from "../../../components/TheSidebar.vue";
+import TheSidebar from "@/components/TheSidebar.vue";
 </script>
 
 <template>
-  <TheSidebarVue />
+  <TheSidebar />
   <main id="client-page">
     <h1>Clients</h1>
     <P>This is the Clients</P>
