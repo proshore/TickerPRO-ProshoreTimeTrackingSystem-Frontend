@@ -23,7 +23,7 @@ const ToggleMenu = () => {
     </div>
 
     <div class="menu">
-      <RouterLink :to="{ name: 'timetracker' }" class="button">
+      <RouterLink :to="{ name: 'tracker' }" class="button">
         <span class="material-symbols-rounded"> schedule </span>
         <span class="text">Time Tracker</span>
       </RouterLink>
