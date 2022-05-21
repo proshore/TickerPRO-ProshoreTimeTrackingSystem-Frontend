@@ -1,11 +1,5 @@
-<script setup>
-import TheSidebar from "@/components/TheSidebar.vue";
-</script>
+<script setup></script>
 
 <template>
-  <TheSidebar />
-  <main id="client-page">
-    <h1>Clients</h1>
-    <P>This is the Clients</P>
-  </main>
+  <h1>Clients</h1>
 </template>

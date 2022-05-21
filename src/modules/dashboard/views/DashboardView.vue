@@ -1,7 +1,5 @@
-<script setup>
-import TheSidebar from "@/components/TheSidebar.vue";
-</script>
+<script setup></script>
 
 <template>
-  <TheSidebar />
+  <h1>Dashboard</h1>
 </template>
