@@ -3,7 +3,7 @@ import TheLogoutLink from "@/components/TheLogoutLink.vue";
 import BaseHeading from "@/components/BaseHeading.vue";
 import TheSidebar from "@/components/TheSidebar.vue";
 
-import InviteMember from "../components/InviteMember.vue";
+import InviteMemberList from "../components/InviteMemberList.vue";
 </script>
 
 <template>
@@ -12,7 +12,8 @@ import InviteMember from "../components/InviteMember.vue";
   <main>
     <BaseHeading title="Teams" user-name="Asim" />
 
-    <InviteMember />
     <TheLogoutLink />
+
+    <InviteMemberList />
   </main>
 </template>

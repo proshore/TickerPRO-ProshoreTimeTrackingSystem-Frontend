@@ -3,12 +3,13 @@ import { ref } from "vue";
 
 import getToken from "@/utils/getToken";
 
+import InviteMember from "../components/InviteMember.vue";
+
 import { invitedMembersList } from "../services";
 
 const totalMembers = ref(0);
 const invitedMembers = ref([]);
 const isLoading = ref(true);
-const roles = ref([]);
 
 const memberStatus = (status) => {
   if (status === 0) {
@@ -38,6 +39,8 @@ handleInvitedMembers();
   <div class="mt-5 fw-bold fs-5">
     Members <span v-if="totalMembers" v-text="`(${totalMembers})`" />
   </div>
+
+  <InviteMember />
   <div class="mt-3 border border-bottom-0 rounded">
     <table class="table table-hover">
       <thead class="text-primary">

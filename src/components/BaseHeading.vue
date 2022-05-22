@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="base-heading">
+  <div class="base-heading mb-4">
     <h1 class="fs-3 fw-bolder" v-text="title" />
     <h4 class="text-secondary fs-5" v-text="userName" />
   </div>
