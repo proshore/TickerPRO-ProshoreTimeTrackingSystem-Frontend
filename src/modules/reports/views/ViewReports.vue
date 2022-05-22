@@ -7,6 +7,6 @@ import BaseHeading from "@/components/BaseHeading.vue";
   <TheSidebar />
 
   <main>
-    <BaseHeading title="Time Tracker" user-name="Asim" />
+    <BaseHeading title="Reports" user-name="Asim" />
   </main>
 </template>

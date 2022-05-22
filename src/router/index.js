@@ -5,13 +5,19 @@ import getUser from "@/utils/getUser";
 import accountsRoutes from "@/modules/accounts/router";
 import dashboardRoutes from "@/modules/dashboard/router";
 import teamsRoutes from "@/modules/teams/router";
+import projectsRoutes from "@/modules/projects/router";
+import clientsRoutes from "@/modules/clients/router";
+import reportsRoutes from "@/modules/reports/router";
 import trackerRoutes from "@/modules/tracker/router";
+
+const ViewPageNotFound = () => import("@/views/ViewPageNotFound.vue");
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
+      name: "home",
       redirect: { name: "login" },
       meta: {
         requiresAuth: false,
@@ -20,7 +26,18 @@ const router = createRouter({
     ...accountsRoutes,
     ...dashboardRoutes,
     ...teamsRoutes,
+    ...projectsRoutes,
+    ...clientsRoutes,
+    ...reportsRoutes,
     ...trackerRoutes,
+    {
+      path: "/:pathMatch(.*)*",
+      name: "PageNotFound",
+      component: ViewPageNotFound,
+      meta: {
+        requiresAuth: false,
+      },
+    },
   ],
 });
 
