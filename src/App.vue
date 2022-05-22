@@ -1,7 +1,12 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import getUser from "@/utils/getUser.js";
+
+const userExists = ref(getUser());
+</script>
 
 <template>
-  <div class="container">
+  <div :class="{ container: !userExists }">
     <router-view></router-view>
   </div>
 </template>

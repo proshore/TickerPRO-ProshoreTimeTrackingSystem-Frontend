@@ -1,5 +1,12 @@
-<script setup></script>
+<script setup>
+import TheSidebar from "@/components/TheSidebar.vue";
+import BaseHeading from "@/components/BaseHeading.vue";
+</script>
 
 <template>
-  <h1>Time tracker</h1>
+  <TheSidebar />
+
+  <main>
+    <BaseHeading title="Time Tracker" user-name="Asim" />
+  </main>
 </template>
