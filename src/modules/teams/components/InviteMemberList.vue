@@ -5,11 +5,12 @@ import getToken from "@/utils/getToken";
 
 import InviteMember from "../components/InviteMember.vue";
 
-import { invitedMembersList } from "../services";
+import { getAllRoles, invitedMembersList } from "../services";
 
 const totalMembers = ref(0);
 const invitedMembers = ref([]);
 const isLoading = ref(true);
+const roles = ref([]);
 
 const memberStatus = (status) => {
   if (status === 0) {
@@ -19,14 +20,29 @@ const memberStatus = (status) => {
   }
 };
 
+const getRole = (roleId) => {
+  let role = "";
+  if (roles.value.length > 0) {
+    roles.value.forEach((r) => {
+      if (r.id === roleId) {
+        role = r.role.toUpperCase();
+      }
+    });
+    return role;
+  }
+  return roleId;
+};
+
 async function handleInvitedMembers() {
   try {
     const token = getToken();
     const response = await invitedMembersList(token);
+    const responseRoles = await getAllRoles();
+
     invitedMembers.value = response.data.invitedUsers;
     totalMembers.value = response.data.total;
+    roles.value = responseRoles.data.roles;
     isLoading.value = false;
-    console.log(response.data);
   } catch (error) {
     console.log(error);
   }
@@ -59,11 +75,13 @@ handleInvitedMembers();
         <tr v-for="(member, index) in invitedMembers" :key="member.id">
           <th scope="row" v-text="`${index + 1}`" />
           <td v-text="member.name" />
-          <td v-text="member.email" />
-          <td v-text="member.role_id" />
-          <td v-text="memberStatus(member.inviteAccepted)" />
+          <td class="gray-color" v-text="member.email" />
+          <td v-text="getRole(member.role_id)" />
+          <td class="gray-color" v-text="memberStatus(member.inviteAccepted)" />
         </tr>
       </tbody>
     </table>
   </div>
 </template>
+
+<style lang="scss"></style>
