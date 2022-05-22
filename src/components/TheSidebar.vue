@@ -1,5 +1,8 @@
 <script setup>
+import { ref } from "vue";
 import { RouterLink } from "vue-router";
+
+import TheLogoutLink from "@/components/TheLogoutLink.vue";
 
 import logo from "@/assets/images/logo.svg";
 import sTracker from "@/assets/images/s-tracker.svg";
@@ -8,6 +11,8 @@ import sTeams from "@/assets/images/s-teams.svg";
 import sClients from "@/assets/images/s-clients.svg";
 import sReports from "@/assets/images/s-reports.svg";
 import sSettings from "@/assets/images/s-settings.svg";
+
+const showSettingsOptions = ref(false);
 </script>
 
 <template>
@@ -57,10 +62,19 @@ import sSettings from "@/assets/images/s-settings.svg";
       </li>
 
       <li class="nav-item">
-        <RouterLink to="no-link" class="nav-link">
+        <p
+          class="settings-options fixed-bottom d-flex flex-column rounded"
+          v-if="showSettingsOptions"
+        >
+          <RouterLink to="no-link" class="text-dark"
+            >Profile settings</RouterLink
+          >
+          <TheLogoutLink />
+        </p>
+        <p class="nav-link" @click="showSettingsOptions = !showSettingsOptions">
           <img :src="sSettings" alt="Settings icon" class="side-icon" />
           <span class="link-text">Settings</span>
-        </RouterLink>
+        </p>
       </li>
     </ul>
   </nav>
@@ -107,6 +121,23 @@ import sSettings from "@/assets/images/s-settings.svg";
 
       &:last-child {
         margin-top: 22rem;
+      }
+
+      p.nav-link {
+        cursor: pointer;
+      }
+
+      .settings-options {
+        width: 9rem;
+        background-color: #fff;
+        margin-left: 1rem;
+        margin-bottom: 5rem;
+        padding: 0.5rem 0.5rem 0.5rem 0.8rem;
+        color: #000;
+
+        & a:hover {
+          font-weight: 600;
+        }
       }
     }
   }
