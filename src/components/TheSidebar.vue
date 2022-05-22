@@ -85,6 +85,7 @@ import sSettings from "@/assets/images/s-settings.svg";
       border-radius: 5px;
       padding-left: 0.5rem;
       padding-right: 0.5rem;
+      border: 1px solid #fa602d;
     }
 
     .nav-p {
