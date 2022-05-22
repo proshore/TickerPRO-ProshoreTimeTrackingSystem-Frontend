@@ -7,6 +7,6 @@ import BaseHeading from "@/components/BaseHeading.vue";
   <TheSidebar />
 
   <main>
-    <BaseHeading title="Clients" user-name="Asim" />
+    <BaseHeading title="Clients" />
   </main>
 </template>

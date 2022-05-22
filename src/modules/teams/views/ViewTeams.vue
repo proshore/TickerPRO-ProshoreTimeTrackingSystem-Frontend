@@ -10,7 +10,7 @@ import InviteMemberList from "../components/InviteMemberList.vue";
   <TheSidebar />
 
   <main>
-    <BaseHeading title="Teams" user-name="Asim" />
+    <BaseHeading title="Teams" />
 
     <TheLogoutLink />
 
