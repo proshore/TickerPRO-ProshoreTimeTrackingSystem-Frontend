@@ -1,8 +1,12 @@
 <script setup>
 import TheSidebar from "@/components/TheSidebar.vue";
+import BaseHeading from "@/components/BaseHeading.vue";
 </script>
 
 <template>
   <TheSidebar />
-  <h1>Reports</h1>
+
+  <main>
+    <BaseHeading title="Reports" user-name="Asim" />
+  </main>
 </template>

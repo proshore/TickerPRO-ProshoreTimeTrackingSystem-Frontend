@@ -1,12 +1,18 @@
 <script setup>
-import ViewInviteMember from "./ViewInviteMember.vue";
 import TheLogoutLink from "@/components/TheLogoutLink.vue";
+import BaseHeading from "@/components/BaseHeading.vue";
 import TheSidebar from "@/components/TheSidebar.vue";
+
+import ViewInviteMember from "./ViewInviteMember.vue";
 </script>
 
 <template>
   <TheSidebar />
-  <h1>Teams page</h1>
-  <ViewInviteMember />
-  <TheLogoutLink />
+
+  <main>
+    <BaseHeading title="Teams" user-name="Asim" />
+
+    <ViewInviteMember />
+    <TheLogoutLink />
+  </main>
 </template>
