@@ -22,4 +22,16 @@ const invitedMembersList = async (token) => {
   });
 };
 
-export { getAllRoles, inviteMember, invitedMembersList };
+const reinviteMember = async (email, token) => {
+  return await API.post(
+    apiUrl.REINVITE_MEMBER,
+    { email },
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+};
+
+export { getAllRoles, inviteMember, invitedMembersList, reinviteMember };

@@ -5,15 +5,18 @@ import getToken from "@/utils/getToken";
 
 import InviteMember from "../components/InviteMember.vue";
 
-import { getAllRoles, invitedMembersList } from "../services";
+import { getAllRoles, invitedMembersList, reinviteMember } from "../services";
+
+import threeDots from "@/assets/images/three-dots.svg";
 
 const totalMembers = ref(0);
 const invitedMembers = ref([]);
 const isLoading = ref(true);
 const roles = ref([]);
+const message = ref("");
 
 const memberStatus = (status) => {
-  if (status === 0) {
+  if (status === false) {
     return "Wait";
   } else {
     return "Active";
@@ -32,6 +35,17 @@ const getRole = (roleId) => {
   }
   return roleId;
 };
+
+async function handleReinviteMember(email) {
+  message.value = "";
+  try {
+    const token = getToken();
+    const response = await reinviteMember(email, token);
+    message.value = response.data.message;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 async function handleInvitedMembers() {
   try {
@@ -56,6 +70,21 @@ handleInvitedMembers();
     Members <span v-if="totalMembers" v-text="`(${totalMembers})`" />
   </div>
 
+  <!-- message -->
+  <div
+    v-if="message"
+    class="alert alert-success alert-dismissible fade show mt-2"
+    role="alert"
+  >
+    {{ message }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
   <InviteMember />
   <div class="mt-3 border border-bottom-0 rounded">
     <table class="table table-hover">
@@ -66,6 +95,8 @@ handleInvitedMembers();
           <th scope="col">Email</th>
           <th scope="col">Role</th>
           <th scope="col">Status</th>
+          <th scope="col">Action</th>
+          <th scope="col"></th>
         </tr>
       </thead>
 
@@ -78,6 +109,15 @@ handleInvitedMembers();
           <td class="gray-color" v-text="member.email" />
           <td v-text="getRole(member.role_id)" />
           <td class="gray-color" v-text="memberStatus(member.inviteAccepted)" />
+          <td>
+            <button
+              class="btn btn-light btn-sm"
+              @click="handleReinviteMember(member.email)"
+            >
+              Reinvite
+            </button>
+          </td>
+          <td><img :src="threeDots" alt="Three dots image" /></td>
         </tr>
       </tbody>
     </table>
