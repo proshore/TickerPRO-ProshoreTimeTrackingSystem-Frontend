@@ -3,5 +3,5 @@ import { RouterLink } from "vue-router";
 </script>
 
 <template>
-  <RouterLink :to="{ name: 'logout' }">Logout</RouterLink>
+  <RouterLink :to="{ name: 'logout' }" class="text-dark">Logout</RouterLink>
 </template>

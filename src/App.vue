@@ -1,8 +1,16 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeMount } from "vue";
 import getUser from "@/utils/getUser.js";
 
-const userExists = ref(getUser());
+const userExists = ref(true);
+
+onBeforeMount(() => {
+  if (getUser()) {
+    userExists.value = true;
+  } else {
+    userExists.value = false;
+  }
+});
 </script>
 
 <template>

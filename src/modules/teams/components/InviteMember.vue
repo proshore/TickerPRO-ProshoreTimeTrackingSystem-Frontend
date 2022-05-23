@@ -99,11 +99,11 @@ async function handleInviteMember() {
   <!-- Button trigger modal -->
   <button
     type="button"
-    class="btn btn-sm btn-primary text-white"
+    class="btn btn-sm btn-secondary text-white mt-2"
     data-bs-toggle="modal"
     data-bs-target="#exampleModal"
   >
-    Add New Member
+    Add
   </button>
 
   <!-- Modal -->
