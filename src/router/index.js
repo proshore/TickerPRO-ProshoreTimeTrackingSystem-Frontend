@@ -9,6 +9,7 @@ import projectsRoutes from "@/modules/projects/router";
 import clientsRoutes from "@/modules/clients/router";
 import reportsRoutes from "@/modules/reports/router";
 import trackerRoutes from "@/modules/tracker/router";
+import settingsRoutes from "@/modules/settings/router";
 
 const ViewPageNotFound = () => import("@/views/ViewPageNotFound.vue");
 
@@ -30,6 +31,7 @@ const router = createRouter({
     ...clientsRoutes,
     ...reportsRoutes,
     ...trackerRoutes,
+    ...settingsRoutes,
     {
       path: "/:pathMatch(.*)*",
       name: "PageNotFound",

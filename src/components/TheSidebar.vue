@@ -2,8 +2,6 @@
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
 
-import TheLogoutLink from "@/components/TheLogoutLink.vue";
-
 import logo from "@/assets/images/logo.svg";
 import sTracker from "@/assets/images/s-tracker.svg";
 import sProjects from "@/assets/images/s-projects.svg";
@@ -11,8 +9,6 @@ import sTeams from "@/assets/images/s-teams.svg";
 import sClients from "@/assets/images/s-clients.svg";
 import sReports from "@/assets/images/s-reports.svg";
 import sSettings from "@/assets/images/s-settings.svg";
-
-const showSettingsOptions = ref(false);
 </script>
 
 <template>
@@ -62,19 +58,10 @@ const showSettingsOptions = ref(false);
       </li>
 
       <li class="nav-item">
-        <p
-          class="settings-options fixed-bottom d-flex flex-column rounded"
-          v-if="showSettingsOptions"
-        >
-          <RouterLink to="no-link" class="text-dark"
-            >Profile settings</RouterLink
-          >
-          <TheLogoutLink />
-        </p>
-        <p class="nav-link" @click="showSettingsOptions = !showSettingsOptions">
+        <RouterLink :to="{ name: 'settings' }" class="nav-link">
           <img :src="sSettings" alt="Settings icon" class="side-icon" />
           <span class="link-text">Settings</span>
-        </p>
+        </RouterLink>
       </li>
     </ul>
   </nav>
