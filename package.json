@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.5",
+    "@swoga/vue-collapsible-panel": "^0.3.0",
     "axios": "^0.26.1",
     "bootstrap": "^5.1.3",
     "bootstrap-icons": "^1.8.1",

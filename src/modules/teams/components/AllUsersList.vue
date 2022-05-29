@@ -3,76 +3,62 @@ import { ref } from "vue";
 
 import getToken from "@/utils/getToken";
 
-import { invitedMembersList, reInvite, revokeInvitation } from "../services";
+import { allUsersList, deleteUser, enableDisable } from "../services";
 
 const totalMembers = ref(0);
-const invitedMembers = ref([]);
+const allUsers = ref([]);
 const isLoading = ref(true);
-const roles = ref([]);
-const success = ref(false);
 
-const memberStatus = (status) => {
-  if (status === 0) {
-    return "Wait";
-  } else if (status === 1) {
-    return "Active";
-  } else {
-    return "Disable";
-  }
-};
-
-const action = (status) => {
-  if (status === 0) {
-    return "Re-Invite";
-  } else {
-    return "Revoke Invite";
-  }
-};
-
-async function handleInvitedMembers() {
+async function handleAllUsers() {
   try {
     const token = getToken();
-    const response = await invitedMembersList(token);
-    invitedMembers.value = response.data.invitedUsers;
+    const response = await allUsersList(token);
+    allUsers.value = response.data.users;
     totalMembers.value = response.data.total;
-
     isLoading.value = false;
     console.log(response.data);
   } catch (error) {
     console.log(error);
   }
 }
-async function resendInvitation(email) {
+
+async function userDelete(memberId) {
   try {
     const token = getToken();
-    const response = await reInvite(token, {
-      email,
-    });
+    const res = await deleteUser(token, memberId);
     isLoading.value = false;
-    console.log(response.data);
-    if (response.status == 200) {
-      alert(response.data["message"]);
+    console.log(res.data);
+    if (res.status == 200) {
+      alert(res.data["message"]);
     }
   } catch (error) {
     console.log(error);
   }
 }
 
-async function revokeInvite(memberId) {
+async function enableDisableUser(index) {
   try {
     const token = getToken();
-    const response = await revokeInvitation(token, memberId);
+    console.log(token);
+    const res = await enableDisable(token, allUsers.value[index]["id"]);
     isLoading.value = false;
-    console.log(response.data);
-    if (response.status == 200) {
-      alert(response.data["message"]);
+    if (res.status == 200) {
+      alert(res.data["message"]);
     }
   } catch (error) {
     console.log(error);
   }
 }
 
-handleInvitedMembers();
+function status(x) {
+  if (x == "1") {
+    return "Disable";
+  } else {
+    return "Enable";
+  }
+}
+
+handleAllUsers();
 </script>
 
 <template>
@@ -87,25 +73,24 @@ handleInvitedMembers();
           <th scope="col">#</th>
           <th scope="col">Name</th>
           <th scope="col">Email</th>
-          <th scope="col">Role</th>
-          <th scope="col">Status</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
 
       <p v-if="isLoading">Loading...</p>
 
-      <tbody v-if="invitedMembers.length">
-        <tr v-for="(member, index) in invitedMembers" :key="member.id">
+      <tbody v-if="allUsers.length">
+        <tr v-for="(member, index) in allUsers" :key="member.id">
           <th scope="row" v-text="`${index + 1}`" />
           <td v-text="member.name" />
           <td v-text="member.email" />
-          <td v-text="member.role_id" />
-          <td v-text="memberStatus(member.inviteAccepted)" />
+          <td
+            @click="enableDisableUser(index)"
+            v-text="status(member.activeStatus)"
+          ></td>
           <div class="dropdown">
             <button
               class="btn btn-light dropdown-toggle btn-sm"
-              v-text="action(member.inviteAccepted)"
               type="button"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
@@ -113,13 +98,16 @@ handleInvitedMembers();
             ></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li>
-                <a class="dropdown-item" @click="resendInvitation(member.email)"
-                  >Re Invite</a
+                <a
+                  class="dropdown-item"
+                  @click="enableDisableUser(index)"
+                  v-text="status(member.activeStatus)"
                 >
+                </a>
               </li>
               <li>
-                <a class="dropdown-item" @click="revokeInvite(member.id)"
-                  >Revoke Invite</a
+                <a class="dropdown-item" @click="userDelete(member.id)">
+                  Delete User</a
                 >
               </li>
             </ul>
@@ -127,6 +115,5 @@ handleInvitedMembers();
         </tr>
       </tbody>
     </table>
-    <!-- <p v-if="success">Resent Invitation</p> -->
   </div>
 </template>
