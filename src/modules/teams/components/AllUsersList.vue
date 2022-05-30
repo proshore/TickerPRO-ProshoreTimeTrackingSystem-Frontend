@@ -7,7 +7,10 @@ import { allUsersList, deleteUser, enableDisable } from "../services";
 
 const totalMembers = ref(0);
 const allUsers = ref([]);
+const searchedUsers = ref(allUsers.value);
 const isLoading = ref(true);
+const isInitial = ref(true);
+const isSearched = ref(false);
 
 async function handleAllUsers() {
   try {
@@ -16,16 +19,17 @@ async function handleAllUsers() {
     allUsers.value = response.data.users;
     totalMembers.value = response.data.total;
     isLoading.value = false;
-    console.log(response.data);
+    // console.log(allUsers.value + "test" + isInitial.value);
   } catch (error) {
     console.log(error);
   }
 }
 
-async function userDelete(memberId) {
+async function userDelete(index) {
   try {
     const token = getToken();
-    const res = await deleteUser(token, memberId);
+    console.log(allUsers.value[index]["email"]);
+    const res = await deleteUser(token, allUsers.value[index]["id"]);
     isLoading.value = false;
     console.log(res.data);
     if (res.status == 200) {
@@ -58,15 +62,58 @@ function status(x) {
   }
 }
 
+function search(a) {
+  searchedUsers.value.splice(0, allUsers.value.length);
+  console.log(allUsers.value + "allusers");
+  //  var filteredList = allUsers.value;
+  // if(isSearched.value == false){
+
+  allUsers.value.forEach((obj) => {
+    if (obj.name.includes(a)) {
+      searchedUsers.value.push(obj);
+    }
+    console.log(searchedUsers.value);
+    isInitial.value = false;
+  });
+  // isSearched.value = true;
+
+  // }
+}
+
 handleAllUsers();
 </script>
+<style scoped>
+.topnav input[type="text"] {
+  float: none;
+  border: 1px solid green;
+  display: block;
+  text-align: left;
+  width: 100%;
+  margin: 0;
+  padding: 14px;
+}
+/* .topnav input[type=text] {
+    border: 1px solid rgb(234, 14, 14);
+  } */
+input:focus {
+  background-color: rgb(226, 221, 221);
+}
+</style>
 
 <template>
   <div class="mt-5 fw-bold fs-5">
-    Members <span v-if="totalMembers" v-text="`(${totalMembers})`" />
+    Members <span v-if="totalMembers" v-text="$totalMembers" />
   </div>
 
   <div class="mt-3 border border-bottom-0 rounded">
+    <div class="topnav">
+      <input
+        type="text"
+        placeholder="Search.."
+        v-model="value"
+        v-on:input="search(value)"
+      />
+    </div>
     <table class="table table-hover">
       <thead class="text-primary">
         <tr>
@@ -79,9 +126,22 @@ handleAllUsers();
 
       <p v-if="isLoading">Loading...</p>
 
-      <tbody v-if="allUsers.length">
-        <tr v-for="(member, index) in allUsers" :key="member.id">
-          <th scope="row" v-text="`${index + 1}`" />
+      <!-- terniary operator
+if(a == 0){
+  a is zero
+}else{
+  a is not zero
+} 
+a == 0 ? a is zero : a is not zero
+
+-->
+      <tbody>
+        <tr
+          v-for="(member, index) in isInitial ? allUsers : searchedUsers"
+          :key="member.id"
+        >
+          <!-- <tr v-for ="(member,index) in allUsers" :key="member.id"> -->
+          <th scope="row" v-text="member.id" />
           <td v-text="member.name" />
           <td v-text="member.email" />
           <td
@@ -106,7 +166,7 @@ handleAllUsers();
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" @click="userDelete(member.id)">
+                <a class="dropdown-item" @click="userDelete(index)">
                   Delete User</a
                 >
               </li>
