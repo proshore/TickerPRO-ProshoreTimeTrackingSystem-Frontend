@@ -1,6 +1,8 @@
 <script setup>
-import { ref } from "vue";
-import { addProject } from "../services";
+import { ref, onMounted } from "vue";
+import { updateProject } from "../services";
+import { useRoute } from "vue-router";
+import axios from "axios";
 import getUser from "@/utils/getUser";
 import getToken from "@/utils/getToken";
 
@@ -9,6 +11,7 @@ import validateColor from "@/utils/validateColor";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
 
+const route = useRoute();
 const project_name = ref("");
 const project_color_code = ref("");
 const colors = ref([
@@ -18,7 +21,7 @@ const colors = ref([
   { id: 3, name: "Green", hex: "#008000" },
 ]);
 const client_id = ref("");
-const billable = ref("0");
+const billable = ref("");
 const status = ref(1);
 const projectNameError = ref("");
 const project_color_codeError = ref("");
@@ -26,7 +29,7 @@ const clientNameError = ref("");
 const successAdd = ref(false);
 const errors = ref([]);
 
-async function handleAddProject() {
+async function handleUpdateProject() {
   projectNameError.value = "";
   project_color_codeError.value = "";
   clientNameError.value = "";
@@ -68,20 +71,21 @@ async function handleAddProject() {
         user: { id },
       } = getUser();
 
-      billable.value = billable.value === true ? "1" : "0";
-
-      const projectInfo = {
-        project_name: project_name.value,
-        client_id: client_id.value,
-        billable: billable.value,
-        status: status.value,
-        project_color_code: project_color_code.value,
-        user_id: id,
-      };
-      console.log(projectInfo);
+      const result = await axios.put(
+        "https://ccbackend.herokuapp.com/api/project/update-project/" +
+          route.params.id,
+        {
+          project_name: project_name.value,
+          client_id: client_id.value,
+          billable: billable.value,
+          status: status.value,
+          project_color_code: project_color_code.value,
+          user_id: id,
+        }
+      );
       const token = getToken();
 
-      const response = await addProject(projectInfo, token);
+      const response = await updateProject(result, token);
       if (response.status === 200) {
         successAdd.value = true;
 
@@ -96,6 +100,16 @@ async function handleAddProject() {
         billable.value = "";
         project_color_code.value = "";
       }
+
+      onMounted(async () => {
+        const result = await axios.get(
+          "http://localhost:3000/restaurant/" + route.params.id
+        );
+        project_name.value = result.data;
+        client_id.value = result.data;
+        billable.value = result.data;
+        project_color_code.value = result.data;
+      });
     } catch (error) {
       errors.value.push("Something went wrong, please try again later.");
     }
@@ -111,7 +125,7 @@ async function handleAddProject() {
     data-bs-toggle="modal"
     data-bs-target="#exampleModal"
   >
-    Add Project
+    Update Project
   </button>
 
   <!-- Modal -->
@@ -125,7 +139,7 @@ async function handleAddProject() {
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Create New Project</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Update Project</h5>
           <button
             type="button"
             class="btn-close"
@@ -134,11 +148,11 @@ async function handleAddProject() {
           ></button>
         </div>
         <div class="modal-body">
-          <form @submit.prevent="handleAddProject">
+          <form @submit.prevent="handleUpdateProject">
             <!-- Success invite -->
             <BaseAlert
               v-if="successAdd"
-              message="Project add successfully!"
+              message="Project update successfully!"
               hex-font-color="198754"
             />
 
@@ -195,13 +209,13 @@ async function handleAddProject() {
             </div>
             <!--Billable Yes No option-->
             <div class="mt-4">
-              <!--<label for="nonbillable">Non-Billable</label>
+              <label for="nonbillable">Non-Billable</label>
               <input
                 type="radio"
                 value="false"
                 v-model="billable"
                 name="billable"
-              />-->
+              />
               &nbsp;
               <label for="billable">Billable</label>
               <input
@@ -214,7 +228,7 @@ async function handleAddProject() {
             <!-- submit -->
             <div class="mt-4 mb-2">
               <button type="submit" class="btn btn-primary text-white">
-                CREATE
+                UPDATE
               </button>
             </div>
           </form>
