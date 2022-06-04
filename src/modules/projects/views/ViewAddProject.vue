@@ -170,7 +170,7 @@ async function handleAddProject() {
                 <option
                   v-for="color in colors"
                   :key="color.id"
-                  :value="color.hex"
+                  :value="color.name"
                   :style="{ color: color.hex }"
                   v-text="color.name"
                 />
@@ -195,14 +195,6 @@ async function handleAddProject() {
             </div>
             <!--Billable Yes No option-->
             <div class="mt-4">
-              <!--<label for="nonbillable">Non-Billable</label>
-              <input
-                type="radio"
-                value="false"
-                v-model="billable"
-                name="billable"
-              />-->
-              &nbsp;
               <label for="billable">Billable</label>
               <input
                 type="radio"

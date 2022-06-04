@@ -4,6 +4,9 @@ import axios from "axios";
 
 import getToken from "@/utils/getToken";
 
+import { enableDisable } from "../services";
+
+const isLoading = ref(true);
 const projects = ref([]);
 const token = getToken();
 async function loadData() {
@@ -16,10 +19,26 @@ async function loadData() {
 }
 loadData();
 
-/*console.log(projects.value);
-onMounted(() => {
-  loadData.value;
-});*/
+async function enableDisableProject(projectId) {
+  try {
+    const token = getToken();
+    console.log(token);
+    const res = await enableDisable(token, projectId);
+    isLoading.value = false;
+    if (res.status == 200) {
+      location.reload();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+function status(x) {
+  if (x == "1") {
+    return "Disable";
+  } else {
+    return "Enable";
+  }
+}
 </script>
 
 <template>
@@ -34,7 +53,6 @@ onMounted(() => {
           <th scope="col">Billable</th>
           <th scope="col">Status</th>
           <th scope="col">Action</th>
-          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -44,7 +62,16 @@ onMounted(() => {
           <td>{{ project.project_color_code }}</td>
           <td>{{ project.client_id }}</td>
           <td>{{ project.billable }}</td>
-          <td>{{ project.status }}</td>
+          <td>{{ status(project.status) }}</td>
+          <td>
+            <button
+              class="btn btn-light btn-sm"
+              @click="enableDisableProject(project.id)"
+              v-text="
+                status(project.status) === 'Enable' ? 'Disable' : 'Enable'
+              "
+            ></button>
+          </td>
         </tr>
       </tbody>
     </table>

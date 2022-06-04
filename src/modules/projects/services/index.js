@@ -1,4 +1,4 @@
-import apiUrl from "@/constants/routes/teams";
+import apiUrl from "@/constants/routes/projects";
 
 import API from "@/services/API";
 
@@ -10,4 +10,16 @@ const addProject = async (data, token) => {
   });
 };
 
-export { addProject };
+const enableDisable = async (token, projectId) => {
+  return await API.post(
+    `${apiUrl.PROJECT_ENABLE}/${projectId}`,
+    {},
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+};
+
+export { addProject, enableDisable };
