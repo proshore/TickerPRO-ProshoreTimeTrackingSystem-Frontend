@@ -3,70 +3,60 @@ import { ref } from "vue";
 
 import getToken from "@/utils/getToken";
 
-import { invitedMembersList, reInvite, revokeInvitation } from "../services";
+import InviteMember from "../components/InviteMember.vue";
+
+import { getAllRoles, invitedMembersList, reinviteMember } from "../services";
+
+import threeDots from "@/assets/images/three-dots.svg";
 
 const totalMembers = ref(0);
 const invitedMembers = ref([]);
 const isLoading = ref(true);
 const roles = ref([]);
-const success = ref(false);
+const message = ref("");
 
 const memberStatus = (status) => {
-  if (status === 0) {
+  if (status === false) {
     return "Wait";
-  } else if (status === 1) {
-    return "Active";
   } else {
-    return "Disable";
+    return "Active";
   }
 };
 
-const action = (status) => {
-  if (status === 0) {
-    return "Re-Invite";
-  } else {
-    return "Revoke Invite";
+const getRole = (roleId) => {
+  let role = "";
+  if (roles.value.length > 0) {
+    roles.value.forEach((r) => {
+      if (r.id === roleId) {
+        role = r.role.toUpperCase();
+      }
+    });
+    return role;
   }
+  return roleId;
 };
+
+async function handleReinviteMember(email) {
+  message.value = "";
+  try {
+    const token = getToken();
+    const response = await reinviteMember(email, token);
+    message.value = response.data.message;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 async function handleInvitedMembers() {
   try {
     const token = getToken();
     const response = await invitedMembersList(token);
+    const responseRoles = await getAllRoles();
+
     invitedMembers.value = response.data.invitedUsers;
     totalMembers.value = response.data.total;
-
+    roles.value = responseRoles.data.roles;
     isLoading.value = false;
-    console.log(response.data);
-  } catch (error) {
-    console.log(error);
-  }
-}
-async function resendInvitation(email) {
-  try {
-    const token = getToken();
-    const response = await reInvite(token, {
-      email,
-    });
-    isLoading.value = false;
-    console.log(response.data);
-    if (response.status == 200) {
-      alert(response.data["message"]);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-async function revokeInvite(memberId) {
-  try {
-    const token = getToken();
-    const response = await revokeInvitation(token, memberId);
-    isLoading.value = false;
-    console.log(response.data);
-    if (response.status == 200) {
-      alert(response.data["message"]);
-    }
   } catch (error) {
     console.log(error);
   }
@@ -76,10 +66,26 @@ handleInvitedMembers();
 </script>
 
 <template>
-  <div class="mt-5 fw-bold fs-5">
-    Members <span v-if="totalMembers" v-text="`(${totalMembers})`" />
+  <div class="mt-2 fw-bold fs-2">
+    Invited Members <span v-if="totalMembers" v-text="`(${totalMembers})`" />
   </div>
 
+  <!-- message -->
+  <div
+    v-if="message"
+    class="alert alert-success alert-dismissible fade show mt-2"
+    role="alert"
+  >
+    {{ message }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  <InviteMember />
   <div class="mt-3 border border-bottom-0 rounded">
     <table class="table table-hover">
       <thead class="text-primary">
@@ -90,6 +96,7 @@ handleInvitedMembers();
           <th scope="col">Role</th>
           <th scope="col">Status</th>
           <th scope="col">Action</th>
+          <th scope="col"></th>
         </tr>
       </thead>
 
@@ -99,34 +106,22 @@ handleInvitedMembers();
         <tr v-for="(member, index) in invitedMembers" :key="member.id">
           <th scope="row" v-text="`${index + 1}`" />
           <td v-text="member.name" />
-          <td v-text="member.email" />
-          <td v-text="member.role_id" />
-          <td v-text="memberStatus(member.inviteAccepted)" />
-          <div class="dropdown">
+          <td class="gray-color" v-text="member.email" />
+          <td v-text="getRole(member.role_id)" />
+          <td class="gray-color" v-text="memberStatus(member.inviteAccepted)" />
+          <td>
             <button
-              class="btn btn-light dropdown-toggle btn-sm"
-              v-text="action(member.inviteAccepted)"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="true"
-            ></button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li>
-                <a class="dropdown-item" @click="resendInvitation(member.email)"
-                  >Re Invite</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" @click="revokeInvite(member.id)"
-                  >Revoke Invite</a
-                >
-              </li>
-            </ul>
-          </div>
+              class="btn btn-light btn-sm"
+              @click="handleReinviteMember(member.email)"
+            >
+              Reinvite
+            </button>
+          </td>
+          <td><img :src="threeDots" alt="Three dots image" /></td>
         </tr>
       </tbody>
     </table>
-    <!-- <p v-if="success">Resent Invitation</p> -->
   </div>
 </template>
+
+<style lang="scss"></style>

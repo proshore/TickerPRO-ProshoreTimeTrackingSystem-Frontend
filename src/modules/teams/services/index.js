@@ -22,7 +22,7 @@ const invitedMembersList = async (token) => {
   });
 };
 
-const reInvite = async (token, data) => {
+const reinviteMember = async (token, data) => {
   return await API.post(apiUrl.ReInvite_URL, data, {
     headers: {
       Authorization: token,
@@ -82,7 +82,7 @@ export {
   getAllRoles,
   inviteMember,
   invitedMembersList,
-  reInvite,
+  reinviteMember,
   revokeInvitation,
   allUsersList,
   deleteUser,

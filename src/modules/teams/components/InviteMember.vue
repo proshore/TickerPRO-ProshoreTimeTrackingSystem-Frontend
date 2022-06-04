@@ -94,6 +94,12 @@ async function handleInviteMember() {
   }
 }
 </script>
+<style>
+th,
+td {
+  cursor: pointer;
+}
+</style>
 
 <template>
   <!-- Button trigger modal -->

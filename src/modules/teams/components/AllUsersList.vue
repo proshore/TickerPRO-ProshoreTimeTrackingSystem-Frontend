@@ -10,7 +10,6 @@ const allUsers = ref([]);
 const searchedUsers = ref(allUsers.value);
 const isLoading = ref(true);
 const isInitial = ref(true);
-const isSearched = ref(false);
 
 async function handleAllUsers() {
   try {
@@ -53,7 +52,6 @@ async function enableDisableUser(index) {
     console.log(error);
   }
 }
-
 function status(x) {
   if (x == "1") {
     return "Disable";
@@ -67,7 +65,6 @@ function search(a) {
   console.log(allUsers.value + "allusers");
   //  var filteredList = allUsers.value;
   // if(isSearched.value == false){
-
   allUsers.value.forEach((obj) => {
     if (obj.name.includes(a)) {
       searchedUsers.value.push(obj);
@@ -76,8 +73,23 @@ function search(a) {
     isInitial.value = false;
   });
   // isSearched.value = true;
-
   // }
+}
+//comparer function
+function GetSortOrder(prop) {
+  return function (a, b) {
+    if (a[prop].toLowerCase() > b[prop].toLowerCase()) {
+      return 1;
+    } else if (a[prop].toLowerCase() < b[prop].toLowerCase()) {
+      return -1;
+    }
+    return 0;
+  };
+}
+
+function sort(value) {
+  console.log("hello");
+  allUsers.value.sort(GetSortOrder(value));
 }
 
 handleAllUsers();
@@ -85,7 +97,7 @@ handleAllUsers();
 <style scoped>
 .topnav input[type="text"] {
   float: none;
-  border: 1px solid green;
+  border: 1px solid rgb(211, 216, 211);
   display: block;
   text-align: left;
   width: 100%;
@@ -98,11 +110,15 @@ handleAllUsers();
 input:focus {
   background-color: rgb(226, 221, 221);
 }
+th,
+td {
+  cursor: pointer;
+}
 </style>
 
 <template>
   <div class="mt-5 fw-bold fs-5">
-    Members <span v-if="totalMembers" v-text="$totalMembers" />
+    All Members <span v-if="totalMembers" v-text="`(${totalMembers})`" />
   </div>
 
   <div class="mt-3 border border-bottom-0 rounded">
@@ -118,8 +134,8 @@ input:focus {
       <thead class="text-primary">
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Email</th>
+          <th @click="sort('name')" scope="col">Name</th>
+          <th @click="sort('email')" scope="col">Email</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
@@ -144,11 +160,15 @@ a == 0 ? a is zero : a is not zero
           <th scope="row" v-text="member.id" />
           <td v-text="member.name" />
           <td v-text="member.email" />
-          <td
-            @click="enableDisableUser(index)"
-            v-text="status(member.activeStatus)"
-          ></td>
-          <div class="dropdown">
+          <td>
+            <button
+              class="btn btn-light btn-sm"
+              @click="enableDisableUser(index)"
+              v-text="status(member.activeStatus)"
+            ></button>
+          </td>
+          <!-- <td  @click="enableDisableUser(index)" v-text="status(member.activeStatus)" ></td> -->
+          <td class="dropdown">
             <button
               class="btn btn-light dropdown-toggle btn-sm"
               type="button"
@@ -171,9 +191,13 @@ a == 0 ? a is zero : a is not zero
                 >
               </li>
             </ul>
-          </div>
+          </td>
         </tr>
       </tbody>
     </table>
+
+    <!-- <p @click="sort()">Sort</p> -->
   </div>
 </template>
+
+<style lang="scss"></style>
