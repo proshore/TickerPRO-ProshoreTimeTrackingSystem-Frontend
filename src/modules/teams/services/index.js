@@ -70,14 +70,6 @@ const enableDisable = async (token, data) => {
   );
 };
 
-// const enableDisable = async(token,data) =>{
-//   return await API.post(apiUrl.Enable_URL+data,{
-//     headers:{
-//       Authorization:token
-//     }
-//   })
-// }
-
 export {
   getAllRoles,
   inviteMember,

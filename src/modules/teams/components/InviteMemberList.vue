@@ -5,9 +5,12 @@ import getToken from "@/utils/getToken";
 
 import InviteMember from "../components/InviteMember.vue";
 
-import { getAllRoles, invitedMembersList, reinviteMember } from "../services";
-
-import threeDots from "@/assets/images/three-dots.svg";
+import {
+  getAllRoles,
+  invitedMembersList,
+  reinviteMember,
+  revokeInvitation,
+} from "../services";
 
 const totalMembers = ref(0);
 const invitedMembers = ref([]);
@@ -40,8 +43,24 @@ async function handleReinviteMember(email) {
   message.value = "";
   try {
     const token = getToken();
-    const response = await reinviteMember(email, token);
+    const response = await reinviteMember(token, { email: email });
+    if (response.status == 200) {
+      handleInvitedMembers();
+    }
     message.value = response.data.message;
+  } catch (err) {
+    console.log(err);
+  }
+}
+async function handleRevokeMember(Id) {
+  message.value = "";
+  try {
+    const token = getToken();
+    const response = await revokeInvitation(token, Id);
+    message.value = response.data.message;
+    if (response.status == 200) {
+      handleInvitedMembers();
+    }
   } catch (err) {
     console.log(err);
   }
@@ -61,12 +80,11 @@ async function handleInvitedMembers() {
     console.log(error);
   }
 }
-
 handleInvitedMembers();
 </script>
 
 <template>
-  <div class="mt-2 fw-bold fs-2">
+  <div class="mt-2 fs-5">
     Invited Members <span v-if="totalMembers" v-text="`(${totalMembers})`" />
   </div>
 
@@ -114,10 +132,33 @@ handleInvitedMembers();
               class="btn btn-light btn-sm"
               @click="handleReinviteMember(member.email)"
             >
-              Reinvite
+              Re-invite
             </button>
           </td>
-          <td><img :src="threeDots" alt="Three dots image" /></td>
+          <td>
+            <button
+              class="btn btn-light dropdown-toggle btn-sm"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="true"
+            ></button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a
+                  class="dropdown-item"
+                  @click="handleReinviteMember(member.email)"
+                >
+                  Re Invite
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" @click="handleRevokeMember(member.id)">
+                  Revoke
+                </a>
+              </li>
+            </ul>
+          </td>
         </tr>
       </tbody>
     </table>

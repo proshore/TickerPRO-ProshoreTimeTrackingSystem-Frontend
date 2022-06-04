@@ -32,6 +32,7 @@ async function userDelete(index) {
     isLoading.value = false;
     console.log(res.data);
     if (res.status == 200) {
+      handleAllUsers();
       alert(res.data["message"]);
     }
   } catch (error) {
@@ -46,6 +47,7 @@ async function enableDisableUser(index) {
     const res = await enableDisable(token, allUsers.value[index]["id"]);
     isLoading.value = false;
     if (res.status == 200) {
+      handleAllUsers();
       alert(res.data["message"]);
     }
   } catch (error) {
@@ -117,7 +119,7 @@ td {
 </style>
 
 <template>
-  <div class="mt-5 fw-bold fs-5">
+  <div class="mt-5 fs-5">
     All Members <span v-if="totalMembers" v-text="`(${totalMembers})`" />
   </div>
 
@@ -134,8 +136,36 @@ td {
       <thead class="text-primary">
         <tr>
           <th scope="col">#</th>
-          <th @click="sort('name')" scope="col">Name</th>
-          <th @click="sort('email')" scope="col">Email</th>
+          <th @click="sort('name')" scope="col">
+            Name
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-filter"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"
+              />
+            </svg>
+          </th>
+          <th @click="sort('email')" scope="col">
+            Email
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-filter"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"
+              />
+            </svg>
+          </th>
           <th scope="col">Action</th>
         </tr>
       </thead>
