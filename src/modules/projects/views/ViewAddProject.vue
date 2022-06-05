@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { addProject } from "../services";
 import getUser from "@/utils/getUser";
 import getToken from "@/utils/getToken";
+import { clientList } from "@/modules/clients/services";
 
 import validateName from "@/utils/validateName";
 import validateColor from "@/utils/validateColor";
@@ -17,14 +18,29 @@ const colors = ref([
   { id: 3, name: "Blue", hex: "#0000ff" },
   { id: 3, name: "Green", hex: "#008000" },
 ]);
-const client_id = ref("");
+const clientId = ref("");
 const billable = ref("0");
 const status = ref(1);
+const clients = ref([]);
 const projectNameError = ref("");
 const project_color_codeError = ref("");
 const clientNameError = ref("");
 const successAdd = ref(false);
 const errors = ref([]);
+const token = getToken();
+
+async function handleClientList(token) {
+  try {
+    const response = await clientList(token);
+    if (response.status === 200) {
+      clients.value = response.data.users;
+    }
+  } catch (err) {
+    alert("Something went wrong, please try again later");
+  }
+}
+
+handleClientList(token);
 
 async function handleAddProject() {
   projectNameError.value = "";
@@ -40,8 +56,8 @@ async function handleAddProject() {
     project_color_code.value
   );
 
-  const { isValid: validClientName, errorMessage: errorClientName } =
-    validateName(client_id.value);
+  /*const { isValid: validClientName, errorMessage: errorClientName } =
+    validateName(clientId.value);*/
 
   if (!validProjectName) {
     project_color_codeError.value = errorColor;
@@ -53,10 +69,10 @@ async function handleAddProject() {
     project_name.value = "";
   }
 
-  if (!validClientName) {
+  /*if (!validClientName) {
     clientNameError.value = errorClientName;
     client_id.value = "";
-  }
+  }*/
 
   if (
     projectNameError.value === "" &&
@@ -72,7 +88,7 @@ async function handleAddProject() {
 
       const projectInfo = {
         project_name: project_name.value,
-        client_id: client_id.value,
+        client_id: clientId.value,
         billable: billable.value,
         status: status.value,
         project_color_code: project_color_code.value,
@@ -92,7 +108,7 @@ async function handleAddProject() {
 
         // empty form fields
         project_name.value = "";
-        client_id.value = "";
+        clientId.value = "";
         billable.value = "";
         project_color_code.value = "";
       }
@@ -178,19 +194,22 @@ async function handleAddProject() {
             </div>
 
             <div class="mt-4">
-              <label class="form-label"
+              <label class="form-label" for="client-id"
                 >Client Name<span class="text-danger">*</span></label
               >
               <select
-                id="role"
-                v-model="client_id"
-                @change="onChangeRole"
+                v-if="clients.length"
+                id="client-id"
+                v-model="clientId"
                 class="form-select"
                 :error="clientNameError"
               >
-                <option value="1">Bimlendra Yadav</option>
-                <option value="2">Saroj Yadav</option>
-                <option value="3">Raghav Adhikari</option>
+                <option
+                  v-for="client in clients"
+                  :key="client.id"
+                  :value="client.id"
+                  v-text="client.client_name"
+                />
               </select>
             </div>
             <!--Billable Yes No option-->
