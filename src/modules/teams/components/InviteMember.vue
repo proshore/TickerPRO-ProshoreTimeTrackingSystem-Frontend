@@ -94,16 +94,22 @@ async function handleInviteMember() {
   }
 }
 </script>
+<style>
+th,
+td {
+  cursor: pointer;
+}
+</style>
 
 <template>
   <!-- Button trigger modal -->
   <button
     type="button"
-    class="btn btn-sm btn-secondary text-white mt-2"
+    class="btn btn-sm btn-primary text-white"
     data-bs-toggle="modal"
     data-bs-target="#exampleModal"
   >
-    Add
+    Add New Member
   </button>
 
   <!-- Modal -->

@@ -1,10 +1,10 @@
 <script setup>
-import { useToggleContainer } from "@/stores/toggleContainer";
-
-import BaseHeading from "@/components/BaseHeading.vue";
-import TheSidebar from "@/components/TheSidebar.vue";
-
 import InviteMemberList from "../components/InviteMemberList.vue";
+import RegisterUserList from "../components/RegisterUserList.vue";
+import TheSidebar from "@/components/TheSidebar.vue";
+import BaseHeading from "@/components/BaseHeading.vue";
+
+import { useToggleContainer } from "@/stores/toggleContainer";
 
 // toggle bootstrap container
 const storeToggleContainer = useToggleContainer();
@@ -13,10 +13,13 @@ storeToggleContainer.userStatus = false;
 
 <template>
   <TheSidebar />
-
   <main>
     <BaseHeading title="Teams" />
-
-    <InviteMemberList />
+    <div class="teams__container">
+      <InviteMemberList />
+      <RegisterUserList />
+    </div>
   </main>
 </template>
+
+<style scoped></style>
