@@ -1,35 +1,36 @@
 <script setup>
 import { ref } from "vue";
-import axios from "axios";
 
 import getToken from "@/utils/getToken";
 
-import { enableDisable } from "../services";
+import { enableDisable, projectList } from "../services";
 
 const isLoading = ref(true);
 const projects = ref([]);
 const token = getToken();
-async function loadData() {
-  let result = await axios.get(
-    "https://ccbackend.herokuapp.com/api/project/view-project",
-    { headers: { Authorization: token } }
-  );
-  projects.value = result.data.users;
-  console.log(projects.value);
+
+async function loadProjects() {
+  try {
+    const response = await projectList(token);
+    if (response.status === 200) {
+      projects.value = response.data.users;
+    }
+  } catch (err) {
+    alert("Something went wrong, please try again later");
+  }
 }
-loadData();
+loadProjects();
 
 async function enableDisableProject(projectId) {
   try {
-    const token = getToken();
-    console.log(token);
-    const res = await enableDisable(token, projectId);
+    const response = await enableDisable(token, projectId);
     isLoading.value = false;
-    if (res.status == 200) {
-      location.reload();
+    if (response.status == 200) {
+      alert("Project status changed successfully");
+      loadProjects();
     }
   } catch (error) {
-    console.log(error);
+    alert("Something went wrong, please try again later");
   }
 }
 function status(x) {

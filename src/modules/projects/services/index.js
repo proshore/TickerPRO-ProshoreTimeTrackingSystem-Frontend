@@ -12,7 +12,7 @@ const addProject = async (data, token) => {
 
 const enableDisable = async (token, projectId) => {
   return await API.post(
-    `${apiUrl.PROJECT_ENABLE}/${projectId}`,
+    `${apiUrl.PROJECT_ENABLE_URL}/${projectId}`,
     {},
     {
       headers: {
@@ -22,4 +22,10 @@ const enableDisable = async (token, projectId) => {
   );
 };
 
-export { addProject, enableDisable };
+const projectList = async (token) => {
+  return await API.get(apiUrl.PROJECT_LIST_URL, {
+    headers: { Authorization: token },
+  });
+};
+
+export { addProject, enableDisable, projectList };

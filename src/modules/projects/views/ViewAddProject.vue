@@ -78,12 +78,12 @@ async function handleAddProject() {
         project_color_code: project_color_code.value,
         user_id: id,
       };
-      console.log(projectInfo);
       const token = getToken();
 
       const response = await addProject(projectInfo, token);
       if (response.status === 200) {
         successAdd.value = true;
+        location.reload();
 
         // reset successInvite after 3 seconds
         setTimeout(() => {
