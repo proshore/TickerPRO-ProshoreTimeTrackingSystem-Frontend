@@ -22,10 +22,34 @@ const invitedMembersList = async (token) => {
   });
 };
 
-const reinviteMember = async (email, token) => {
+const reinviteMember = async (token, data) => {
+  return await API.post(apiUrl.ReInvite_URL, data, {
+    headers: {
+      Authorization: token,
+    },
+  });
+};
+
+const revokeInvitation = async (token, data) => {
+  return await API.get(apiUrl.RevokeInvitation_URL + data, {
+    headers: {
+      Authorization: token,
+    },
+  });
+};
+
+const allUsersList = async (token) => {
+  return await API.get(apiUrl.All_UsersList_Url, {
+    headers: {
+      Authorization: token,
+    },
+  });
+};
+
+const deleteUser = async (token, data) => {
   return await API.post(
-    apiUrl.REINVITE_MEMBER,
-    { email },
+    `${apiUrl.DeleteUser_URL}/${data}`,
+    {},
     {
       headers: {
         Authorization: token,
@@ -34,4 +58,25 @@ const reinviteMember = async (email, token) => {
   );
 };
 
-export { getAllRoles, inviteMember, invitedMembersList, reinviteMember };
+const enableDisable = async (token, data) => {
+  return await API.post(
+    `${apiUrl.Enable_URL}/${data}`,
+    {},
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+};
+
+export {
+  getAllRoles,
+  inviteMember,
+  invitedMembersList,
+  reinviteMember,
+  revokeInvitation,
+  allUsersList,
+  deleteUser,
+  enableDisable,
+};
