@@ -1,20 +1,13 @@
 <script setup>
-import { ref, onBeforeMount } from "vue";
-import getUser from "@/utils/getUser.js";
+import { useToggleContainer } from "@/stores/toggleContainer";
 
-const userExists = ref(true);
+const storeContainerStatus = useToggleContainer();
 
-onBeforeMount(() => {
-  if (getUser()) {
-    userExists.value = true;
-  } else {
-    userExists.value = false;
-  }
-});
+storeContainerStatus.userStatus = true;
 </script>
 
 <template>
-  <div :class="{ container: !userExists }">
+  <div :class="{ container: storeContainerStatus.userStatus }">
     <router-view></router-view>
   </div>
 </template>

@@ -3,8 +3,17 @@ import InviteMemberList from "../components/InviteMemberList.vue";
 import AllUserList from "../components/AllUsersList.vue";
 import TheSidebar from "@/components/TheSidebar.vue";
 import BaseHeading from "@/components/BaseHeading.vue";
+
+import { useToggleContainer } from "@/stores/toggleContainer";
+
+import BaseHeading from "@/components/BaseHeading.vue";
+import TheSidebar from "@/components/TheSidebar.vue";
+
+// toggle bootstrap container
+const storeToggleContainer = useToggleContainer();
+storeToggleContainer.userStatus = false;
 </script>
-<style scoped></style>
+
 <template>
   <TheSidebar />
   <main>
@@ -15,3 +24,5 @@ import BaseHeading from "@/components/BaseHeading.vue";
     </div>
   </main>
 </template>
+
+<style scoped></style>
