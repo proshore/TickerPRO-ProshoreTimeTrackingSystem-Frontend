@@ -132,7 +132,7 @@ handleInvitedMembers();
               class="btn btn-light btn-sm"
               @click="handleReinviteMember(member.email)"
             >
-              Re-invite
+              Reinvite
             </button>
           </td>
           <td>
@@ -144,14 +144,6 @@ handleInvitedMembers();
               aria-expanded="true"
             ></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li>
-                <a
-                  class="dropdown-item"
-                  @click="handleReinviteMember(member.email)"
-                >
-                  Re Invite
-                </a>
-              </li>
               <li>
                 <a class="dropdown-item" @click="handleRevokeMember(member.id)">
                   Revoke

@@ -23,7 +23,7 @@ const invitedMembersList = async (token) => {
 };
 
 const reinviteMember = async (token, data) => {
-  return await API.post(apiUrl.ReInvite_URL, data, {
+  return await API.post(apiUrl.REINVITE_URL, data, {
     headers: {
       Authorization: token,
     },
@@ -31,7 +31,7 @@ const reinviteMember = async (token, data) => {
 };
 
 const revokeInvitation = async (token, data) => {
-  return await API.get(apiUrl.RevokeInvitation_URL + data, {
+  return await API.get(apiUrl.REINVOKE_URL + data, {
     headers: {
       Authorization: token,
     },
@@ -39,7 +39,7 @@ const revokeInvitation = async (token, data) => {
 };
 
 const allUsersList = async (token) => {
-  return await API.get(apiUrl.All_UsersList_Url, {
+  return await API.get(apiUrl.REGISTER_USER_LIST_URL, {
     headers: {
       Authorization: token,
     },
@@ -48,7 +48,7 @@ const allUsersList = async (token) => {
 
 const deleteUser = async (token, data) => {
   return await API.post(
-    `${apiUrl.DeleteUser_URL}/${data}`,
+    `${apiUrl.DELETE_USER_URL}/${data}`,
     {},
     {
       headers: {
@@ -60,7 +60,7 @@ const deleteUser = async (token, data) => {
 
 const enableDisable = async (token, data) => {
   return await API.post(
-    `${apiUrl.Enable_URL}/${data}`,
+    `${apiUrl.ENABLE_USER_URL}/${data}`,
     {},
     {
       headers: {
