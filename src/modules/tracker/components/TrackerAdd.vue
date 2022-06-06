@@ -5,7 +5,7 @@ import getTime from "@/utils/getTime";
 import getToken from "@/utils/getToken";
 import getUser from "@/utils/getUser";
 
-import { projectsList } from "@/modules/projects/services";
+import { projectList } from "@/modules/projects/services";
 import { trackerAdd, trackerEdit } from "../services";
 
 const description = ref("");
@@ -21,7 +21,7 @@ const token = getToken();
 // load all projects
 onBeforeMount(async () => {
   try {
-    const response = await projectsList(token);
+    const response = await projectList(token);
     if (response.status === 200) {
       projects.value = response.data.users;
     }
