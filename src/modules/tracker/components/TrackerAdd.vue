@@ -92,6 +92,7 @@ async function handleStopTimeTracker() {
       isBillable.value = false;
 
       alert("Time log added successfully");
+      location.reload();
     }
   } catch (err) {
     alert("Something went wrong, please try again later");
