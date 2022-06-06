@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 
-import { timeLog, deleteLog } from "../services";
+import { timeLog, deleteLog, trackerEdit } from "../services";
 
 import getToken from "@/utils/getToken";
 import getUser from "@/utils/getUser";
@@ -10,6 +10,7 @@ import sortTimeLog from "../utils/sortTimeLog";
 const token = getToken();
 const logs = ref([]);
 const isLoading = ref(true);
+// var billableValue = ref();
 
 const userId = getUser().user.id;
 
@@ -21,6 +22,26 @@ async function handleTimeLog() {
     isLoading.value = false;
   } catch (err) {
     alert("Something went wrong, please try again later");
+  }
+}
+
+async function editLogs(name, userid, projectid, billable, start, end, id) {
+  try {
+    var data = {
+      activity_name: name,
+      user_id: userid,
+      project_id: projectid,
+      billable: billable,
+      start_time: start,
+      end_time: end,
+    };
+    const response = await trackerEdit(data, token, id);
+    if (response.status == 200) {
+      handleTimeLog();
+      alert("Time Log Updated Successfully");
+    }
+  } catch (err) {
+    console.log(err);
   }
 }
 
@@ -54,14 +75,36 @@ function convertMsToHM(milliseconds) {
   minutes = minutes % 60;
   // 👇️ If you don't want to roll hours over, e.g. 24 to 00
   // 👇️ comment (or remove) the line below
-  // commenting next line gets you `24:00:00` instead of `00:00:00`
-  // or `36:15:31` instead of `12:15:31`, etc.
+  // commenting next line gets you 24:00:00 instead of 00:00:00
+  // or 36:15:31 instead of 12:15:31, etc.
   hours = hours % 24;
   return `${padTo2Digits(hours)}:${padTo2Digits(minutes)}:${padTo2Digits(
     seconds
   )}`;
 }
+
+function value(x) {
+  if (x == true) {
+    return "Billable";
+  } else {
+    return "Non Billable";
+  }
+}
 </script>
+<style scoped>
+input {
+  width: 5rem;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.edit {
+  border: none;
+}
+.edit :hover {
+  border: 1px solid grey;
+}
+</style>
 
 <template>
   <div class="mt-3 border border-bottom-0 rounded">
@@ -84,14 +127,56 @@ function convertMsToHM(milliseconds) {
 
       <tbody v-if="logs.length">
         <tr v-for="(log, index) in logs" :key="log.id">
-          <th scope="row" v-text="`${index + 1}`" />
-          <td v-text="log.activity_name" />
-          <td v-text="log.project_id" />
-          <td v-text="log.billable" />
-          <td v-text="log.start_time" />
-          <td v-text="log.end_time" />
+          <th scope="row" v-text="index++" />
           <td>
-            <button class="btn btn-light btn-sm">Edit</button>
+            <input class="edit" type="text" v-model="log.activity_name" />
+          </td>
+
+          <td>
+            <div v-text="log.project_id"></div>
+          </td>
+          <td>
+            <button
+              class="btn btn-light btn-sm"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              v-text="value(log.billable)"
+              aria-expanded="true"
+            ></button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a class="dropdown-item" @click="() => (log.billable = true)">
+                  Billable
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" @click="() => (log.billable = false)">
+                  Non Billable
+                </a>
+              </li>
+            </ul>
+          </td>
+          <td><input class="edit" type="text" v-model="log.start_time" /></td>
+          <td><input class="edit" type="text" v-model="log.end_time" /></td>
+
+          <td>
+            <button
+              @click="
+                editLogs(
+                  log.activity_name,
+                  userId,
+                  log.project_id,
+                  log.billable,
+                  log.start_time,
+                  log.end_time,
+                  log.id
+                )
+              "
+              class="btn btn-light btn-sm"
+            >
+              Edit
+            </button>
 
             <button
               class="btn btn-light btn-sm mx-2"
