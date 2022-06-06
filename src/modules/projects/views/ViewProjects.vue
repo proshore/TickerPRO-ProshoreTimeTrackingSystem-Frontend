@@ -1,13 +1,12 @@
 <script setup>
 import { useToggleContainer } from "@/stores/toggleContainer";
 
-import TheLogoutLink from "@/components/TheLogoutLink.vue";
 import TheSidebar from "@/components/TheSidebar.vue";
 import BaseHeading from "@/components/BaseHeading.vue";
 
-import ViewAddProjectList from "./viewAddProjectList.vue";
+import ProjectList from "../components/ProjectList.vue";
 
-import ViewAddProject from "./ViewAddProject.vue";
+import ProjectAdd from "../components/ProjectAdd.vue";
 
 // toggle bootstrap container
 const storeToggleContainer = useToggleContainer();
@@ -18,8 +17,7 @@ storeToggleContainer.userStatus = false;
   <TheSidebar />
   <main>
     <BaseHeading title="Projects" />
-    <ViewAddProject />
-    <TheLogoutLink />
-    <ViewAddProjectList />
+    <ProjectAdd />
+    <ProjectList />
   </main>
 </template>

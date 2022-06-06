@@ -47,18 +47,18 @@ function status(x) {
     <table class="table table-hover">
       <thead class="text-primary">
         <tr>
-          <th scope="col">Id</th>
+          <th scope="col">#</th>
           <th scope="col">Project Name</th>
           <th scope="col">Color</th>
-          <th scope="col">Client Name</th>
+          <th scope="col">Client Id</th>
           <th scope="col">Billable</th>
           <th scope="col">Status</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="project in projects" :key="project.id">
-          <td>{{ project.id }}</td>
+        <tr v-for="(project, index) in projects" :key="project.id">
+          <td>{{ index + 1 }}</td>
           <td>{{ project.project_name }}</td>
           <td>{{ project.project_color_code }}</td>
           <td>{{ project.client_id }}</td>
