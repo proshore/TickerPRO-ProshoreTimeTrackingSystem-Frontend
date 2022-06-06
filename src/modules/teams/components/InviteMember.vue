@@ -83,6 +83,8 @@ async function handleInviteMember() {
           successInvite.value = false;
         }, 3000);
 
+        location.reload();
+
         // empty form fields
         name.value = "";
         email.value = "";

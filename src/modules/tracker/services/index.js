@@ -18,4 +18,20 @@ const trackerEdit = async (data, token, trackerId) => {
   });
 };
 
-export { trackerAdd, trackerEdit };
+const timeLog = async (token, userId) => {
+  return await API.get(`${apiUrl.TRACKER_LIST}/${userId}`, {
+    headers: {
+      authorization: token,
+    },
+  });
+};
+
+const deleteLog = async (token, trackerId) => {
+  return await API.get(`${apiUrl.TRACKER_DELETE}/${trackerId}`, {
+    headers: {
+      authorization: token,
+    },
+  });
+};
+
+export { timeLog, deleteLog, trackerAdd, trackerEdit };
