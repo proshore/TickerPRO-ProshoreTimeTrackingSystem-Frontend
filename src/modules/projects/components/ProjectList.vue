@@ -42,6 +42,13 @@ function status(x) {
     return "Enable";
   }
 }
+function billablestatus(x) {
+  if (x == true) {
+    return "Billable";
+  } else {
+    return "Non Billable";
+  }
+}
 function search(a) {
   searchedprojects.value.splice(0, projects.value.length);
   projects.value.forEach((obj) => {
@@ -84,7 +91,7 @@ function search(a) {
           <td>{{ project.project_name }}</td>
           <td>{{ project.project_color_code }}</td>
           <td>{{ project.client_id }}</td>
-          <td>{{ project.billable }}</td>
+          <td>{{ billablestatus(project.billable) }}</td>
           <td>{{ status(project.status) }}</td>
           <td>
             <button
