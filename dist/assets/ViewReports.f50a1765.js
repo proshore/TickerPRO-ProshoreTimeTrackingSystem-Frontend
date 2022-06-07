@@ -1,0 +1,1 @@
+import{E as t,o,c as r,b as e,a as s,F as n}from"./index.e8fa8bee.js";import{T as c,_ as l}from"./BaseHeading.181f477a.js";import"./logo.bccff2c0.js";import"./plugin-vue_export-helper.21dcd24c.js";const d={setup(i){const a=t();return a.userStatus=!1,(m,p)=>(o(),r(n,null,[e(c),s("main",null,[e(l,{title:"Reports"})])],64))}};export{d as default};
