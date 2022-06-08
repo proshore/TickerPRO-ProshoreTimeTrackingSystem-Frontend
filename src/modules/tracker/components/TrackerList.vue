@@ -91,21 +91,6 @@ function value(x) {
   }
 }
 </script>
-<style scoped>
-input {
-  width: 5rem;
-  padding: 5px;
-  font-size: 16px;
-}
-
-.edit {
-  border: none;
-}
-.edit :hover {
-  border: 1px solid grey;
-}
-</style>
-
 <template>
   <div class="mt-3 border border-bottom-0 rounded">
     <table class="table table-hover">
@@ -127,7 +112,7 @@ input {
 
       <tbody v-if="logs.length">
         <tr v-for="(log, index) in logs" :key="log.id">
-          <th scope="row" v-text="index++" />
+          <th scope="row" v-text="index + 1" />
           <td>
             <input class="edit" type="text" v-model="log.activity_name" />
           </td>
@@ -195,3 +180,18 @@ input {
     </table>
   </div>
 </template>
+<style scoped>
+input {
+  width: 5rem;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.edit {
+  border: none;
+  width: 12em;
+}
+.edit :hover {
+  border: 1px solid grey;
+}
+</style>
