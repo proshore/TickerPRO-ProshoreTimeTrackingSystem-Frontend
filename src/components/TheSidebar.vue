@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from "vue";
 import { RouterLink } from "vue-router";
 
 import logo from "@/assets/images/logo.svg";
@@ -97,8 +96,8 @@ import sSettings from "@/assets/images/s-settings.svg";
       height: 3rem;
 
       .side-logo {
-        width: 8rem;
-        margin-left: -0.9rem;
+        width: 8.1rem;
+        margin-left: -0.6rem;
         cursor: default;
       }
 
