@@ -9,7 +9,7 @@ import { projectList } from "@/modules/projects/services";
 import { trackerAdd, trackerEdit } from "../services";
 
 const description = ref("");
-const projectId = ref("");
+const projectId = ref(null);
 const projects = ref([]);
 const isBillable = ref(false);
 const showStartButton = ref(true);
