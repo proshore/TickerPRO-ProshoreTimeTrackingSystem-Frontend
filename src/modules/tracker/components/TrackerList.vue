@@ -19,8 +19,10 @@ const userId = getUser().user.id;
 async function handleTimeLog() {
   try {
     const response = await timeLog(token, userId);
-    logs.value = response.data.logs;
-    sortTimeLog(logs.value);
+    if (response.status === 200 && response.data.logs) {
+      logs.value = response.data.logs;
+      sortTimeLog(logs.value);
+    }
     isLoading.value = false;
   } catch (err) {
     alert("Something went wrong, please try again later");
@@ -55,6 +57,10 @@ async function handleTrackerDelete(trackerId) {
     if (response.status === 200) {
       alert("Timelog deleted successfully");
       handleTimeLog();
+
+      if (logs.value.length === 1) {
+        location.reload();
+      }
     }
   } catch (err) {
     alert("Something went wrong, please try again later");
@@ -70,7 +76,7 @@ function value(x) {
 }
 </script>
 <template>
-  <div class="mt-5 border border-bottom-0 rounded">
+  <div v-if="logs.length" class="mt-5 border border-bottom-0 rounded">
     <table class="table table-hover">
       <thead class="text-primary">
         <tr>
@@ -86,11 +92,9 @@ function value(x) {
         </tr>
       </thead>
 
-      <p v-if="isLoading">Loading...</p>
-
       <tbody v-if="logs.length">
         <tr v-for="(log, index) in logs" :key="log.id">
-          <th scope="row" v-text="index + 1" />
+          <th scope="row" class="align-middle" v-text="index + 1" />
           <td>
             <input class="edit" type="text" v-model="log.activity_name" />
           </td>
@@ -155,6 +159,12 @@ function value(x) {
       </tbody>
     </table>
   </div>
+
+  <p v-else class="mt-5 text-danger mx-1">
+    <span v-if="!isLoading">No time logs. Let's start tracking</span>
+  </p>
+
+  <p v-if="isLoading">Loading...</p>
 </template>
 <style scoped>
 input {
