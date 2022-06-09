@@ -19,6 +19,7 @@ const userId = getUser().user.id;
 async function handleTimeLog() {
   try {
     const response = await timeLog(token, userId);
+
     if (response.status === 200 && response.data.logs) {
       logs.value = response.data.logs;
       sortTimeLog(logs.value);
@@ -47,7 +48,7 @@ async function editLogs(name, userid, projectid, billable, start, end, id) {
       alert("Time Log Updated Successfully");
     }
   } catch (err) {
-    console.log(err);
+    alert("Error: unable to edit the time log.");
   }
 }
 
@@ -63,11 +64,11 @@ async function handleTrackerDelete(trackerId) {
       }
     }
   } catch (err) {
-    alert("Something went wrong, please try again later");
+    alert("Error: unable to delete the time log.");
   }
 }
 
-function value(x) {
+function getBillable(x) {
   if (x == true) {
     return "Billable";
   } else {
@@ -75,6 +76,7 @@ function value(x) {
   }
 }
 </script>
+
 <template>
   <div v-if="logs.length" class="mt-5 border border-bottom-0 rounded">
     <table class="table table-hover">
@@ -100,7 +102,7 @@ function value(x) {
           </td>
 
           <td>
-            <div v-text="log.project_id"></div>
+            <div v-text="log.project_id" />
           </td>
           <td>
             <button
@@ -108,7 +110,7 @@ function value(x) {
               type="button"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
-              v-text="value(log.billable)"
+              v-text="getBillable(log.billable)"
               aria-expanded="true"
             ></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
