@@ -1,4 +1,4 @@
-# Proshore Ticker
+# Proshore Time Tracker
 
 > Track your valuable time.
 
