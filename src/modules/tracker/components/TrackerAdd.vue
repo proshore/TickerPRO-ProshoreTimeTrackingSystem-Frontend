@@ -6,17 +6,52 @@ import getToken from "@/utils/getToken";
 import getUser from "@/utils/getUser";
 
 import { projectList } from "@/modules/projects/services";
+
 import { trackerAdd, trackerEdit } from "../services";
 
+// import { timer, startTimer, stopTimer } from "../utils/setTimer";
+
 const description = ref("");
-const projectId = ref("");
+const projectId = ref(null);
 const projects = ref([]);
 const isBillable = ref(false);
 const showStartButton = ref(true);
 const showStopButton = ref(false);
 const newTimeLog = ref(null);
+const stopWatch = ref("00:00:00");
 
 const token = getToken();
+
+let seconds = 0;
+let interval = null;
+
+function timer() {
+  seconds++;
+
+  // format our time
+  let hours = Math.floor(seconds / 3600);
+  let minutes = Math.floor((seconds - hours * 3600) / 60);
+  let second = seconds % 60;
+
+  if (second < 10) second = "0" + second;
+  if (minutes < 10) minutes = "0" + minutes;
+  if (hours < 10) hours = "0" + hours;
+
+  stopWatch.value = `${hours}:${minutes}:${second}`;
+}
+
+function startTimer() {
+  if (interval) {
+    return;
+  }
+
+  interval = setInterval(timer, 1000);
+}
+
+function stopTimer() {
+  clearInterval(interval);
+  interval = null;
+}
 
 // load all projects
 onBeforeMount(async () => {
@@ -58,6 +93,9 @@ async function handleTimeTracker() {
       showStartButton.value = false;
       showStopButton.value = true;
 
+      // start timer
+      startTimer();
+
       newTimeLog.value = response.data.log;
     }
   } catch (err) {
@@ -90,6 +128,9 @@ async function handleStopTimeTracker() {
       description.value = "";
       projectId.value = "";
       isBillable.value = false;
+
+      // stop timer
+      stopTimer();
 
       alert("Time log added successfully");
       location.reload();
@@ -132,7 +173,7 @@ async function handleStopTimeTracker() {
       <span v-else class="text-danger"> No projects. </span>
 
       <span
-        class="dollar px-3 py-2"
+        class="dollar px-3 py-3"
         :title="isBillable ? 'Billable' : 'Non billable'"
         :class="{ 'text-primary': isBillable }"
         @click="isBillable = !isBillable"
@@ -140,11 +181,13 @@ async function handleStopTimeTracker() {
         $
       </span>
 
+      <span class="fw-bold" v-if="stopWatch" v-text="stopWatch" />
+
       <!-- start button -->
       <button
         v-if="showStartButton"
         type="submit"
-        class="btn btn-secondary mb-2"
+        class="btn btn-secondary mb-2 mx-4"
       >
         START
       </button>
@@ -153,7 +196,7 @@ async function handleStopTimeTracker() {
       <a
         v-if="showStopButton"
         @click="handleStopTimeTracker"
-        class="btn btn-primary text-white mb-2"
+        class="btn btn-primary text-white mb-2 mx-4"
       >
         STOP
       </a>
@@ -163,7 +206,7 @@ async function handleStopTimeTracker() {
 
 <style scoped>
 .tracker {
-  width: 90%;
+  width: 100%;
 }
 
 input[type="text"] {
