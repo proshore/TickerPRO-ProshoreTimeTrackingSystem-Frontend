@@ -187,7 +187,7 @@ async function handleStopTimeTracker() {
       <button
         v-if="showStartButton"
         type="submit"
-        class="btn btn-secondary mb-2 mx-4"
+        class="btn btn-secondary mb-2 mx-4 mt-2"
       >
         START
       </button>
@@ -196,7 +196,7 @@ async function handleStopTimeTracker() {
       <a
         v-if="showStopButton"
         @click="handleStopTimeTracker"
-        class="btn btn-primary text-white mb-2 mx-4"
+        class="btn btn-primary text-white mb-2 mx-4 mt-2"
       >
         STOP
       </a>
