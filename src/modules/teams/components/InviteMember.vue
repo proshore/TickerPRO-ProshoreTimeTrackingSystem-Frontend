@@ -83,6 +83,8 @@ async function handleInviteMember() {
           successInvite.value = false;
         }, 3000);
 
+        location.reload();
+
         // empty form fields
         name.value = "";
         email.value = "";
@@ -94,6 +96,12 @@ async function handleInviteMember() {
   }
 }
 </script>
+<style>
+th,
+td {
+  cursor: pointer;
+}
+</style>
 
 <template>
   <!-- Button trigger modal -->

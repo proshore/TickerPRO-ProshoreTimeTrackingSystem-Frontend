@@ -13,7 +13,7 @@ import sSettings from "@/assets/images/s-settings.svg";
 <template>
   <nav class="navbar">
     <ul class="navbar-nav">
-      <li class="nav-item mb-4">
+      <li class="nav-item mb-5 mt-2">
         <RouterLink to="no-link" class="nav-link">
           <img :src="logo" alt="Ticker logo" class="side-logo" />
         </RouterLink>
@@ -56,12 +56,14 @@ import sSettings from "@/assets/images/s-settings.svg";
         </RouterLink>
       </li>
 
-      <li class="nav-item">
-        <RouterLink to="no-link" class="nav-link">
-          <img :src="sSettings" alt="Settings icon" class="side-icon" />
-          <span class="link-text">Settings</span>
-        </RouterLink>
-      </li>
+      <div>
+        <li class="nav-item">
+          <RouterLink :to="{ name: 'settings' }" class="nav-link">
+            <img :src="sSettings" alt="Settings icon" class="side-icon" />
+            <span class="link-text">Settings</span>
+          </RouterLink>
+        </li>
+      </div>
     </ul>
   </nav>
 </template>
@@ -85,6 +87,7 @@ import sSettings from "@/assets/images/s-settings.svg";
       border-radius: 5px;
       padding-left: 0.5rem;
       padding-right: 0.5rem;
+      border: 1px solid #fa602d;
     }
 
     .nav-p {
@@ -95,8 +98,8 @@ import sSettings from "@/assets/images/s-settings.svg";
       height: 3rem;
 
       .side-logo {
-        width: 8rem;
-        margin-left: -0.9rem;
+        width: 8.1rem;
+        margin-left: -0.6rem;
         cursor: default;
       }
 
@@ -105,7 +108,24 @@ import sSettings from "@/assets/images/s-settings.svg";
       }
 
       &:last-child {
-        margin-top: 22rem;
+        margin-top: 22em;
+      }
+
+      p.nav-link {
+        cursor: pointer;
+      }
+
+      .settings-options {
+        width: 9rem;
+        background-color: #fff;
+        margin-left: 1rem;
+        margin-bottom: 5rem;
+        padding: 0.5rem 0.5rem 0.5rem 0.8rem;
+        color: #000;
+
+        & a:hover {
+          font-weight: 600;
+        }
       }
     }
   }

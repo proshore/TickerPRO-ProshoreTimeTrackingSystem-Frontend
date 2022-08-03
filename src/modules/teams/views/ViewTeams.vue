@@ -1,18 +1,25 @@
 <script setup>
-import TheLogoutLink from "@/components/TheLogoutLink.vue";
-import BaseHeading from "@/components/BaseHeading.vue";
+import InviteMemberList from "../components/InviteMemberList.vue";
+import RegisterUserList from "../components/RegisterUserList.vue";
 import TheSidebar from "@/components/TheSidebar.vue";
+import BaseHeading from "@/components/BaseHeading.vue";
 
-import ViewInviteMember from "./ViewInviteMember.vue";
+import { useToggleContainer } from "@/stores/toggleContainer";
+
+// toggle bootstrap container
+const storeToggleContainer = useToggleContainer();
+storeToggleContainer.userStatus = false;
 </script>
 
 <template>
   <TheSidebar />
-
   <main>
-    <BaseHeading title="Teams" user-name="Asim" />
-
-    <ViewInviteMember />
-    <TheLogoutLink />
+    <BaseHeading title="Teams" />
+    <div class="teams__container">
+      <InviteMemberList />
+      <RegisterUserList />
+    </div>
   </main>
 </template>
+
+<style scoped></style>

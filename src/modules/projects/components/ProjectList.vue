@@ -8,6 +8,8 @@ import { enableDisable, projectList } from "../services";
 const isLoading = ref(true);
 const projects = ref([]);
 const token = getToken();
+const searchedprojects = ref(projects.value);
+const isInitial = ref(true);
 
 async function loadProjects() {
   try {
@@ -40,29 +42,56 @@ function status(x) {
     return "Enable";
   }
 }
+function billablestatus(x) {
+  if (x == true) {
+    return "Billable";
+  } else {
+    return "Non Billable";
+  }
+}
+function search(a) {
+  searchedprojects.value.splice(0, projects.value.length);
+  projects.value.forEach((obj) => {
+    if (obj.project_name.includes(a)) {
+      searchedprojects.value.push(obj);
+    }
+    isInitial.value = false;
+  });
+}
 </script>
 
 <template>
   <div class="mt-3 border border-bottom-0 rounded">
+    <div class="topnav">
+      <input
+        type="text"
+        placeholder="Search.."
+        v-model="value"
+        v-on:input="search(value)"
+      />
+    </div>
     <table class="table table-hover">
       <thead class="text-primary">
         <tr>
-          <th scope="col">Id</th>
+          <th scope="col">#</th>
           <th scope="col">Project Name</th>
           <th scope="col">Color</th>
-          <th scope="col">Client Name</th>
+          <th scope="col">Client Id</th>
           <th scope="col">Billable</th>
           <th scope="col">Status</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="project in projects" :key="project.id">
-          <td>{{ project.id }}</td>
+        <tr
+          v-for="(project, index) in isInitial ? projects : searchedprojects"
+          :key="project.id"
+        >
+          <td>{{ index + 1 }}</td>
           <td>{{ project.project_name }}</td>
           <td>{{ project.project_color_code }}</td>
           <td>{{ project.client_id }}</td>
-          <td>{{ project.billable }}</td>
+          <td>{{ billablestatus(project.billable) }}</td>
           <td>{{ status(project.status) }}</td>
           <td>
             <button
@@ -78,3 +107,22 @@ function status(x) {
     </table>
   </div>
 </template>
+<style>
+.topnav input[type="text"] {
+  float: none;
+  border: 1px solid rgb(211, 216, 211);
+  display: block;
+  text-align: left;
+  width: 100%;
+  margin: 0;
+  padding: 14px;
+}
+
+input:focus {
+  background-color: rgb(226, 221, 221);
+}
+th,
+td {
+  cursor: pointer;
+}
+</style>

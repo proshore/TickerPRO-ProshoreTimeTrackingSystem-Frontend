@@ -94,7 +94,7 @@ async function handleLogin() {
 </script>
 
 <template>
-  <img :src="logo" alt="Ticker logo" class="logo" />
+  <img :src="logo" alt="Proshore Ticker logo" class="logo" />
 
   <div class="d-grid col-md-8 col-lg-5 mx-auto">
     <BaseFormHeading title="Log in" shortDesc="Welcome back!" />
