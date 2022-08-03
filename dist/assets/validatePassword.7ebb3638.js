@@ -1,0 +1,1 @@
+function r(s){const e={isValid:!0,errorMessage:""};if(s){if(s.length<6)return e.isValid=!1,e.errorMessage="Password length must be at least 6 characters.",e}else return e.isValid=!1,e.errorMessage="Password field is required",e;return e}export{r as v};

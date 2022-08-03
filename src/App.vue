@@ -1,8 +1,17 @@
-<script setup></script>
+<script setup>
+import { useToggleContainer } from "@/stores/toggleContainer";
+
+const storeContainerStatus = useToggleContainer();
+
+storeContainerStatus.userStatus = true;
+</script>
 
 <template>
-  <router-link :to="{ name: 'home' }">Home</router-link>
-  <router-view></router-view>
+  <div :class="{ container: storeContainerStatus.userStatus }">
+    <router-view></router-view>
+  </div>
 </template>
 
-<style></style>
+<style lang="scss">
+@import "@/assets/scss/main.scss";
+</style>
