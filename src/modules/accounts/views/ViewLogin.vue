@@ -91,6 +91,27 @@ async function handleLogin() {
     }
   }
 }
+
+// PASSWORD HIDE/SHOW TOGGLE FUNCTIONALITY START
+
+const passwordFieldType = ref("password");
+
+const switchVisibility = () => {
+  let hidePassword = document.getElementById("hidePassword");
+  let showPassword = document.getElementById("showPassword");
+
+  if (passwordFieldType.value === "password") {
+    passwordFieldType.value = "text";
+    hidePassword.style.display = "none";
+    showPassword.style.display = "block";
+  } else {
+    passwordFieldType.value = "password";
+    hidePassword.style.display = "block";
+    showPassword.style.display = "none";
+  }
+};
+
+// PASSWORD HIDE/SHOW TOGGLE FUNCTIONALITY END
 </script>
 
 <template>
@@ -108,32 +129,21 @@ async function handleLogin() {
 
     <form @submit.prevent="handleLogin">
       <div class="mb-3">
-        <BaseInput
-          type="email"
-          name="email"
-          label="Email address"
-          v-model="form.email"
-          :error="emailError"
-        />
-        <BaseInput
-          type="password"
-          name="password"
-          label="Password"
-          v-model="form.password"
-          :error="passwordError"
-        />
+        <BaseInput type="email" name="email" label="Email address" v-model="form.email" :error="emailError" />
+        <div class="input_form">
+          <BaseInput :type="passwordFieldType" name="password" label="Password" v-model="form.password"
+            :error="passwordError" />
+          <span class="toggle_button">
+            <i class="bi bi-eye" @click="switchVisibility" id="showPassword"></i>
+            <i class="bi bi-eye-slash" @click="switchVisibility" id="hidePassword"></i>
+          </span>
+        </div>
       </div>
 
-      <RouterLink :to="{ name: 'passwordForgot' }" class="forgot-password"
-        >Forgot password?</RouterLink
-      >
+      <RouterLink :to="{ name: 'passwordForgot' }" class="forgot-password">Forgot password?</RouterLink>
 
       <div class="d-grid">
-        <button
-          type="submit"
-          class="btn btn-primary text-white"
-          :disabled="disableLoginButton"
-        >
+        <button type="submit" class="btn btn-primary text-white" :disabled="disableLoginButton">
           Log in
         </button>
       </div>
@@ -147,5 +157,24 @@ async function handleLogin() {
   color: #9e9c9c;
   display: block;
   margin-bottom: 1em;
+}
+
+
+.bi {
+  cursor: pointer;
+}
+
+.bi-eye {
+  display: none;
+}
+
+.input_form {
+  position: relative;
+}
+
+.toggle_button {
+  position: absolute;
+  top: 4.25rem;
+  right: 1rem;
 }
 </style>
