@@ -11,7 +11,7 @@ const trackerAdd = async (data, token) => {
 };
 
 const trackerEdit = async (data, token, trackerId) => {
-  return await API.post(`${apiUrl.TRACKER_EDIT}/${trackerId}`, data, {
+  return await API.patch(`${apiUrl.TRACKER_EDIT}/${trackerId}`, data, {
     headers: {
       Authorization: token,
     },
@@ -27,7 +27,7 @@ const timeLog = async (token, userId) => {
 };
 
 const deleteLog = async (token, trackerId) => {
-  return await API.get(`${apiUrl.TRACKER_DELETE}/${trackerId}`, {
+  return await API.delete(`${apiUrl.TRACKER_DELETE}/${trackerId}`, {
     headers: {
       authorization: token,
     },
