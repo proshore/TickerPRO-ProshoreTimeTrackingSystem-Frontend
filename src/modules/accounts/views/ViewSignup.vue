@@ -19,9 +19,10 @@ const route = useRoute();
 
 const token = route.params.token;
 const email = route.query.email;
+const name = route.query.name;
 
 const form = ref({
-  name: "",
+  name: name,
   email: email,
   password: "",
   passwordConfirmation: "",

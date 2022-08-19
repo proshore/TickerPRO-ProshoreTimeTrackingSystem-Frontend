@@ -1,0 +1,255 @@
+[33mcommit dd326fbb696785344f2f66faa37ed08a4c41c075[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/PTTB-15-frontend-prefilled-name-when-one-clicks-invitation-link[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 53fded5 7b1e8d7
+Author: Asim Shrestha <34696309+alex1the1great@users.noreply.github.com>
+Date:   Fri Aug 19 17:40:09 2022 +0545
+
+    Merge pull request #45 from proshore/PTTB-35-frontend-manage-api-route-methods
+    
+    PTTB-35 Manage API routes
+
+[33mcommit 7b1e8d720625452f15e5a49223769aa40705bb6c[m
+Merge: aa94598 4598509
+Author: Surya Shrestha <shresthasurya92@gmail.com>
+Date:   Fri Aug 19 17:33:38 2022 +0545
+
+    Merge branch 'PTTB-35-frontend-manage-api-route-methods' of https://github.com/proshore/TickerPRO-ProshoreTimeTrackingSystem-Frontend into PTTB-35-frontend-manage-api-route-methods
+
+[33mcommit aa9459814029de6919aa17eb8208aa8f61cb90ec[m
+Author: Surya Shrestha <shresthasurya92@gmail.com>
+Date:   Fri Aug 19 17:11:42 2022 +0545
+
+    PTTB-35 remove  unneccesary code and removed duplicate varaibles
+
+[33mcommit 45985096690b47ee351957449129521820e1e53a[m
+Author: Surya Shrestha <shresthasurya92@gmail.com>
+Date:   Fri Aug 19 17:11:42 2022 +0545
+
+    PTTB-35 duplicate variable declaration removed
+
+[33mcommit 847069792ebd83368b1fe9eede40ade70de838b5[m
+Author: Surya Shrestha <shresthasurya92@gmail.com>
+Date:   Fri Aug 19 13:45:57 2022 +0545
+
+    PTTB-35 Manage API routes
+
+[33mcommit 53fded5839a47bc0730d8d1fe93d38eff0d5b29b[m
+Merge: 8941928 56040c9
+Author: Kabindrasim <102356895+Kabindrasim@users.noreply.github.com>
+Date:   Tue Aug 9 14:09:51 2022 +0545
+
+    Merge pull request #43 from shrestharikesh/main
+    
+    test commit
+
+[33mcommit 56040c955ace99929d8b2487d8abf2ec66b5328e[m
+Author: shrestharikesh <rikeshshrestha2052@gmail.com>
+Date:   Thu Aug 4 16:35:07 2022 +0545
+
+    test commit
+
+[33mcommit 89419283f955e914607e545b6595937d6f5174cd[m
+Merge: 23c54d4 336ddfb
+Author: Rikesh Shrestha <rikeshshrestha2052@gmail.com>
+Date:   Wed Aug 3 12:10:38 2022 +0545
+
+    Merge pull request #42 from proshore/QA/test
+    
+    Qa/test
+
+[33mcommit 336ddfb6b8848fca5f2c0a28c11e7e01324a38e5[m
+Merge: e420d33 23c54d4
+Author: shrestharikesh <rikeshshrestha2052@gmail.com>
+Date:   Wed Aug 3 12:06:05 2022 +0545
+
+    conflict resolved
+
+[33mcommit e420d33bff9261aeed9f2e3c0db68caa0b934d79[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Fri Jun 10 10:40:27 2022 +0545
+
+    build: v0.0.3
+
+[33mcommit f4a47aa4702a644961dedaec19e1dc3939a0befd[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Fri Jun 10 10:36:22 2022 +0545
+
+    fix: margin on button
+
+[33mcommit 079cbc4b7827742b3bbe7d3f1c78973aebf85e95[m
+Author: Asim Shrestha <34696309+alex1the1great@users.noreply.github.com>
+Date:   Fri Jun 10 10:20:10 2022 +0545
+
+    change name to Proshore Time Tracker
+
+[33mcommit 528e6edf7bad21ce9d0666c6dc0f31f6773eddb9[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Fri Jun 10 10:18:52 2022 +0545
+
+    build: v0.0.2
+
+[33mcommit 309af9575777d38c6843983599251ee634a5cfe3[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Fri Jun 10 10:17:29 2022 +0545
+
+    change proshore logo
+
+[33mcommit d765bfccf12d5e0140f3ef7a852c4f9c5451f4f1[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Fri Jun 10 07:09:43 2022 +0545
+
+    build v0.0.1
+
+[33mcommit 7370c96c3b92c0a6a06e53751b39885c39c107cb[m
+Merge: d8de52d b07bf81
+Author: Asim Shrestha <34696309+alex1the1great@users.noreply.github.com>
+Date:   Fri Jun 10 07:07:52 2022 +0545
+
+    Merge pull request #41 from praveengitsit-pro/fix/errors
+    
+    Fix/errors
+
+[33mcommit b07bf819acb0fced18a061547ab508993a642202[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Fri Jun 10 07:03:38 2022 +0545
+
+    display timer on UI
+
+[33mcommit 17fe1356b7db3cfd56e485dc39816c81400acb4d[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Thu Jun 9 18:41:37 2022 +0545
+
+    refactor: code placement
+
+[33mcommit 6855f95884177ddf9c3c81983c34b49618e08b57[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Thu Jun 9 16:54:57 2022 +0545
+
+    fix: loading message
+
+[33mcommit 4596aab1fbaef7ee172ac97273a94392aa62120a[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Thu Jun 9 16:31:27 2022 +0545
+
+    refactor: projectId default value
+
+[33mcommit 80de398fd73f0b792c7d257f7c2be6f4fa7eb312[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Thu Jun 9 16:24:47 2022 +0545
+
+    refactor: create separate files to convert times & get total time
+
+[33mcommit 039fab768cb105c61ba10af7e7384455ab4a5fe4[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Thu Jun 9 16:13:57 2022 +0545
+
+    change logo to proshore
+
+[33mcommit 087a7670b659994a59d16bb6e14902224102e05b[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Thu Jun 9 16:02:45 2022 +0545
+
+    change favicon icon, tab title, README.md file
+
+[33mcommit d8de52dc7de2ccce32900758bac6149d17ae3936[m
+Merge: 93d3247 516ffaf
+Author: Asim Shrestha <34696309+alex1the1great@users.noreply.github.com>
+Date:   Wed Jun 8 22:54:37 2022 +0545
+
+    Merge pull request #40 from rabirajkhadka/feat/edit-timelognew
+    
+    added search bar in project and edit in timelog
+
+[33mcommit 516ffafb385f30dfd7269c578bbd7baf5efa8b51[m
+Author: Binita-subedi <subedibinita94@gmail.com>
+Date:   Wed Jun 8 22:06:39 2022 +0545
+
+    change on input field and s.no
+
+[33mcommit 93d32470c3d18fc5d0be35a0abc24b24cd5aaece[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Wed Jun 8 15:43:15 2022 +0545
+
+    build: change backend api url
+
+[33mcommit b7dd1567ca93b88417e3be9480928e6af3cf2aaf[m
+Author: Binita-subedi <subedibinita94@gmail.com>
+Date:   Tue Jun 7 22:40:09 2022 +0545
+
+    modified billable status in project
+
+[33mcommit ca17158a741a110bd49ebfe2174db0758c1cce23[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Tue Jun 7 17:02:35 2022 +0545
+
+    build files for deployment
+
+[33mcommit f9faa17baae6f81592dc2d2aa84f891ba794e04c[m
+Author: Binita-subedi <subedibinita94@gmail.com>
+Date:   Mon Jun 6 23:19:26 2022 +0545
+
+    added search bar in project and edit in timelog
+
+[33mcommit e69b0b4b631675d6ee736a206de38d0e4b714a78[m
+Merge: 3f8c1eb 1feb9c2
+Author: Asim Shrestha <34696309+alex1the1great@users.noreply.github.com>
+Date:   Mon Jun 6 13:58:47 2022 +0545
+
+    Merge pull request #39 from rabirajkhadka/merge-time-log
+    
+    Merge time log
+
+[33mcommit 1feb9c2dbbe7ccb9197fddd035d70e7ac8e1d9f7[m
+Merge: 3f8c1eb f6985b0
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Mon Jun 6 13:57:56 2022 +0545
+
+    merge: feat/timelog branch
+
+[33mcommit 3f8c1eb7e612d3a7e3fe13ac84b78020e71d707b[m
+Merge: 0ade4e8 b12a0df
+Author: Asim Shrestha <34696309+alex1the1great@users.noreply.github.com>
+Date:   Mon Jun 6 13:12:23 2022 +0545
+
+    Merge pull request #38 from rabirajkhadka/merge-add-project
+    
+    Merge add project
+
+[33mcommit b12a0df3a767fcefa04de6ecfc50fde42c7e8c84[m
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Mon Jun 6 13:10:03 2022 +0545
+
+    refactor: projects directory structure
+
+[33mcommit eec1819edc7168738aef32524669ee72382b1d18[m
+Merge: 0ade4e8 cd0c91c
+Author: Asim Shrestha <asimshrestha608@gmail.com>
+Date:   Mon Jun 6 12:59:24 2022 +0545
+
+    merge: feat/add-project branch
+
+[33mcommit f6985b0f0b045b7eceba72c744dbcd46bec3d945[m
+Author: Coder_Rajan <joshi.rajan321@gmail.com>
+Date:   Mon Jun 6 12:13:45 2022 +0545
+
+    feat: list time logs
+
+[33mcommit cd0c91c8308e5384c0fe7c8372b9bf47161782a7[m
+Author: bimlendrayadav120 <66655549+bimlendrayadav120@users.noreply.github.com>
+Date:   Sun Jun 5 22:23:01 2022 +0545
+
+    feat: list client
+
+[33mcommit 622bde7d5cfc480988563e7b516425ca178c0d7d[m
+Author: bimlendrayadav120 <66655549+bimlendrayadav120@users.noreply.github.com>
+Date:   Sun Jun 5 21:47:34 2022 +0545
+
+    feat: add, list, enable, disable project
+
+[33mcommit 0ade4e8e8cb9465325ef717dcd311aaad360343a[m
+Merge: 7adea82 6cd23a6
+Author: Asim Shrestha <34696309+alex1the1great@users.noreply.github.com>
+Date:   Sun Jun 5 14:05:16 2022 +0545
+
+    Merge pull request #36 from rabirajkhadka/merge-feat/member-action
+    
+    Merge: t
