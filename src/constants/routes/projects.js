@@ -1,5 +1,5 @@
 const ADD_PROJECT_URL = "/api/project/";
-const PROJECT_ENABLE_URL = "/api/project/{id}";
+const PROJECT_ENABLE_URL = "/api/project/";
 const PROJECT_LIST_URL = "/api/project/";
 
 export default {
