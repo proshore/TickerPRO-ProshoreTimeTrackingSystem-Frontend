@@ -157,6 +157,9 @@ function getBillable(x) {
           <td>
             {{ convertMsToHM(getTotalTime(log.start_time, log.end_time)) }}
           </td>
+          <td>
+            Resume
+          </td>
         </tr>
       </tbody>
     </table>

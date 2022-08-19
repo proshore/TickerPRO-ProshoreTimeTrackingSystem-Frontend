@@ -109,7 +109,7 @@ async function handleStopTimeTracker() {
       activity_name: newTimeLog.value.activity_name,
       user_id: newTimeLog.value.user_id,
       project_id: newTimeLog.value.project_id,
-      billable: newTimeLog.value.billable,
+      billable: true,
       start_time: newTimeLog.value.start_time,
       end_time: getTime(),
     };
