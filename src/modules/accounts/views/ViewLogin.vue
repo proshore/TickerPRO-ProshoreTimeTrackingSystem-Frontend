@@ -13,6 +13,7 @@ import setUser from "@/utils/setUser.js";
 import { loginUser } from "../services";
 
 import logo from "@/assets/images/logo.svg";
+import PasswordToggle from "@/components/PasswordToggle.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -95,7 +96,6 @@ async function handleLogin() {
 // PASSWORD HIDE/SHOW TOGGLE FUNCTIONALITY START
 
 let showPassword = ref(false);
-
 </script>
 
 <template>
@@ -119,6 +119,7 @@ let showPassword = ref(false);
           label="Email address"
           v-model="form.email"
           :error="emailError"
+          data-cy="your email address"
         />
         <div class="input_form">
           <BaseInput
@@ -128,14 +129,8 @@ let showPassword = ref(false);
             v-model="form.password"
             :error="passwordError"
           />
-          <span class="toggle_button">
-            <i
-              class="bi toggle_icon"
-              :class="showPassword ? 'bi-eye' : 'bi-eye-slash'"
-              id="showPassword"
-              @click="showPassword = !showPassword"
-            ></i>
-          </span>
+
+          <PasswordToggle @click="showPassword = !showPassword" />
         </div>
       </div>
 
@@ -162,19 +157,5 @@ let showPassword = ref(false);
   color: #9e9c9c;
   display: block;
   margin-bottom: 1em;
-}
-
-.input_form {
-  position: relative;
-}
-
-.toggle_button {
-  position: absolute;
-  top: 4.25rem;
-  right: 1rem;
-}
-
-.toggle_icon {
-  cursor: pointer;
 }
 </style>
