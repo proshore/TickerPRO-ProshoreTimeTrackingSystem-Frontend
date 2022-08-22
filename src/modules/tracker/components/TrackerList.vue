@@ -183,9 +183,6 @@ function getBillable(x) {
   </p>
 
   <p v-if="isLoading">Loading...</p>
-
-  <TrackerDelete/>
-
 </template>
 
 <style scoped>
