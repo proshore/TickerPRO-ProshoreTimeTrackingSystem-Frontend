@@ -57,12 +57,13 @@ async function handlePasswordForgot() {
     <BaseFormHeading
       title="Reset password"
       shortDesc="To reset your password, enter the email address you use to login."
+      data-cy="formHeading"
     />
 
     <!-- Show error messages -->
     <div v-if="errors.length">
       <div v-for="error in errors" :key="error">
-        <BaseAlert :message="error" hex-font-color="ff0000" />
+        <BaseAlert :message="error" hex-font-color="ff0000" data-cy="forgetPasswordAlertMsg"/>
       </div>
     </div>
 
@@ -73,15 +74,16 @@ async function handlePasswordForgot() {
         label="Email address"
         v-model="email"
         :error="emailError"
+        data-cy="forgetPasswordEmail"
       />
 
       <div class="d-grid">
-        <button class="btn btn-primary mt-3 text-white">Get reset link</button>
+        <button class="btn btn-primary mt-3 text-white" data-cy="forgetPasswordResetButton">Get reset link</button>
       </div>
     </form>
     <p class="mt-4">
       Never mind!
-      <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal"
+      <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal" data-cy="logInBackButton"
         ><u> Take me back to login</u></RouterLink
       >
     </p>

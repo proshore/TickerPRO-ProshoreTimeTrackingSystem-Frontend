@@ -97,12 +97,12 @@ async function handleLogin() {
   <img :src="logo" alt="Proshore Ticker logo" class="logo" />
 
   <div class="d-grid col-md-8 col-lg-5 mx-auto">
-    <BaseFormHeading title="Log in" shortDesc="Welcome back!" />
+    <BaseFormHeading title="Log in" shortDesc="Welcome back!" data-cy="formHeading"/>
 
     <!-- Show error messages -->
     <div v-if="errors.length">
       <div v-for="error in errors" :key="error">
-        <BaseAlert :message="error" hex-font-color="ff0000" />
+        <BaseAlert :message="error" hex-font-color="ff0000" data-cy="alertMessage" />
       </div>
     </div>
 
@@ -114,6 +114,7 @@ async function handleLogin() {
           label="Email address"
           v-model="form.email"
           :error="emailError"
+          data-cy="yourEmailAddress"
         />
         <BaseInput
           type="password"
@@ -121,10 +122,11 @@ async function handleLogin() {
           label="Password"
           v-model="form.password"
           :error="passwordError"
+          data-cy="yourPassword"
         />
       </div>
 
-      <RouterLink :to="{ name: 'passwordForgot' }" class="forgot-password"
+      <RouterLink :to="{ name: 'passwordForgot' }" class="forgot-password" data-cy="forgetPaswword"
         >Forgot password?</RouterLink
       >
 
@@ -133,6 +135,7 @@ async function handleLogin() {
           type="submit"
           class="btn btn-primary text-white"
           :disabled="disableLoginButton"
+          data-cy="logInButton"
         >
           Log in
         </button>

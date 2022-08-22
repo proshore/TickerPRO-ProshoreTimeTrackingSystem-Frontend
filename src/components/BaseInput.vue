@@ -35,6 +35,7 @@ defineProps({
     :value="modelValue"
     @input="$emit('update:modelValue', $event.target.value)"
     required
+    data-cy="yourName"
   />
   <div v-if="error" class="form-text text-danger" v-text="error" />
 </template>

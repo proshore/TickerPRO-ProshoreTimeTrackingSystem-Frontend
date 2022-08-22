@@ -92,19 +92,13 @@ async function handlePasswordReset() {
   <img :src="logo" alt="Ticker logo" class="logo" />
 
   <div class="d-grid col-md-8 col-lg-5 mx-auto">
-    <BaseFormHeading
-      title="Password Reset"
-      shortDesc="Reset password to restart your journey with Ticker."
-    />
+    <BaseFormHeading title="Password Reset" shortDesc="Reset password to restart your journey with Ticker."
+      data-cy="passwordResetTitle" />
 
     <!-- Reset success -->
     <div v-if="passwordResetSuccess" class="alert alert-success" role="alert">
       Password reset successfully!
-      <RouterLink
-        :to="{ name: 'login' }"
-        class="alert-link text-decoration-underline"
-        >Login</RouterLink
-      >
+      <RouterLink :to="{ name: 'login' }" class="alert-link text-decoration-underline">Login</RouterLink>
       to start using Ticker.
     </div>
 
@@ -112,41 +106,22 @@ async function handlePasswordReset() {
     <BaseAlert :message="error" hex-font-color="ff0000" />
 
     <form @submit.prevent="handlePasswordReset">
-      <BaseInput
-        type="email"
-        name="email"
-        label="Email address"
-        v-model="form.email"
-        :error="emailError"
-      />
+      <BaseInput type="email" name="email" label="Email address" v-model="form.email" :error="emailError" data-cy="passwordResetEmail"/>
 
-      <BaseInput
-        type="password"
-        name="password"
-        label="New password"
-        v-model="form.password"
-        :error="passwordError"
-      />
+      <BaseInput type="password" name="password" label="New password" v-model="form.password" :error="passwordError" data-cy="passwordResetPassword" />
 
-      <BaseInput
-        type="password"
-        name="password-confirmation"
-        label="Confirm password"
-        v-model="form.passwordConfirmation"
-        :error="passwordConfirmationError"
-      />
+      <BaseInput type="password" name="password-confirmation" label="Confirm password"
+        v-model="form.passwordConfirmation" :error="passwordConfirmationError" data-cy="passwordResetConfirmation" />
 
       <div class="d-grid">
-        <button type="submit" class="btn btn-primary text-white mt-3">
+        <button type="submit" class="btn btn-primary text-white mt-3" data-cy="passwordResetSubmit">
           Password reset
         </button>
       </div>
 
       <p class="mt-4">
         Never mind!
-        <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal"
-          ><u> Take me back to login</u></RouterLink
-        >
+        <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal" data-cy="passwordResetLoginBack"><u> Take me back to login</u></RouterLink>
       </p>
     </form>
   </div>
