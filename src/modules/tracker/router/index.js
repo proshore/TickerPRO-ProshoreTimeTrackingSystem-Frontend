@@ -8,7 +8,7 @@ const trackerRoutes = [
     meta: {
       requiresAuth: true,
     },
-  },
+  }
 ];
 
 export default trackerRoutes;
