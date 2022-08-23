@@ -62,7 +62,7 @@ async function handlePasswordForgot() {
     <!-- Show error messages -->
     <div v-if="errors.length">
       <div v-for="error in errors" :key="error">
-        <BaseAlert :message="error" hex-font-color="ff0000" data-cy="forgetPasswordAlertMsg"/>
+        <BaseAlert :message="error" hex-font-color="ff0000"/>
       </div>
     </div>
 
