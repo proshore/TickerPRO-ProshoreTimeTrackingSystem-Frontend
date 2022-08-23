@@ -130,27 +130,19 @@ async function handleSignup() {
   <img :src="logo" alt="Ticker logo" class="logo" />
 
   <div class="d-grid col-md-8 col-lg-5 mx-auto">
-    <BaseFormHeading title="Sign up" shortDesc="Start using Ticker for free." />
+    <BaseFormHeading title="Sign up" shortDesc="Start using Ticker for free."  />
 
     <!-- Signup success -->
-    <div v-if="signupSuccess" class="alert alert-success" role="alert">
+    <div v-if="signupSuccess" class="alert alert-success" role="alert" >
       Signup successfully!
-      <RouterLink
-        :to="{ name: 'login' }"
-        class="alert-link text-decoration-underline"
-        >Login</RouterLink
-      >
+      <RouterLink :to="{ name: 'login' }" class="alert-link text-decoration-underline" >Login</RouterLink>
       to start using Ticker.
     </div>
 
     <!-- Reset success -->
-    <div v-if="passwordResetSuccess" class="alert alert-success" role="alert">
+    <div v-if="passwordResetSuccess" class="alert alert-success" role="alert" >
       Password reset successfully!
-      <RouterLink
-        :to="{ name: 'login' }"
-        class="alert-link text-decoration-underline"
-        >Login</RouterLink
-      >
+      <RouterLink :to="{ name: 'login' }" class="alert-link text-decoration-underline">Login</RouterLink>
       to start using Ticker.
     </div>
 
@@ -163,53 +155,24 @@ async function handleSignup() {
 
     <form @submit.prevent="handleSignup">
       <div class="mb-3">
-        <BaseInput
-          type="text"
-          name="name"
-          label="Full Name"
-          v-model="form.name"
-          :error="nameError"
-        />
+        <BaseInput type="text" name="name" label="Full Name" v-model="form.name" :error="nameError" data-cy="signUpName" />
 
-        <BaseInput
-          type="email"
-          name="email"
-          label="Email address"
-          v-model="form.email"
-          :error="emailError"
-        />
+        <BaseInput type="email" name="email" label="Email address" v-model="form.email" :error="emailError"  data-cy="signUpEmail"/>
 
-        <BaseInput
-          type="password"
-          name="password"
-          label="Password"
-          v-model="form.password"
-          :error="passwordError"
-        />
-        <BaseInput
-          type="password"
-          name="confirm-password"
-          label="Confirm password"
-          v-model="form.passwordConfirmation"
-          :error="confirmPasswordError"
-        />
+        <BaseInput type="password" name="password" label="Password" v-model="form.password" :error="passwordError"  data-cy="signUpPassword"/>
+        <BaseInput type="password" name="confirm-password" label="Confirm password" v-model="form.passwordConfirmation"
+          :error="confirmPasswordError"  data-cy="signUpConfirmPassword"/>
       </div>
 
       <div class="d-grid">
-        <button
-          type="submit"
-          class="btn btn-primary text-white"
-          :disabled="disableSignupButton"
-        >
+        <button type="submit" class="btn btn-primary text-white" :disabled="disableSignupButton" data-cy="signUpSubmit">
           Sign up
         </button>
       </div>
 
       <p class="mt-4">
         Already have an account?
-        <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal"
-          ><u>Login</u></RouterLink
-        >
+        <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal" ><u>Login</u></RouterLink>
       </p>
     </form>
   </div>
