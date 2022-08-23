@@ -93,7 +93,7 @@ async function handlePasswordReset() {
 
   <div class="d-grid col-md-8 col-lg-5 mx-auto">
     <BaseFormHeading title="Password Reset" shortDesc="Reset password to restart your journey with Ticker."
-      data-cy="passwordResetTitle" />
+     />
 
     <!-- Reset success -->
     <div v-if="passwordResetSuccess" class="alert alert-success" role="alert">
@@ -121,7 +121,7 @@ async function handlePasswordReset() {
 
       <p class="mt-4">
         Never mind!
-        <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal" data-cy="passwordResetLoginBack"><u> Take me back to login</u></RouterLink>
+        <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal" ><u> Take me back to login</u></RouterLink>
       </p>
     </form>
   </div>

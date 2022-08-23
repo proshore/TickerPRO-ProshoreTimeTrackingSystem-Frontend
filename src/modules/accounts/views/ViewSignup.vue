@@ -130,19 +130,19 @@ async function handleSignup() {
   <img :src="logo" alt="Ticker logo" class="logo" />
 
   <div class="d-grid col-md-8 col-lg-5 mx-auto">
-    <BaseFormHeading title="Sign up" shortDesc="Start using Ticker for free." data-cy="signUpTitle" />
+    <BaseFormHeading title="Sign up" shortDesc="Start using Ticker for free."  />
 
     <!-- Signup success -->
-    <div v-if="signupSuccess" class="alert alert-success" role="alert" data-cy="signUpSuccessfully">
+    <div v-if="signupSuccess" class="alert alert-success" role="alert" >
       Signup successfully!
-      <RouterLink :to="{ name: 'login' }" class="alert-link text-decoration-underline" data-cy="signUpLogin">Login</RouterLink>
+      <RouterLink :to="{ name: 'login' }" class="alert-link text-decoration-underline" >Login</RouterLink>
       to start using Ticker.
     </div>
 
     <!-- Reset success -->
-    <div v-if="passwordResetSuccess" class="alert alert-success" role="alert" data-cy="passwordResetSuccessfully">
+    <div v-if="passwordResetSuccess" class="alert alert-success" role="alert" >
       Password reset successfully!
-      <RouterLink :to="{ name: 'login' }" class="alert-link text-decoration-underline" data-cy="loginAfterPasswordReset">Login</RouterLink>
+      <RouterLink :to="{ name: 'login' }" class="alert-link text-decoration-underline">Login</RouterLink>
       to start using Ticker.
     </div>
 
@@ -172,7 +172,7 @@ async function handleSignup() {
 
       <p class="mt-4">
         Already have an account?
-        <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal" data-cy="signUpLogin"><u>Login</u></RouterLink>
+        <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal" ><u>Login</u></RouterLink>
       </p>
     </form>
   </div>

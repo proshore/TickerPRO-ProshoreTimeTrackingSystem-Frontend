@@ -57,7 +57,6 @@ async function handlePasswordForgot() {
     <BaseFormHeading
       title="Reset password"
       shortDesc="To reset your password, enter the email address you use to login."
-      data-cy="formHeading"
     />
 
     <!-- Show error messages -->
@@ -83,7 +82,7 @@ async function handlePasswordForgot() {
     </form>
     <p class="mt-4">
       Never mind!
-      <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal" data-cy="logInBackButton"
+      <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal" 
         ><u> Take me back to login</u></RouterLink
       >
     </p>

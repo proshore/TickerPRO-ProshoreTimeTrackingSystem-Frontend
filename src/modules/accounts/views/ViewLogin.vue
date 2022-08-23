@@ -118,6 +118,7 @@ async function handleLogin() {
           label="Email address"
           v-model="form.email"
           :error="emailError"
+          data-cy="loginEmailAddress"
         />
         <div class="input_form">
           <BaseInput
@@ -126,6 +127,7 @@ async function handleLogin() {
             label="Password"
             v-model="form.password"
             :error="passwordError"
+            data-cy="loginPassword"
           />
 
           <PasswordToggle
