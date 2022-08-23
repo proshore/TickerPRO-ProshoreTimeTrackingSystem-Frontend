@@ -1,13 +1,26 @@
 <script setup>
-import { ref } from "vue";
+defineProps({
+  showPassword: {
+    type: Boolean,
+    required: true,
+  },
+});
 
-let showPassword = ref(false);
+const emit = defineEmits(["togglePassword"]);
+
+function togglePassword() {
+  emit("togglePassword");
+}
 </script>
 
 <template>
   <span class="toggle_button">
-    <i class="bi toggle_icon" :class="showPassword ? 'bi-eye' : 'bi-eye-slash'" id="showPassword"
-      @click="showPassword = !showPassword"></i>
+    <i
+      class="bi toggle_icon"
+      :class="showPassword ? 'bi-eye' : 'bi-eye-slash'"
+      id="showPassword"
+      @click="togglePassword"
+    ></i>
   </span>
 </template>
 

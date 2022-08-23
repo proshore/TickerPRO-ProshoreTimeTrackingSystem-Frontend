@@ -28,6 +28,9 @@ const emailError = ref("");
 const passwordError = ref("");
 const errors = ref([]);
 
+// FOR PASSWORD HIDE/SHOW TOGGLE FUNCTIONALITY
+let showPassword = ref(false);
+
 const disableLoginButton = computed(() => {
   if (form.value.email === "" || form.value.password === "") {
     return true;
@@ -92,10 +95,6 @@ async function handleLogin() {
     }
   }
 }
-
-// PASSWORD HIDE/SHOW TOGGLE FUNCTIONALITY START
-
-let showPassword = ref(false);
 </script>
 
 <template>
@@ -119,7 +118,6 @@ let showPassword = ref(false);
           label="Email address"
           v-model="form.email"
           :error="emailError"
-          data-cy="your email address"
         />
         <div class="input_form">
           <BaseInput
@@ -130,7 +128,11 @@ let showPassword = ref(false);
             :error="passwordError"
           />
 
-          <PasswordToggle @click="showPassword = !showPassword" />
+          <PasswordToggle
+            :showPassword="showPassword"
+            @togglePassword="showPassword = !showPassword"
+          >
+          </PasswordToggle>
         </div>
       </div>
 
