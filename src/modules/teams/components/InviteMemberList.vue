@@ -130,7 +130,7 @@ handleInvitedMembers();
           <td>
             <button
               class="btn btn-light btn-sm"
-              @click="handleReinviteMember(member.email, memeber.name)"
+              @click="handleReinviteMember(member.email, member.name)"
             >
               Reinvite
             </button>
