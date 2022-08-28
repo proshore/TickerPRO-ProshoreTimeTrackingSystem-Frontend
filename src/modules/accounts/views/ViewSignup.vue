@@ -34,6 +34,7 @@ const passwordError = ref("");
 const confirmPasswordError = ref("");
 const errors = ref([]);
 const signupSuccess = ref(false);
+const shouldDisable = ref(true);
 
 const disableSignupButton = computed(() => {
   if (
@@ -163,13 +164,26 @@ async function handleSignup() {
 
     <form @submit.prevent="handleSignup">
       <div class="mb-3">
-        <BaseInput
-          type="text"
-          name="name"
-          label="Full Name"
-          v-model="form.name"
-          :error="nameError"
-        />
+          <div v-if = '!form.name'>
+            <BaseInput
+            type="text"
+            name="name"
+            label="Full Name"
+            v-model="form.name"
+            :error="nameError"
+            :disabled = "!shouldDisable"
+            data-cy="signUpName" />
+          </div>
+          <div v-else>
+            <BaseInput
+            type="text"
+            name="name"
+            label="Full Name"
+            v-model="form.name"
+            :error="nameError"
+            :disabled = "shouldDisable"
+            data-cy="signUpName" />
+          </div>
 
         <BaseInput
           type="email"

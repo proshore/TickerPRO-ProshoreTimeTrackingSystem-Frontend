@@ -39,11 +39,11 @@ const getRole = (roleId) => {
   return roleId;
 };
 
-async function handleReinviteMember(email) {
+async function handleReinviteMember(email, name) {
   message.value = "";
   try {
     const token = getToken();
-    const response = await reinviteMember(token, { email: email });
+    const response = await reinviteMember(token, { email: email, name: name });
     if (response.status == 200) {
       handleInvitedMembers();
     }
@@ -130,7 +130,7 @@ handleInvitedMembers();
           <td>
             <button
               class="btn btn-light btn-sm"
-              @click="handleReinviteMember(member.email)"
+              @click="handleReinviteMember(member.email, memeber.name)"
             >
               Reinvite
             </button>
