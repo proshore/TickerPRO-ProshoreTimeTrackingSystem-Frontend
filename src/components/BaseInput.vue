@@ -20,6 +20,11 @@ defineProps({
     type: String,
     required: true,
   },
+  disabled: {
+    type: Boolean,
+    required: false,
+    default: false
+  }
 });
 </script>
 
@@ -33,6 +38,7 @@ defineProps({
     :id="name"
     :name="name"
     :value="modelValue"
+    :disabled = "disabled"
     @input="$emit('update:modelValue', $event.target.value)"
     required
     data-cy="name"

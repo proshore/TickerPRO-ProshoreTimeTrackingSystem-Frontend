@@ -155,13 +155,52 @@ async function handleSignup() {
 
     <form @submit.prevent="handleSignup">
       <div class="mb-3">
-        <BaseInput type="text" name="name" label="Full Name" v-model="form.name" :error="nameError" data-cy="signUpName" />
+          <div v-if = '!form.name'>
+            <BaseInput
+            type="text"
+            name="name"
+            label="Full Name"
+            v-model="form.name"
+            :error="nameError"
+            :disabled = false
+            data-cy="signUpName" />
+          </div>
+          <div v-else>
+            <BaseInput
+            type="text"
+            name="name"
+            label="Full Name"
+            v-model="form.name"
+            :error="nameError"
+            :disabled = true
+            data-cy="signUpName" />
+          </div>
 
-        <BaseInput type="email" name="email" label="Email address" v-model="form.email" :error="emailError"  data-cy="signUpEmail"/>
+        <BaseInput
+          type="email"
+          name="email"
+          label="Email address"
+          v-model="form.email"
+          :error="emailError"
+          data-cy="signUpEmail"
+        />
 
-        <BaseInput type="password" name="password" label="Password" v-model="form.password" :error="passwordError"  data-cy="signUpPassword"/>
-        <BaseInput type="password" name="confirm-password" label="Confirm password" v-model="form.passwordConfirmation"
-          :error="confirmPasswordError"  data-cy="signUpConfirmPassword"/>
+        <BaseInput
+          type="password"
+          name="password"
+          label="Password"
+          v-model="form.password"
+          :error="passwordError"
+          data-cy="signUpPassword"
+        />
+        <BaseInput
+          type="password"
+          name="confirm-password"
+          label="Confirm password"
+          v-model="form.passwordConfirmation"
+          :error="confirmPasswordError"
+          data-cy="signUpConfirmPassword"
+        />
       </div>
 
       <div class="d-grid">
