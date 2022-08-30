@@ -13,6 +13,7 @@ import setUser from "@/utils/setUser.js";
 import { loginUser } from "../services";
 
 import logo from "@/assets/images/logo.svg";
+import PasswordToggle from "@/components/PasswordToggle.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -26,6 +27,9 @@ const form = ref({
 const emailError = ref("");
 const passwordError = ref("");
 const errors = ref([]);
+
+// FOR PASSWORD HIDE/SHOW TOGGLE FUNCTIONALITY
+let showPassword = ref(false);
 
 const disableLoginButton = computed(() => {
   if (form.value.email === "" || form.value.password === "") {
@@ -114,17 +118,27 @@ async function handleLogin() {
           label="Email address"
           v-model="form.email"
           :error="emailError"
+          data-cy="loginEmailAddress"
         />
-        <BaseInput
-          type="password"
-          name="password"
-          label="Password"
-          v-model="form.password"
-          :error="passwordError"
-        />
+        <div class="input_form">
+          <BaseInput
+            :type="showPassword ? 'text' : 'password'"
+            name="password"
+            label="Password"
+            v-model="form.password"
+            :error="passwordError"
+            data-cy="loginPassword"
+          />
+
+          <PasswordToggle
+            :showPassword="showPassword"
+            @togglePassword="showPassword = !showPassword"
+          >
+          </PasswordToggle>
+        </div>
       </div>
 
-      <RouterLink :to="{ name: 'passwordForgot' }" class="forgot-password"
+      <RouterLink :to="{ name: 'passwordForgot' }" class="forgot-password" 
         >Forgot password?</RouterLink
       >
 

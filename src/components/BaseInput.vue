@@ -41,6 +41,7 @@ defineProps({
     :disabled = "disabled"
     @input="$emit('update:modelValue', $event.target.value)"
     required
+    data-cy="name"
   />
   <div v-if="error" class="form-text text-danger" v-text="error" />
 </template>

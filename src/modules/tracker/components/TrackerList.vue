@@ -9,12 +9,15 @@ import getUser from "@/utils/getUser";
 import sortTimeLog from "../utils/sortTimeLog";
 import convertMsToHM from "../utils/convertMsToHM";
 import getTotalTime from "../utils/getTotalTime";
+import { useToast } from "vue-toast-notification";
 
 const token = getToken();
 const logs = ref([]);
 const isLoading = ref(true);
 
 const userId = getUser().user.id;
+
+const $toast = useToast();
 
 async function handleTimeLog() {
   try {
@@ -56,15 +59,15 @@ async function handleTrackerDelete(trackerId) {
   try {
     const response = await deleteLog(token, trackerId);
     if (response.status === 200) {
-      alert("Timelog deleted successfully");
       handleTimeLog();
+      $toast.success('Congratulations! Your Timelog deleted successfully.');
 
       if (logs.value.length === 1) {
         location.reload();
       }
     }
   } catch (err) {
-    alert("Error: unable to delete the time log.");
+      $toast.error('Unable to delete your Timelog.');
   }
 }
 
@@ -75,6 +78,8 @@ function getBillable(x) {
     return "Non Billable";
   }
 }
+
+
 </script>
 
 <template>
@@ -147,12 +152,26 @@ function getBillable(x) {
               Edit
             </button>
 
-            <button
-              class="btn btn-light btn-sm mx-2"
-              @click="handleTrackerDelete(log.id)"
-            >
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-light btn-sm mx-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
               Delete
             </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header text-center border-0">
+                    <h5 class="modal-title w-100" id="staticBackdropLabel">Are you sure you want to delete?</h5>
+                  </div>
+                  <div class="modal-footer pull-right justify-content-center border-0">
+                    <button type="button" class="btn btn-secondary-outline" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary-outline text-primary" @click="handleTrackerDelete(log.id)" data-bs-dismiss="modal">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </td>
           <td>
             {{ convertMsToHM(getTotalTime(log.start_time, log.end_time)) }}
@@ -168,6 +187,7 @@ function getBillable(x) {
 
   <p v-if="isLoading">Loading...</p>
 </template>
+
 <style scoped>
 input {
   width: 5rem;
