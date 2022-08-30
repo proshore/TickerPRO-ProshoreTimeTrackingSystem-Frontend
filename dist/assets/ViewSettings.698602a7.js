@@ -1,0 +1,1 @@
+import{H as a,o as s,c as o,b as e,a as r,F as n}from"./index.a82e036b.js";import{T as c,_ as i}from"./BaseHeading.c9ef6667.js";import"./logo.5b10267d.js";import"./plugin-vue_export-helper.21dcd24c.js";const d={setup(l){const t=a();return t.userStatus=!1,(m,p)=>(s(),o(n,null,[e(c),r("main",null,[e(i,{title:"Settings"})])],64))}};export{d as default};
