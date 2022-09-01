@@ -1,11 +1,8 @@
 <script setup>
 import { ref } from "vue";
-
 import { timeLog, deleteLog, trackerEdit } from "../services";
-
 import getToken from "@/utils/getToken";
 import getUser from "@/utils/getUser";
-
 import sortTimeLog from "../utils/sortTimeLog";
 import convertMsToHM from "../utils/convertMsToHM";
 import getTotalTime from "../utils/getTotalTime";
@@ -14,9 +11,7 @@ import { useToast } from "vue-toast-notification";
 const token = getToken();
 const logs = ref([]);
 const isLoading = ref(true);
-
 const userId = getUser().user.id;
-
 const $toast = useToast();
 
 async function handleTimeLog() {
@@ -29,7 +24,7 @@ async function handleTimeLog() {
     }
     isLoading.value = false;
   } catch (err) {
-    alert("Something went wrong, please try again later");
+    $toast.error("Something went wrong, please try again later");
   }
 }
 
@@ -48,10 +43,10 @@ async function editLogs(name, userid, projectid, billable, start, end, id) {
     const response = await trackerEdit(data, token, id);
     if (response.status == 200) {
       handleTimeLog();
-      alert("Time Log Updated Successfully");
+      $toast.success('Congratulations! Your Timelog updated successfully.');
     }
   } catch (err) {
-    alert("Error: unable to edit the time log.");
+    $toast.error('Unable to update your Timelog.');
   }
 }
 
@@ -80,6 +75,7 @@ function getBillable(x) {
 }
 
 
+
 </script>
 
 <template>
@@ -103,7 +99,7 @@ function getBillable(x) {
         <tr v-for="(log, index) in logs" :key="log.id">
           <th scope="row" class="align-middle" v-text="index + 1" />
           <td>
-            <input class="edit" type="text" v-model="log.activity_name" />
+            <input class="edit" type="text" v-model="log.activity_name" @focusout="editLogs(log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs(log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" />
           </td>
 
           <td>
@@ -131,27 +127,9 @@ function getBillable(x) {
               </li>
             </ul>
           </td>
-          <td><input class="edit" type="text" v-model="log.start_time" /></td>
-          <td><input class="edit" type="text" v-model="log.end_time" /></td>
-
+          <td><input class="edit" type="text" v-model="log.start_time" @focusout="editLogs(log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs(log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" /></td>
+          <td><input class="edit" type="text" v-model="log.end_time" @focusout="editLogs(log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs(log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)"/></td>
           <td>
-            <button
-              @click="
-                editLogs(
-                  log.activity_name,
-                  userId,
-                  log.project_id,
-                  log.billable,
-                  log.start_time,
-                  log.end_time,
-                  log.id
-                )
-              "
-              class="btn btn-light btn-sm"
-            >
-              Edit
-            </button>
-
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-light btn-sm mx-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
               Delete
@@ -202,4 +180,7 @@ input {
 .edit :hover {
   border: 1px solid grey;
 }
+
+
+
 </style>
