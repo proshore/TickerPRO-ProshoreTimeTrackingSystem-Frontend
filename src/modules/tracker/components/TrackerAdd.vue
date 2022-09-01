@@ -143,63 +143,67 @@ async function handleStopTimeTracker() {
 
 <template>
   <div class="tracker px-3 py-2 border rounded shadow-sm">
-    <form @submit.prevent="handleTimeTracker" class="">
-      <input
-        type="text"
-        class="form-control"
-        id="description"
-        aria-describedby="description"
-        placeholder="What are you working on?"
-        v-model="description"
-        required
-      />
-
-      <label for="project" class="px-3">Projects</label>
-      <select
-        v-if="projects.length"
-        id="project"
-        class="form-select"
-        v-model="projectId"
-        aria-label="projects"
-        required
-      >
-        <option
-          v-for="project in projects"
-          :key="project.id"
-          :value="project.id"
-          v-text="project.project_name"
+    <form @submit.prevent="handleTimeTracker" class="d-flex justify-content-between">
+      <div class="my-2" style="width: 60%">
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          aria-describedby="description"
+          placeholder="What are you working on?"
+          v-model="description"
+          required
         />
-      </select>
-      <span v-else class="text-danger"> No projects. </span>
+      </div>
+      <div class="d-flex align-items-center gap-4">
+        <select
+          v-if="projects.length"
+          id="project"
+          class="form-select"
+          v-model="projectId"
+          aria-label="projects"
+          required
+        >
+          <option :value="null" disabled>Projects</option>
+          <option
+            v-for="project in projects"
+            :key="project.id"
+            :selected="project.project_name[0]"
+            :value="project.id"
+            v-text="project.project_name"
+          />
+        </select>
+        <span v-else class="text-danger"> No projects. </span>
 
-      <span
-        class="dollar px-3 py-3"
-        :title="isBillable ? 'Billable' : 'Non billable'"
-        :class="{ 'text-primary': isBillable }"
-        @click="isBillable = !isBillable"
-      >
-        $
-      </span>
+        <span
+          class="dollar px-3 py-2"
+          :title="isBillable ? 'Billable' : 'Non billable'"
+          :class="{ 'text-primary': isBillable }"
+          @click="isBillable = !isBillable"
+        >
+          <i class="bi bi-coin"></i>
+        </span>
 
-      <span class="fw-bold" v-if="stopWatch" v-text="stopWatch" />
+        <span class="fw-bold" v-if="stopWatch" v-text="stopWatch" />
 
-      <!-- start button -->
-      <button
-        v-if="showStartButton"
-        type="submit"
-        class="btn btn-secondary mb-2 mx-4 mt-2"
-      >
-        START
-      </button>
+        <!-- start button -->
+        <button
+          v-if="showStartButton"
+          type="submit"
+          class="btn btn-secondary mb-2 mt-2"
+        >
+          START
+        </button>
 
-      <!-- stop button -->
-      <a
-        v-if="showStopButton"
-        @click="handleStopTimeTracker"
-        class="btn btn-primary text-white mb-2 mx-4 mt-2"
-      >
-        STOP
-      </a>
+        <!-- stop button -->
+        <a
+          v-if="showStopButton"
+          @click="handleStopTimeTracker"
+          class="btn btn-primary text-white mb-2 mx-4"
+        >
+          STOP
+        </a>
+      </div>
     </form>
   </div>
 </template>
@@ -208,9 +212,11 @@ async function handleStopTimeTracker() {
 .tracker {
   width: 100%;
 }
-
+.form-select {
+  border: 0px;
+  width: 113px;
+}
 input[type="text"] {
-  width: 40em;
   display: inline;
 }
 

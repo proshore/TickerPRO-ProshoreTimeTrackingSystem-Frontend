@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import moment from "moment";
 
 import { timeLog, deleteLog, trackerEdit } from "../services";
 
@@ -13,8 +14,14 @@ import getTotalTime from "../utils/getTotalTime";
 const token = getToken();
 const logs = ref([]);
 const isLoading = ref(true);
-
 const userId = getUser().user.id;
+
+const tableLogs = ref([]);
+const today = new Date().toISOString().slice(0, 10);
+
+const totalItems = ref();
+const itemPerPage = ref(20);
+const currentPage = ref(1);
 
 async function handleTimeLog() {
   try {
@@ -29,8 +36,75 @@ async function handleTimeLog() {
     alert("Something went wrong, please try again later");
   }
 }
-
 handleTimeLog();
+console.log(logs)
+async function myFunction() {
+  const response = await timeLog(token, userId);
+
+  if (response.status === 200 && response.data.logs) {
+    logs.value = response.data.logs;
+  }
+
+  let sortedTableLogs = sortTimeLog(
+    response.data.logs?.filter((item, index) => {
+      if (index < itemPerPage?.["_rawValue"]) {
+        return item;
+      } else {
+        return null;
+      }
+    })
+  );
+
+  console.log(totalItems)
+
+  const groups = sortedTableLogs.reduce((groups, item) => {
+    const date = item?.end_time?.split(" ")[0];
+    
+    if (!groups[date]) {
+      groups[date] = [];
+    }
+
+    groups[date].push(item);   
+    return groups;
+  }, {});
+
+  // Edit: to add it in the array format instead
+  const groupArrays = Object.keys(groups).map((date) => {
+    let newDate;
+    if (today == date) {
+      newDate = "Today";
+    } else {
+      newDate = date;
+    }
+    return {
+      date: newDate,
+      logs: groups[date],
+      time: convertMsToHM(
+        moment.duration(
+          groups[date].reduce(
+            (acc, log) => {
+              return {
+                time: moment
+                  .duration(acc?.time)
+                  ?.add(
+                    moment.duration(
+                      moment(log?.end_time)?.diff(moment(log?.start_time))
+                    )
+                  ),
+              };
+            },
+            { time: null }
+          )?.time,
+          "HH:mm:ss"
+        )
+      ),
+    };
+  });
+
+  tableLogs.value = groupArrays;
+  
+}
+myFunction();
 
 async function editLogs(name, userid, projectid, billable, start, end, id) {
   try {
@@ -76,106 +150,204 @@ function getBillable(x) {
   }
 }
 
-
 </script>
 
 <template>
-  <div v-if="logs.length" class="mt-5 border border-bottom-0 rounded">
-    <table class="table table-hover">
-      <thead class="text-primary">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Activity Name</th>
-          <th scope="col">Project Id</th>
-          <th scope="col">Billability</th>
-          <th scope="col">Start Time</th>
-          <th scope="col">End Time</th>
-          <th scope="col">Action</th>
-          <th scope="col">Total Time</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
+  <div class="d-flex justify-content-between p-2">
+    <p class="h5 my-4 font-weight-bold">This week</p>
+    <div class="d-flex flex-column gap-1">
+      <button class="border btn btn-light">Edit</button>
+      <button class="border btn btn-light">Delete</button>
+    </div>
+  </div>
+  <div v-if="tableLogs.length" class="">
+    <table class="table table-hover" v-for="log in tableLogs" :key="log.id">
+      <tr>
+        <th colspan="7" style="background: #f6f6f6" class="border">
+          <div class="d-flex justify-content-between">
+            <p class="h6 my-2">{{ log.date }}</p>
+            <p class="text-primary my-2">{{ log.time }}</p>
+          </div>
+        </th>
+      </tr>
 
-      <tbody v-if="logs.length">
-        <tr v-for="(log, index) in logs" :key="log.id">
-          <th scope="row" class="align-middle" v-text="index + 1" />
-          <td>
-            <input class="edit" type="text" v-model="log.activity_name" />
-          </td>
+      <tbody v-if="log.logs.length" class="border rounded">
+        <tr
+          v-for="log in log.logs"
+          :key="log.id"
+          class="border d-flex justify-content-between align-items-center"
+        >
+          <div>
+            <td>
+              <input
+                class="edit"
+                type="text"
+                v-model="log.activity_name"
+                style="width: fit-content"
+              />
+            </td>
+          </div>
 
-          <td>
-            <div v-text="log.project_id" />
-          </td>
-          <td>
-            <button
-              class="btn btn-light btn-sm"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              v-text="getBillable(log.billable)"
-              aria-expanded="true"
-            ></button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li>
-                <a class="dropdown-item" @click="() => (log.billable = true)">
-                  Billable
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" @click="() => (log.billable = false)">
-                  Non Billable
-                </a>
-              </li>
-            </ul>
-          </td>
-          <td><input class="edit" type="text" v-model="log.start_time" /></td>
-          <td><input class="edit" type="text" v-model="log.end_time" /></td>
+          <div class="d-flex gap-3 align-items-center">
+            <td>
+              <button
+                class="btn"
+                style="background: #f7f7f7; border-radius: 9px; color: blue"
+              >
+                {{ log.project_id }}
+              </button>
+            </td>
+            <td>
+              <button
+                class="btn btn-sm bg-transparent"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="true"
+              >
+                <p
+                  v-if="getBillable(log.billable) === 'Billable'"
+                  style="font-size: 25px"
+                  class="my-1"
+                >
+                  <i class="bi bi-coin text-primary"></i>
+                </p>
+                <p v-else class="my-1" style="font-size: 25px">
+                  <i class="bi bi-coin"></i>
+                </p>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <a class="dropdown-item" @click="() => (log.billable = true)">
+                    Billable
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    @click="() => (log.billable = false)"
+                  >
+                    Non Billable
+                  </a>
+                </li>
+              </ul>
+            </td>
+            <td><input class="edit" type="text" v-model="log.start_time" /></td>
+            <td><input class="edit" type="text" v-model="log.end_time" /></td>
 
-          <td>
-            <button
-              @click="
-                editLogs(
-                  log.activity_name,
-                  userId,
-                  log.project_id,
-                  log.billable,
-                  log.start_time,
-                  log.end_time,
-                  log.id
-                )
-              "
-              class="btn btn-light btn-sm"
-            >
-              Edit
-            </button>
+            <td class="text-secondary" style="font-weight: 600">
+              {{ convertMsToHM(getTotalTime(log.start_time, log.end_time)) }}
+            </td>
 
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-light btn-sm mx-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-              Delete
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-              <div class="modal-dialog  modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header text-center border-0">
-                    <h5 class="modal-title w-100" id="staticBackdropLabel">Are you sure you want to delete?</h5>
-                  </div>
-                  <div class="modal-footer pull-right justify-content-center border-0">
-                    <button type="button" class="btn btn-secondary-outline" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary-outline text-primary" @click="handleTrackerDelete(log.id)" data-bs-dismiss="modal">Delete</button>
-                  </div>
+            <td>
+              <button
+                class="btn btn-sm bg-transparent rounded"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="true"
+              >
+                <i class="bi bi-three-dots-vertical"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <div class="d-flex">
+                  <li>
+                    <button
+                      @click="
+                        editLogs(
+                          log.activity_name,
+                          userId,
+                          log.project_id,
+                          log.billable,
+                          log.start_time,
+                          log.end_time,
+                          log.id
+                        )
+                      "
+                      class="btn btn-light btn-sm"
+                    >
+                      Edit
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      class="btn btn-light btn-sm mx-2"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop"
+                    >
+                      Delete
+                    </button>
+                    <div
+                      class="modal fade"
+                      id="staticBackdrop"
+                      data-bs-backdrop="static"
+                      data-bs-keyboard="false"
+                      tabindex="-1"
+                      aria-labelledby="staticBackdropLabel"
+                      aria-hidden="true"
+                    >
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header text-center border-0">
+                            <h5
+                              class="modal-title w-100"
+                              id="staticBackdropLabel"
+                            >
+                              Are you sure you want to delete?
+                            </h5>
+                          </div>
+                          <div
+                            class="modal-footer pull-right justify-content-center border-0"
+                          >
+                            <button
+                              type="button"
+                              class="btn btn-secondary-outline"
+                              data-bs-dismiss="modal"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-primary-outline text-primary"
+                              @click="handleTrackerDelete(log.id)"
+                              data-bs-dismiss="modal"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
                 </div>
-              </div>
-            </div>
-
-          </td>
-          <td>
-            {{ convertMsToHM(getTotalTime(log.start_time, log.end_time)) }}
-          </td>
+              </ul>
+            </td>
+          </div>
         </tr>
       </tbody>
     </table>
+
+    <div class="d-flex">
+      <vue-awesome-paginate
+        :total-items="totalItems"
+        :items-per-page="itemPerPage"
+        :max-pages-shown="2"
+        :current-page="currentPage"
+        :on-click="onClickHandler"
+      />
+      <div class="">
+        <select
+          class="form-select"
+          style="width: 90px"
+          @change="handleItemPerPage"
+        >
+          <option value="20">20</option>
+          <option selected value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
+    </div>
   </div>
 
   <p v-else class="mt-5 text-danger mx-1">
@@ -185,7 +357,7 @@ function getBillable(x) {
   <p v-if="isLoading">Loading...</p>
 </template>
 
-<style scoped>
+<style>
 input {
   width: 5rem;
   padding: 5px;
@@ -198,5 +370,34 @@ input {
 }
 .edit :hover {
   border: 1px solid grey;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+.pagination-container {
+  display: flex;
+  column-gap: 10px;
+}
+.paginate-buttons {
+  font-weight: 900;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0px solid rgb(217, 217, 217);
+  color: black;
+}
+.paginate-buttons:hover {
+  background-color: #d8d8d8;
+}
+.active-page {
+  background-color: #040458;
+  border: 1px solid #040458;
+  color: white;
+}
+.active-page:hover {
+  background-color: #040458;
 }
 </style>
