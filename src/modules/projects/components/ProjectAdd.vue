@@ -126,6 +126,7 @@ async function handleAddProject() {
     class="btn btn-sm btn-primary text-white"
     data-bs-toggle="modal"
     data-bs-target="#exampleModal"
+    data-cy="addProjectButton"
   >
     Add Project
   </button>
@@ -147,6 +148,7 @@ async function handleAddProject() {
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
+            data-cy="createNewProjectModalCloseButton"
           ></button>
         </div>
         <div class="modal-body">
@@ -171,6 +173,7 @@ async function handleAddProject() {
               label="Project name"
               v-model="project_name"
               :error="projectNameError"
+              data-cy="addProjectName"
             />
             <div class="mt-4">
               <label class="form-label"
@@ -195,7 +198,7 @@ async function handleAddProject() {
 
             <div class="mt-4">
               <label class="form-label" for="client-id"
-                >Client Name<span class="text-danger">*</span></label
+              data-cy="addClientName">Client Name<span class="text-danger">*</span></label
               >
               <select
                 v-if="clients.length"
@@ -220,11 +223,12 @@ async function handleAddProject() {
                 value="true"
                 v-model="billable"
                 name="billable"
+                data-cy="billableRadioButton"
               />
             </div>
             <!-- submit -->
             <div class="mt-4 mb-2">
-              <button type="submit" class="btn btn-primary text-white">
+              <button type="submit" class="btn btn-primary text-white" data-cy="newProjectCreateButton">
                 CREATE
               </button>
             </div>

@@ -10,6 +10,7 @@ import getUser from "@/utils/getUser";
 import sortTimeLog from "../utils/sortTimeLog";
 import convertMsToHM from "../utils/convertMsToHM";
 import getTotalTime from "../utils/getTotalTime";
+import { useToast } from "vue-toast-notification";
 
 const token = getToken();
 const logs = ref([]);
@@ -23,6 +24,7 @@ var yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
 const totalItems = ref();
 const itemPerPage = ref(50);
 const currentPage = ref(1);
+const $toast = useToast();
 
 async function handleTimeLog() {
   try {
@@ -140,15 +142,15 @@ async function handleTrackerDelete(trackerId) {
   try {
     const response = await deleteLog(token, trackerId);
     if (response.status === 200) {
-      alert("Timelog deleted successfully");
       handleTimeLog();
+      $toast.success('Congratulations! Your Timelog deleted successfully.');
 
       if (logs.value.length === 1) {
         location.reload();
       }
     }
   } catch (err) {
-    alert("Error: unable to delete the time log.");
+      $toast.error('Unable to delete your Timelog.');
   }
 }
 

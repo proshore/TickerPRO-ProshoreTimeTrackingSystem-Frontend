@@ -16,7 +16,8 @@
     "pinia": "^2.0.14",
     "vue": "^3.2.33",
     "vue-awesome-paginate": "^1.0.23",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vue-toast-notification": "^3.0.4"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

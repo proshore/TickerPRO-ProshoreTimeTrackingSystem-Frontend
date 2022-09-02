@@ -20,47 +20,48 @@ import sSettings from "@/assets/images/s-settings.svg";
       </li>
 
       <li class="nav-item">
-        <RouterLink :to="{ name: 'tracker' }" class="nav-link">
+        <RouterLink :to="{ name: 'tracker' }" class="nav-link" data-cy="trackerSidebarButton">
           <img :src="sTracker" alt="Time tracker icon" class="side-icon" />
           <span class="link-text">Tracker</span>
+          
         </RouterLink>
       </li>
 
       <p class="mt-3 fw-bolder fs-6 mb-2 nav-p">Manage</p>
 
       <li class="nav-item">
-        <RouterLink :to="{ name: 'projects' }" class="nav-link">
+        <RouterLink :to="{ name: 'projects' }" class="nav-link" data-cy="projectsSidebarButton">
           <img :src="sProjects" alt="Projects icon" class="side-icon" />
           <span class="link-text">Projects</span>
         </RouterLink>
       </li>
 
       <li class="nav-item">
-        <RouterLink :to="{ name: 'teams' }" class="nav-link">
+        <RouterLink :to="{ name: 'teams' }" class="nav-link" data-cy="teamsSidebarButton">
           <img :src="sTeams" alt="Teams icon" class="side-icon" />
-          <span class="link-text">Teams</span>
+          <span class="link-text" >Teams</span>
         </RouterLink>
       </li>
 
       <li class="nav-item">
-        <RouterLink :to="{ name: 'clients' }" class="nav-link">
-          <img :src="sClients" alt="Clients icon" class="side-icon" />
+        <RouterLink :to="{ name: 'clients' }" class="nav-link" data-cy="clientsSidebarButton">
+          <img :src="sClients" alt="Clients icon" class="side-icon"/>
           <span class="link-text">Clients</span>
         </RouterLink>
       </li>
 
       <li class="nav-item">
-        <RouterLink :to="{ name: 'reports' }" class="nav-link">
+        <RouterLink :to="{ name: 'reports' }" class="nav-link" data-cy="reportsSidebarButton">
           <img :src="sReports" alt="Reports icon" class="side-icon" />
-          <span class="link-text">Reports</span>
+          <span class="link-text" >Reports</span>
         </RouterLink>
       </li>
 
       <div>
         <li class="nav-item">
-          <RouterLink :to="{ name: 'settings' }" class="nav-link">
-            <img :src="sSettings" alt="Settings icon" class="side-icon" />
-            <span class="link-text">Settings</span>
+          <RouterLink :to="{ name: 'settings' }" class="nav-link" data-cy="settingsSidebarButton">
+            <img :src="sSettings" alt="Settings icon" class="side-icon"/>
+            <span class="link-text" >Settings</span>
           </RouterLink>
         </li>
       </div>

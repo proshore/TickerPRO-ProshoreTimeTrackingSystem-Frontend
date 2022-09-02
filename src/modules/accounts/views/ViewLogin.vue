@@ -139,7 +139,7 @@ async function handleLogin() {
       </div>
 
       <RouterLink :to="{ name: 'passwordForgot' }" class="forgot-password" 
-        >Forgot password?</RouterLink
+      data-cy="loginForgetPassword">Forgot password?</RouterLink
       >
 
       <div class="d-grid">
@@ -147,6 +147,7 @@ async function handleLogin() {
           type="submit"
           class="btn btn-primary text-white"
           :disabled="disableLoginButton"
+          data-cy="loginButton"
         >
           Log in
         </button>
