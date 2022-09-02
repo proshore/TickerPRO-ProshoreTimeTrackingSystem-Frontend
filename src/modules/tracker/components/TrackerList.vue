@@ -11,6 +11,7 @@ import sortTimeLog from "../utils/sortTimeLog";
 import convertMsToHM from "../utils/convertMsToHM";
 import getTotalTime from "../utils/getTotalTime";
 import { useToast } from "vue-toast-notification";
+import app from "../../../config/app";
 
 const token = getToken();
 const logs = ref([]);
@@ -62,16 +63,15 @@ async function myFunction() {
   const groups = sortedTableLogs.reduce((groups, item) => {
     const date = item?.end_time?.split(" ")[0];
     const etime = item?.end_time?.split(" ")[1];
+
     
     if ((!groups[date]))  {
       groups[date] = [];
-     
-      
-    }  
+    } 
+    
 
-    groups[date].push(item);  
-          
-
+    groups[date].push(item);
+  
     return groups;
   }, {});
 
@@ -112,8 +112,7 @@ async function myFunction() {
   });
 
   tableLogs.value = groupArrays;
-  console.log(groupArrays)
-  
+  console.log(tableLogs)
 
 }
 myFunction();
@@ -171,7 +170,9 @@ const handleItemPerPage = (e) => {
   itemPerPage.value = e.target.value;
   currentPage.value = 1;
   handleTimeLog();
+  
 };
+
 
 </script>
 
@@ -253,11 +254,11 @@ const handleItemPerPage = (e) => {
                     Non Billable
                   </a>
                 </li>
-              </ul>
+              </ul>  
             </td>
             <!-- //<input class="edit" type="text" v-model="log.start_time" /> -->
             <td><input class="edit" type="text" v-model="log.start_time" /></td>
-            <td><input class="edit" type="text" v-model="log.end_time"/></td>
+            <td><input class="edit" type="text" v-model="log.end_time" /></td>
             <!-- //{{log.start_time.split(" ")[1]}} -->
 
             <td class="text-secondary" style="font-weight: 600">
@@ -356,7 +357,7 @@ const handleItemPerPage = (e) => {
     <div class="d-flex">
       <vue-awesome-paginate
         :total-items="totalItems"
-        :items-per-page="itemPerPage"
+        :items-per-page="Number(itemPerPage)"
         :max-pages-shown="2"
         :current-page="currentPage"
         :on-click="onClickHandler"
@@ -367,9 +368,9 @@ const handleItemPerPage = (e) => {
           style="width: 90px"
           @change="handleItemPerPage"
         >
-          <option value="20">20</option>
-          <option selected value="50">50</option>
-          <option value="100">100</option>
+          <option value= '20'>20</option>
+          <option selected value= '50'>50</option>
+          <option value= '100'>100</option>
         </select>
       </div>
     </div>
