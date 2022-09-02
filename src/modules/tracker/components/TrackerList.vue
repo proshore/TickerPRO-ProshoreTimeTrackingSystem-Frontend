@@ -18,18 +18,20 @@ const userId = getUser().user.id;
 
 const tableLogs = ref([]);
 const today = new Date().toISOString().slice(0, 10);
+var yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
 
 const totalItems = ref();
-const itemPerPage = ref(20);
+const itemPerPage = ref(50);
 const currentPage = ref(1);
 
 async function handleTimeLog() {
   try {
-    const response = await timeLog(token, userId);
+    const response = await timeLog(token, userId, currentPage?.["_rawValue"], itemPerPage?.["_rawValue"]);
 
     if (response.status === 200 && response.data.logs) {
       logs.value = response.data.logs;
       sortTimeLog(logs.value);
+      totalItems.value = response.data.total;
     }
     isLoading.value = false;
   } catch (err) {
@@ -37,7 +39,7 @@ async function handleTimeLog() {
   }
 }
 handleTimeLog();
-console.log(logs)
+
 async function myFunction() {
   const response = await timeLog(token, userId);
 
@@ -55,24 +57,30 @@ async function myFunction() {
     })
   );
 
-  console.log(totalItems)
-
   const groups = sortedTableLogs.reduce((groups, item) => {
     const date = item?.end_time?.split(" ")[0];
+    const etime = item?.end_time?.split(" ")[1];
     
-    if (!groups[date]) {
+    if ((!groups[date]))  {
       groups[date] = [];
-    }
+     
+      
+    }  
 
-    groups[date].push(item);   
+    groups[date].push(item);  
+          
+
     return groups;
   }, {});
 
   // Edit: to add it in the array format instead
   const groupArrays = Object.keys(groups).map((date) => {
     let newDate;
+    
     if (today == date) {
       newDate = "Today";
+    }else if (yesterday == date) {
+      newDate = "Yesterday";
     } else {
       newDate = date;
     }
@@ -102,7 +110,9 @@ async function myFunction() {
   });
 
   tableLogs.value = groupArrays;
+  console.log(groupArrays)
   
+
 }
 myFunction();
 
@@ -149,6 +159,17 @@ function getBillable(x) {
     return "Non Billable";
   }
 }
+
+const onClickHandler = (page) => {
+  currentPage.value = page;
+  handleTimeLog();
+};
+
+const handleItemPerPage = (e) => {
+  itemPerPage.value = e.target.value;
+  currentPage.value = 1;
+  handleTimeLog();
+};
 
 </script>
 
@@ -232,8 +253,10 @@ function getBillable(x) {
                 </li>
               </ul>
             </td>
+            <!-- //<input class="edit" type="text" v-model="log.start_time" /> -->
             <td><input class="edit" type="text" v-model="log.start_time" /></td>
-            <td><input class="edit" type="text" v-model="log.end_time" /></td>
+            <td><input class="edit" type="text" v-model="log.end_time"/></td>
+            <!-- //{{log.start_time.split(" ")[1]}} -->
 
             <td class="text-secondary" style="font-weight: 600">
               {{ convertMsToHM(getTotalTime(log.start_time, log.end_time)) }}

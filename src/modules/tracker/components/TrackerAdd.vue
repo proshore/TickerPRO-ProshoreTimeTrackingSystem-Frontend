@@ -144,7 +144,7 @@ async function handleStopTimeTracker() {
 <template>
   <div class="tracker px-3 py-2 border rounded shadow-sm">
     <form @submit.prevent="handleTimeTracker" class="d-flex justify-content-between">
-      <div class="my-2" style="width: 60%">
+      <div class="my-2" style="width: 68%">
         <input
           type="text"
           class="form-control"
