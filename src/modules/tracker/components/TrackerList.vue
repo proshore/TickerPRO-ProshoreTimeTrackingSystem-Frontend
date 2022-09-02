@@ -1,11 +1,8 @@
 <script setup>
 import { ref } from "vue";
-
 import { timeLog, deleteLog, trackerEdit } from "../services";
-
 import getToken from "@/utils/getToken";
 import getUser from "@/utils/getUser";
-
 import sortTimeLog from "../utils/sortTimeLog";
 import convertMsToHM from "../utils/convertMsToHM";
 import getTotalTime from "../utils/getTotalTime";
@@ -14,9 +11,7 @@ import { useToast } from "vue-toast-notification";
 const token = getToken();
 const logs = ref([]);
 const isLoading = ref(true);
-
 const userId = getUser().user.id;
-
 const $toast = useToast();
 
 async function handleTimeLog() {
@@ -29,7 +24,7 @@ async function handleTimeLog() {
     }
     isLoading.value = false;
   } catch (err) {
-    alert("Something went wrong, please try again later");
+    $toast.info("Something went wrong, please try again later");
   }
 }
 
