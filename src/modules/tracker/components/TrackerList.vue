@@ -223,17 +223,18 @@ const handleItemPerPage = (e) => {
               </button>
             </td>
             <td>
-              <button
+              <!-- <button
                 class="btn btn-sm bg-transparent"
                 type="button"
                 id="dropdownMenuButton1"
                 data-bs-toggle="dropdown"
                 aria-expanded="true"
-              >
+              > -->
                 <p
                   v-if="getBillable(log.billable) === 'Billable'"
                   style="font-size: 25px"
                   class="my-1"
+                  title = 'Billable'
                 >
                   <svg
                     width="25"
@@ -248,7 +249,7 @@ const handleItemPerPage = (e) => {
                     />
                   </svg>
                 </p>
-                <p v-else class="my-1" style="font-size: 25px">
+                <p v-else class="my-1" style="font-size: 25px"  title = 'Non-Billable'>
                   <svg
                     width="25"
                     height="25"
@@ -262,22 +263,8 @@ const handleItemPerPage = (e) => {
                     />
                   </svg>
                 </p>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li>
-                  <a class="dropdown-item" @click="() => (log.billable = true)">
-                    Billable
-                  </a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item"
-                    @click="() => (log.billable = false)"
-                  >
-                    Non Billable
-                  </a>
-                </li>
-              </ul>
+              <!-- </button> -->
+          
             </td>
 
             <td><input class="edit" type="text" v-model="log.sTime" data-cy="startTimeEdit" @focusout="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" /></td>
