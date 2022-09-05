@@ -179,6 +179,7 @@ async function handleStopTimeTracker() {
           :key="project.id"
           :value="project.id"
           v-text="project.project_name"
+          data-cy="selectProjectName"
         />
       </select>
       <span v-else class="text-danger"> No projects. </span>
