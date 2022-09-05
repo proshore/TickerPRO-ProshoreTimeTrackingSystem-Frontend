@@ -1,12 +1,9 @@
 <script setup>
 import { ref } from "vue";
 import moment from "moment";
-
 import { timeLog, deleteLog, trackerEdit } from "../services";
-
 import getToken from "@/utils/getToken";
 import getUser from "@/utils/getUser";
-
 import sortTimeLog from "../utils/sortTimeLog";
 import convertMsToHM from "../utils/convertMsToHM";
 import getTotalTime from "../utils/getTotalTime";
@@ -114,14 +111,15 @@ async function handleTimeLog() {
     tableLogs.value = groupArrays;
     isLoading.value = false;
   } catch (err) {
-    alert("Something went wrong, please try again later");
+    $toast.info("Something went wrong, please try again later");
   }
 }
 handleTimeLog();
 
-async function editLogs(name, userid, projectid, billable, start, end, id) {
+async function editLogs($event, name, userid, projectid, billable, start, end, id) {
+  $event.preventDefault()
   try {
-    var data = {
+    let data = {
       activity_name: name,
       user_id: userid,
       project_id: projectid,
@@ -132,19 +130,24 @@ async function editLogs(name, userid, projectid, billable, start, end, id) {
     const response = await trackerEdit(data, token, id);
     if (response.status == 200) {
       handleTimeLog();
-      alert("Time Log Updated Successfully");
+      $toast.success('Your Timelog updated successfully.');
     }
+    
   } catch (err) {
-    alert("Error: unable to edit the time log.");
+    $toast.error('Unable to update Timelog.');
   }
-}
+  finally{
+    $event.target.blur();
+  }
+  
+}   
 
 async function handleTrackerDelete(trackerId) {
   try {
     const response = await deleteLog(token, trackerId);
     if (response.status === 200) {
       handleTimeLog();
-      $toast.success("Congratulations! Your Timelog deleted successfully.");
+      $toast.success('Your Timelog deleted successfully.');
 
       if (logs.value.length === 1) {
         location.reload();
@@ -204,6 +207,8 @@ const handleItemPerPage = (e) => {
                 type="text"
                 v-model="log.activity_name"
                 style="width: fit-content"
+                data-cy ="activityNameEdit"
+                @focusout="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)"
               />
             </td>
           </div>
@@ -275,9 +280,9 @@ const handleItemPerPage = (e) => {
               </ul>
             </td>
 
-            <td><input class="edit" type="text" v-model="log.sTime" /></td>
+            <td><input class="edit" type="text" v-model="log.sTime" data-cy="startTimeEdit" @focusout="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" /></td>
             <td style="color: grey; font-size: large">-</td>
-            <td><input class="edit" type="text" v-model="log.eTime" /></td>
+            <td><input class="edit" type="text" v-model="log.eTime" data-cy="endTimeEdit" @focusout="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" /></td>
 
             <td class="text-secondary" style="font-weight: 600">
               {{ convertMsToHM(getTotalTime(log.start_time, log.end_time)) }}
@@ -297,30 +302,13 @@ const handleItemPerPage = (e) => {
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <div class="d-flex gap-4">
                   <li>
-                    <button
-                      @click="
-                        editLogs(
-                          log.activity_name,
-                          userId,
-                          log.project_id,
-                          log.billable,
-                          log.start_time,
-                          log.end_time,
-                          log.id
-                        )
-                      "
-                      class="btn btn-light btn-sm"
-                    >
-                      Edit
-                    </button>
-                  </li>
-                  <li>
                     <!-- Button trigger modal -->
                     <button
                       type="button"
                       class="btn btn-light btn-sm mx-2"
                       data-bs-toggle="modal"
                       data-bs-target="#staticBackdrop"
+                      data-cy="deleteTimeLog"
                     >
                       Delete
                     </button>
