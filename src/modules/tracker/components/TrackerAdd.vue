@@ -188,7 +188,7 @@ async function handleStopTimeTracker() {
         :title="isBillable ? 'Billable' : 'Non billable'"
         :class="{ 'text-primary': isBillable }"
         @click="isBillable = !isBillable"
-        data-cy = "selectBilable"
+        data-cy = "selectBillable"
       >
         $
       </span>
