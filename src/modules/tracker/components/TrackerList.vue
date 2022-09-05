@@ -33,7 +33,7 @@ handleTimeLog();
 async function editLogs($event, name, userid, projectid, billable, start, end, id) {
   $event.preventDefault()
   try {
-    var data = {
+    let data = {
       activity_name: name,
       user_id: userid,
       project_id: projectid,
@@ -49,8 +49,9 @@ async function editLogs($event, name, userid, projectid, billable, start, end, i
     
   } catch (err) {
     $toast.error('Unable to update Timelog.');
-  } finally{
-  $event.target.blur();
+  }
+  finally{
+    $event.target.blur();
   }
   
 }   
@@ -60,7 +61,7 @@ async function handleTrackerDelete(trackerId) {
     const response = await deleteLog(token, trackerId);
     if (response.status === 200) {
       handleTimeLog();
-      $toast.success('Congratulations! Your Timelog deleted successfully.');
+      $toast.success('Your Timelog deleted successfully.');
 
       if (logs.value.length === 1) {
         location.reload();
@@ -103,7 +104,7 @@ function getBillable(x) {
         <tr v-for="(log, index) in logs" :key="log.id">
           <th scope="row" class="align-middle" v-text="index + 1" />
           <td>
-            <input class="edit" type="text" v-model="log.activity_name" data-cy = "acitivityNameModified" @focusout="editLogs(log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" />
+            <input class="edit" type="text" v-model="log.activity_name" data-cy ="activityNameSection"  @focusout="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" />
           </td>
 
           <td>
@@ -131,8 +132,8 @@ function getBillable(x) {
               </li>
             </ul>
           </td>
-          <td><input class="edit" type="text" v-model="log.start_time" data-cy = "startTimeModified" @focusout="editLogs(log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" /></td>
-          <td><input class="edit" type="text" v-model="log.end_time" data-cy = "endTimeModified" @focusout="editLogs(log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)"/></td>
+          <td><input class="edit" type="text" v-model="log.start_time" data-cy="startTimeSection"  @focusout="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" /></td>
+          <td><input class="edit" type="text" v-model="log.end_time" data-cy="endTimeSection"  @focusout="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)"/></td>
 
           <td>
 
