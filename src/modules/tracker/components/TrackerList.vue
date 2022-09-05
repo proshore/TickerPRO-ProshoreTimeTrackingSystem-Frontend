@@ -19,7 +19,7 @@ const userId = getUser().user.id;
 
 const tableLogs = ref([]);
 const today = new Date().toISOString().slice(0, 10);
-var yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
 
 const totalItems = ref(55);
 const itemPerPage = ref(50);
@@ -170,20 +170,17 @@ const onClickHandler = (page) => {
 
 const handleItemPerPage = (e) => {
   itemPerPage.value = e.target.value;
-  currentPage.value = 1;
-  handleTimeLog();
+  onClickHandler(1);
+  // currentPage.value = 1;
+  // handleTimeLog();
 };
 </script>
 
 <template>
-  <div class="d-flex justify-content-between p-2">
+  <div class="d-flex justify-content-between">
     <p class="h5 my-4">This week</p>
-    <div class="d-flex flex-column gap-1">
-      <button class="border btn btn-light">Edit</button>
-      <button class="border btn btn-light">Delete</button>
-    </div>
   </div>
-  <div v-if="tableLogs.length" class="">
+  <div v-if="tableLogs.length">
     <table class="table table-hover" v-for="log in tableLogs" :key="log.id">
       <tr>
         <th colspan="7" style="background: #f6f6f6" class="border">
