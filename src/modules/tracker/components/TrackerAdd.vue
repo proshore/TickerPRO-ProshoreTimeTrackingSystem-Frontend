@@ -50,7 +50,7 @@ function startTimer() {
   interval = setInterval(timer, 1000);
   changeDisable.value = true;
   setTimeout(()=>{
-    changeDisable = false;
+    changeDisable.value = false;
   },2000)
 }
 
@@ -160,6 +160,7 @@ async function handleStopTimeTracker() {
         aria-describedby="description"
         placeholder="What are you working on?"
         v-model="description"
+        data-cy="nameActivity"
         required
       />
 
@@ -170,6 +171,7 @@ async function handleStopTimeTracker() {
         class="form-select"
         v-model="projectId"
         aria-label="projects"
+        data-cy="selectProjects"
         required
       >
         <option
@@ -186,6 +188,7 @@ async function handleStopTimeTracker() {
         :title="isBillable ? 'Billable' : 'Non billable'"
         :class="{ 'text-primary': isBillable }"
         @click="isBillable = !isBillable"
+        data-cy = "selectBilable"
       >
         $
       </span>
@@ -197,6 +200,7 @@ async function handleStopTimeTracker() {
         v-if="showStartButton"
         type="submit"
         class="btn btn-secondary mb-2 mx-4 mt-2"
+        data-cy="start"
       >
         START
       </button>
@@ -205,6 +209,7 @@ async function handleStopTimeTracker() {
         v-if="showStopButton"
         @click="handleStopTimeTracker"
         :disabled = changeDisable
+        data-cy = "submit"
         class="btn btn-primary text-white mb-2 mx-4 mt-2"
       >
         STOP
