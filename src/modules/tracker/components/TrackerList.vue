@@ -324,52 +324,48 @@ const handleItemPerPage = (e) => {
                     >
                       Delete
                     </button>
-
-                    <!-- Modal -->
-                    <div
-                      class="modal fade"
-                      id="staticBackdrop"
-                      data-bs-backdrop="static"
-                      data-bs-keyboard="false"
-                      tabindex="-1"
-                      aria-labelledby="staticBackdropLabel"
-                      aria-hidden="true"
-                    >
-                      <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                          <div class="modal-header text-center border-0">
-                            <h5
-                              class="modal-title w-100"
-                              id="staticBackdropLabel"
-                            >
-                              Are you sure you want to delete?
-                            </h5>
-                          </div>
-                          <div
-                            class="modal-footer pull-right justify-content-center border-0"
-                          >
-                            <button
-                              type="button"
-                              class="btn btn-secondary-outline"
-                              data-bs-dismiss="modal"
-                            >
-                              Cancel
-                            </button>
-                            <button
-                              type="button"
-                              class="btn btn-primary-outline text-primary"
-                              @click="handleTrackerDelete(log.id)"
-                              data-bs-dismiss="modal"
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </li>
                 </div>
               </ul>
+              <!-- Modal -->
+              <div
+                class="modal fade"
+                id="staticBackdrop"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header text-center border-0">
+                      <h5 class="modal-title w-100" id="staticBackdropLabel">
+                        Are you sure you want to delete?
+                      </h5>
+                    </div>
+                    <div
+                      class="modal-footer pull-right justify-content-center border-0"
+                    >
+                      <button
+                        type="button"
+                        class="btn btn-secondary-outline"
+                        data-bs-dismiss="modal"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-primary-outline text-primary"
+                        @click="handleTrackerDelete(log.id)"
+                        data-bs-dismiss="modal"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </td>
           </div>
         </tr>
