@@ -18,7 +18,7 @@ const tableLogs = ref([]);
 const today = new Date().toISOString().slice(0, 10);
 const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
 
-const totalItems = ref(55);
+const totalItems = ref();
 const itemPerPage = ref(50);
 const currentPage = ref(1);
 const $toast = useToast();
@@ -35,7 +35,7 @@ async function handleTimeLog() {
     if (response.status === 200 && response.data.logs) {
       logs.value = response.data.logs;
       sortTimeLog(logs.value);
-      // totalItems.value = response.data.total;
+      totalItems.value = response.data.total;
     }
 
     let sortedTableLogs = sortTimeLog(
@@ -216,9 +216,9 @@ const handleItemPerPage = (e) => {
             <td>
               <button
                 class="btn"
-                style="background: #f7f7f7; border-radius: 9px; color: blue"
+                style="background: #f7f7f7; border-radius: 9px;"
               >
-                {{ log.project_id }}
+                {{ log.project_name.project_name}}
               </button>
             </td>
             <td>
