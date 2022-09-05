@@ -20,6 +20,7 @@ function togglePassword() {
       :class="showPassword ? 'bi-eye' : 'bi-eye-slash'"
       id="showPassword"
       @click="togglePassword"
+      data-cy="passwordToggleIcon"
     ></i>
   </span>
 </template>
