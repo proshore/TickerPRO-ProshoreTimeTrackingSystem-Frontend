@@ -223,13 +223,7 @@ const handleItemPerPage = (e) => {
               </button>
             </td>
             <td>
-              <!-- <button
-                class="btn btn-sm bg-transparent"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="true"
-              > -->
+  
                 <p
                   v-if="getBillable(log.billable) === 'Billable'"
                   style="font-size: 25px"
@@ -263,7 +257,7 @@ const handleItemPerPage = (e) => {
                     />
                   </svg>
                 </p>
-              <!-- </button> -->
+            
           
             </td>
 
