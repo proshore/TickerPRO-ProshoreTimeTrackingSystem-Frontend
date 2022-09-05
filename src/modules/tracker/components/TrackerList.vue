@@ -207,6 +207,7 @@ const handleItemPerPage = (e) => {
                 type="text"
                 v-model="log.activity_name"
                 style="width: fit-content"
+                data-cy ="activityNameEdit"
                 @focusout="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)"
               />
             </td>
@@ -279,9 +280,9 @@ const handleItemPerPage = (e) => {
               </ul>
             </td>
 
-            <td><input class="edit" type="text" v-model="log.sTime" @focusout="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" /></td>
+            <td><input class="edit" type="text" v-model="log.sTime" data-cy="startTimeEdit" @focusout="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" /></td>
             <td style="color: grey; font-size: large">-</td>
-            <td><input class="edit" type="text" v-model="log.eTime" @focusout="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" /></td>
+            <td><input class="edit" type="text" v-model="log.eTime" data-cy="endTimeEdit" @focusout="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" @keyup.enter="editLogs($event, log.activity_name, userId, log.project_id, log.billable, log.start_time, log.end_time, log.id)" /></td>
 
             <td class="text-secondary" style="font-weight: 600">
               {{ convertMsToHM(getTotalTime(log.start_time, log.end_time)) }}
@@ -307,6 +308,7 @@ const handleItemPerPage = (e) => {
                       class="btn btn-light btn-sm mx-2"
                       data-bs-toggle="modal"
                       data-bs-target="#staticBackdrop"
+                      data-cy="deleteTimeLog"
                     >
                       Delete
                     </button>

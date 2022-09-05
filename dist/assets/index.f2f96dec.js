@@ -1,5 +1,0 @@
-<<<<<<<< HEAD:dist/assets/index.61e869f6.js
-import{A as o}from"./index.a82e036b.js";const e="/api/project/",s="/api/project/",i="/api/project/";var r={PROJECT_ENABLE_URL:s,ADD_PROJECT_URL:e,PROJECT_LIST_URL:i};const c=async(t,a)=>await o.post(r.ADD_PROJECT_URL,t,{headers:{Authorization:a}}),p=async(t,a)=>await o.post(`${r.PROJECT_ENABLE_URL}/${a}`,{},{headers:{Authorization:t}}),R=async t=>await o.get(r.PROJECT_LIST_URL,{headers:{Authorization:t}});export{c as a,p as e,R as p};
-========
-import{A as o}from"./index.247ea62d.js";const e="/api/project/",s="/api/project/",i="/api/project/";var r={PROJECT_ENABLE_URL:s,ADD_PROJECT_URL:e,PROJECT_LIST_URL:i};const c=async(t,a)=>await o.post(r.ADD_PROJECT_URL,t,{headers:{Authorization:a}}),p=async(t,a)=>await o.post(`${r.PROJECT_ENABLE_URL}/${a}`,{},{headers:{Authorization:t}}),R=async t=>await o.get(r.PROJECT_LIST_URL,{headers:{Authorization:t}});export{c as a,p as e,R as p};
->>>>>>>> ec5630a9d68039bb5dfba758690059d5ee3a85c5:dist/assets/index.f2f96dec.js
