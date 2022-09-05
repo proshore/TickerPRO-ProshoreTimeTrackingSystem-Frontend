@@ -22,8 +22,10 @@ const stopWatch = ref("00:00:00");
 
 const token = getToken();
 
+
 let seconds = 0;
 let interval = null;
+let changeDisable = ref(false);
 
 function timer() {
   seconds++;
@@ -46,6 +48,10 @@ function startTimer() {
   }
 
   interval = setInterval(timer, 1000);
+  changeDisable.value = true;
+  setTimeout(()=>{
+    changeDisable = false;
+  },2000)
 }
 
 function stopTimer() {
@@ -53,12 +59,13 @@ function stopTimer() {
   interval = null;
 }
 
+
 // load all projects
 onBeforeMount(async () => {
   try {
     const response = await projectList(token);
     if (response.status === 200) {
-      projects.value = response.data.users;
+      projects.value = response.data.projects;
     }
   } catch (err) {
     alert("Something went wrong, please try again later");
@@ -93,9 +100,10 @@ async function handleTimeTracker() {
       showStartButton.value = false;
       showStopButton.value = true;
 
+      
       // start timer
       startTimer();
-
+      
       newTimeLog.value = response.data.log;
     }
   } catch (err) {
@@ -130,9 +138,10 @@ async function handleStopTimeTracker() {
       isBillable.value = false;
 
       // stop timer
+      
       stopTimer();
-
       alert("Time log added successfully");
+
       location.reload();
     }
   } catch (err) {
@@ -191,15 +200,15 @@ async function handleStopTimeTracker() {
       >
         START
       </button>
-
       <!-- stop button -->
-      <a
+      <button
         v-if="showStopButton"
         @click="handleStopTimeTracker"
+        :disabled = changeDisable
         class="btn btn-primary text-white mb-2 mx-4 mt-2"
       >
         STOP
-      </a>
+    </button>
     </form>
   </div>
 </template>
