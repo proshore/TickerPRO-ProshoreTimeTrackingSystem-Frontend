@@ -74,7 +74,7 @@ async function handleInvitedMembers() {
 
     invitedMembers.value = response.data.invitedUsers;
     totalMembers.value = response.data.total;
-    roles.value = responseRoles.data.roles;
+    roles.value = responseRoles.data.UserRoles;
     isLoading.value = false;
   } catch (error) {
     console.log(error);
