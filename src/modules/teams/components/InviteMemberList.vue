@@ -74,7 +74,7 @@ async function handleInvitedMembers() {
 
     invitedMembers.value = response.data.invitedUsers;
     totalMembers.value = response.data.total;
-    roles.value = responseRoles.data.roles;
+    roles.value = responseRoles.data.UserRoles;
     isLoading.value = false;
   } catch (error) {
     console.log(error);
@@ -121,7 +121,7 @@ handleInvitedMembers();
       <p v-if="isLoading">Loading...</p>
 
       <tbody v-if="invitedMembers.length">
-        <tr v-for="(member, index) in invitedMembers" :key="member.id">
+        <tr v-for="(member, index) in invitedMembers" :key="index">
           <th scope="row" v-text="`${index + 1}`" />
           <td v-text="member.name" />
           <td class="gray-color" v-text="member.email" />

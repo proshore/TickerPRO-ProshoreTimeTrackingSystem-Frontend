@@ -24,7 +24,7 @@ const errors = ref([]);
 async function allRoles() {
   try {
     const response = await getAllRoles();
-    roles.value = response.data.roles;
+    roles.value = response.data.UserRoles;
   } catch (error) {
     errors.value.push("Something went wrong, please try again later.");
   }

@@ -33,7 +33,7 @@ async function handleClientList(token) {
   try {
     const response = await clientList(token);
     if (response.status === 200) {
-      clients.value = response.data.users;
+      clients.value = response.data.clients;
     }
   } catch (err) {
     alert("Something went wrong, please try again later");
