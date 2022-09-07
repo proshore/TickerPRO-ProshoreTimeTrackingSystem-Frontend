@@ -58,7 +58,7 @@ onBeforeMount(async () => {
   try {
     const response = await projectList(token);
     if (response.status === 200) {
-      projects.value = response.data.users;
+      projects.value = response.data.projects;
     }
   } catch (err) {
     alert("Something went wrong, please try again later");

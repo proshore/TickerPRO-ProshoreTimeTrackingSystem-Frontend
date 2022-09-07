@@ -33,6 +33,7 @@ async function handleClientList(token) {
   try {
     const response = await clientList(token);
     if (response.status === 200) {
+      // console.log(response.data)
       clients.value = response.data.users;
     }
   } catch (err) {

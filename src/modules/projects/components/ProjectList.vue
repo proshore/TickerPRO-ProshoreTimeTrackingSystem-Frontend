@@ -15,6 +15,7 @@ async function loadProjects() {
   try {
     const response = await projectList(token);
     if (response.status === 200) {
+      // console.log(response.data)
       projects.value = response.data.users;
     }
   } catch (err) {

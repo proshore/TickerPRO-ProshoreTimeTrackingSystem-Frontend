@@ -118,10 +118,10 @@ handleInvitedMembers();
         </tr>
       </thead>
 
-      <p v-if="isLoading">Loading...</p>
+      <!-- <p v-if="isLoading">Loading...</p> -->
 
       <tbody v-if="invitedMembers.length">
-        <tr v-for="(member, index) in invitedMembers" :key="member.id">
+        <tr v-for="(member, index) in invitedMembers" :key="index">
           <th scope="row" v-text="`${index + 1}`" />
           <td v-text="member.name" />
           <td class="gray-color" v-text="member.email" />
