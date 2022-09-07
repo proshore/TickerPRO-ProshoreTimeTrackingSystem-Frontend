@@ -68,6 +68,7 @@ function search(a) {
         placeholder="Search.."
         v-model="value"
         v-on:input="search(value)"
+        data-cy="projectsSearchButton"
       />
     </div>
     <table class="table table-hover">

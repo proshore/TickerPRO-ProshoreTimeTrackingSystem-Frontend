@@ -18,8 +18,8 @@ const trackerEdit = async (data, token, trackerId) => {
   });
 };
 
-const timeLog = async (token, userId) => {
-  return await API.get(`${apiUrl.TRACKER_LIST}/${userId}`, {
+const timeLog = async (token, userId, page, size) => {
+  return await API.get(`${apiUrl.TRACKER_LIST}/${userId}?size=${size}&page=${page}`, {
     headers: {
       authorization: token,
     },
