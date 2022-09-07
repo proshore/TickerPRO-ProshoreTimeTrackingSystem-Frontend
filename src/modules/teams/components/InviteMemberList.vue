@@ -118,7 +118,7 @@ handleInvitedMembers();
         </tr>
       </thead>
 
-      <!-- <p v-if="isLoading">Loading...</p> -->
+      <p v-if="isLoading">Loading...</p>
 
       <tbody v-if="invitedMembers.length">
         <tr v-for="(member, index) in invitedMembers" :key="index">
