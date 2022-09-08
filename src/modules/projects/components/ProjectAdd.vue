@@ -77,7 +77,6 @@ async function handleAddProject() {
         project_name.value = "";
         clientId.value = "";
         billable.value = "";
-        // project_color_code.value = "";
       }
     } catch (error) {
       errors.value.push("Something went wrong, please try again later.");
