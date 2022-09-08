@@ -77,7 +77,7 @@ function search(a) {
           <th scope="col">#</th>
           <th scope="col">Project Name</th>
           <th scope="col">Color</th>
-          <th scope="col">Client Id</th>
+          <th scope="col">Client</th>
           <th scope="col">Billable</th>
           <th scope="col">Status</th>
           <th scope="col">Action</th>
@@ -91,7 +91,7 @@ function search(a) {
           <td>{{ index + 1 }}</td>
           <td>{{ project.project_name }}</td>
           <td>{{ project.project_color_code }}</td>
-          <td>{{ project.client_id }}</td>
+          <td>{{ project.client.client_name }}</td>
           <td>{{ billablestatus(project.billable) }}</td>
           <td>{{ status(project.status) }}</td>
           <td>
