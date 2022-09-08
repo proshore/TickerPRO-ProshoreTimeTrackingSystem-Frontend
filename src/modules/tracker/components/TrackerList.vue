@@ -248,7 +248,7 @@ const handleItemPerPage = (e) => {
                 class="btn"
                 style="background: #f7f7f7; border-radius: 9px"
               >
-                {{ log.project_name }}
+                {{ log.project.project_name }}
               </button>
             </td>
             <td>

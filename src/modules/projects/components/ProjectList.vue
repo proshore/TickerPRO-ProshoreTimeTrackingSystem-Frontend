@@ -76,7 +76,12 @@ function search(a) {
         <tr>
           <th scope="col">#</th>
           <th scope="col">Project Name</th>
+<<<<<<< HEAD
           <th scope="col">Client Id</th>
+=======
+          <th scope="col">Color</th>
+          <th scope="col">Client</th>
+>>>>>>> ead7abbb36d4c3b835affa2fabf3d66bdc48c0d8
           <th scope="col">Billable</th>
           <th scope="col">Status</th>
           <th scope="col">Action</th>
@@ -89,7 +94,12 @@ function search(a) {
         >
           <td>{{ index + 1 }}</td>
           <td>{{ project.project_name }}</td>
+<<<<<<< HEAD
           <td>{{ project.client_id }}</td>
+=======
+          <td>{{ project.project_color_code }}</td>
+          <td>{{ project.client.client_name }}</td>
+>>>>>>> ead7abbb36d4c3b835affa2fabf3d66bdc48c0d8
           <td>{{ billablestatus(project.billable) }}</td>
           <td>{{ status(project.status) }}</td>
           <td>

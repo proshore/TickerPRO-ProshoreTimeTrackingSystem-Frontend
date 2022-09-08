@@ -10,7 +10,8 @@ const allUsers = ref([]);
 const searchedUsers = ref(allUsers.value);
 const isLoading = ref(true);
 const isInitial = ref(true);
-
+const emailSortBy = ref('desc');
+const nameSortBy = ref('desc');
 async function handleAllUsers() {
   try {
     const token = getToken();
@@ -69,19 +70,52 @@ function search(a) {
 }
 
 //comparer function
-function GetSortOrder(prop) {
-  return function (a, b) {
+function GetSortOrder(prop, sortBy) {
+  return function (a, b ) {
+    if (sortBy === 'asc'){
+    if (a[prop].toLowerCase() < b[prop].toLowerCase()) {
+      return 1;
+    } else if (a[prop].toLowerCase() > b[prop].toLowerCase()) {
+      return -1;
+    }
+    return 0;
+  }
+    if (sortBy === 'desc'){
     if (a[prop].toLowerCase() > b[prop].toLowerCase()) {
       return 1;
     } else if (a[prop].toLowerCase() < b[prop].toLowerCase()) {
       return -1;
     }
     return 0;
+  }
   };
 }
 
-function sort(value) {
-  allUsers.value.sort(GetSortOrder(value));
+
+function sort(fieldType) {
+  // console.log((GetSortOrder(value)));
+  if (fieldType === 'email'){
+    if (this.emailSortBy === 'desc' ){
+      this.emailSortBy = 'asc'
+    } else {
+      this.emailSortBy = 'desc'
+    }
+  } 
+  if (fieldType === 'name'){
+    if (this.nameSortBy === 'desc' ){
+      this.nameSortBy = 'asc'
+    } else {
+      this.nameSortBy = 'desc'
+    }
+  } 
+  let sortBy = null
+  if(fieldType === 'email') {
+    sortBy = this.emailSortBy;
+  };
+  if(fieldType === 'name') {
+    sortBy = this.nameSortBy;
+  };
+  allUsers.value.sort(GetSortOrder(fieldType, sortBy));
 }
 
 handleAllUsers();
