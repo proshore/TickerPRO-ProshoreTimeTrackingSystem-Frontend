@@ -71,7 +71,6 @@ function search(a) {
 
 //comparer function
 function GetSortOrder(prop, sortBy) {
-  // console.log(prop)
   return function (a, b ) {
     if (sortBy === 'asc'){
     if (a[prop].toLowerCase() < b[prop].toLowerCase()) {
