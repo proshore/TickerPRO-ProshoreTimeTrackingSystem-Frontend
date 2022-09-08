@@ -6,24 +6,15 @@ import getToken from "@/utils/getToken";
 import { clientList } from "@/modules/clients/services";
 
 import validateName from "@/utils/validateName";
-import validateColor from "@/utils/validateColor";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
 
 const project_name = ref("");
-const project_color_code = ref("");
-const colors = ref([
-  { id: 1, name: "Black", hex: "#000000" },
-  { id: 2, name: "Red", hex: "#ff0000" },
-  { id: 3, name: "Blue", hex: "#0000ff" },
-  { id: 3, name: "Green", hex: "#008000" },
-]);
 const clientId = ref("");
 const billable = ref("0");
 const status = ref(1);
 const clients = ref([]);
 const projectNameError = ref("");
-const project_color_codeError = ref("");
 const clientNameError = ref("");
 const successAdd = ref(false);
 const errors = ref([]);
@@ -44,35 +35,12 @@ handleClientList(token);
 
 async function handleAddProject() {
   projectNameError.value = "";
-  project_color_codeError.value = "";
   clientNameError.value = "";
   errors.value = [];
   successAdd.value = false;
 
   const { isValid: validProjectName, errorMessage: errorProjectName } =
     validateName(project_name.value);
-
-  const { isValid: validColor, errorMessage: errorColor } = validateColor(
-    project_color_code.value
-  );
-
-  /*const { isValid: validClientName, errorMessage: errorClientName } =
-    validateName(clientId.value);*/
-
-  if (!validProjectName) {
-    project_color_codeError.value = errorColor;
-    project_color_code.value = "";
-  }
-
-  if (!validColor) {
-    projectNameError.value = errorProjectName;
-    project_name.value = "";
-  }
-
-  /*if (!validClientName) {
-    clientNameError.value = errorClientName;
-    client_id.value = "";
-  }*/
 
   if (
     projectNameError.value === "" &&
@@ -91,7 +59,6 @@ async function handleAddProject() {
         client_id: clientId.value,
         billable: billable.value,
         status: status.value,
-        project_color_code: project_color_code.value,
         user_id: id,
       };
       const token = getToken();
@@ -110,7 +77,7 @@ async function handleAddProject() {
         project_name.value = "";
         clientId.value = "";
         billable.value = "";
-        project_color_code.value = "";
+        // project_color_code.value = "";
       }
     } catch (error) {
       errors.value.push("Something went wrong, please try again later.");
@@ -175,30 +142,10 @@ async function handleAddProject() {
               :error="projectNameError"
               data-cy="addProjectName"
             />
-            <div class="mt-4">
-              <label class="form-label"
-                >Color<span class="text-danger">*</span></label
-              >
-              <select
-                id="color"
-                v-model="project_color_code"
-                @change="onChangeRole"
-                class="form-select"
-                :error="project_color_codeError"
-              >
-                <option
-                  v-for="color in colors"
-                  :key="color.id"
-                  :value="color.name"
-                  :style="{ color: color.hex }"
-                  v-text="color.name"
-                />
-              </select>
-            </div>
 
             <div class="mt-4">
-              <label class="form-label" for="client-id"
-              data-cy="addClientName">Client Name<span class="text-danger">*</span></label
+              <label class="form-label" for="client-id" data-cy="addClientName"
+                >Client Name<span class="text-danger">*</span></label
               >
               <select
                 v-if="clients.length"
@@ -228,7 +175,11 @@ async function handleAddProject() {
             </div>
             <!-- submit -->
             <div class="mt-4 mb-2">
-              <button type="submit" class="btn btn-primary text-white" data-cy="newProjectCreateButton">
+              <button
+                type="submit"
+                class="btn btn-primary text-white"
+                data-cy="newProjectCreateButton"
+              >
                 CREATE
               </button>
             </div>
