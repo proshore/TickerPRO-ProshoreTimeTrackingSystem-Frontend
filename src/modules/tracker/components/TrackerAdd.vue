@@ -8,6 +8,8 @@ import getUser from "@/utils/getUser";
 import { projectList } from "@/modules/projects/services";
 
 import { trackerAdd, trackerEdit } from "../services";
+import { useToast } from "vue-toast-notification";
+
 
 // import { timer, startTimer, stopTimer } from "../utils/setTimer";
 
@@ -19,7 +21,7 @@ const showStartButton = ref(true);
 const showStopButton = ref(false);
 const newTimeLog = ref(null);
 const stopWatch = ref("00:00:00");
-
+const $toast = useToast();
 const token = getToken();
 
 
@@ -68,7 +70,7 @@ onBeforeMount(async () => {
       projects.value = response.data.projects;
     }
   } catch (err) {
-    alert("Something went wrong, please try again later");
+    $toast.info("Server Down. Please try again later.");
   }
 });
 
@@ -107,7 +109,7 @@ async function handleTimeTracker() {
       newTimeLog.value = response.data.log;
     }
   } catch (err) {
-    alert("Something went wrong, please try again later");
+    $toast.error("Something went wrong, please try again later");
   }
 }
 
@@ -145,7 +147,7 @@ async function handleStopTimeTracker() {
       location.reload();
     }
   } catch (err) {
-    alert("Something went wrong, please try again later");
+    $toast.error("Something went wrong, please try again later");
   }
 }
 </script>

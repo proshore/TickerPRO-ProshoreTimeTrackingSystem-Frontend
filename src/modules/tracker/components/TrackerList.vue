@@ -111,7 +111,7 @@ async function handleTimeLog() {
     tableLogs.value = groupArrays;
     isLoading.value = false;
   } catch (err) {
-    $toast.info("Something went wrong, please try again later");
+    $toast.info("Cannot show log at the moment.");
   }
 }
 handleTimeLog();

@@ -4,7 +4,7 @@ const INVITED_MEMBERS_LIST_URL = "/api/invite/invited-users";
 const REINVITE_URL = "/api/invite/resend";
 const REINVOKE_URL = "/api/invite/revoke/";
 const REGISTER_USER_LIST_URL = "/api/admin/users";
-const DELETE_USER_URL = "/api/admin/user/";
+const DELETE_USER_URL = "/api/admin/user";
 const ENABLE_USER_URL = "/api/admin/user-status";
 
 export default {
