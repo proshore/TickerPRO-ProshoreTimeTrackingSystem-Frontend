@@ -59,7 +59,7 @@ const deleteUser = async (token, data) => {
 };
 
 const enableDisable = async (token, data) => {
-  return await API.post(
+  return await API.patch(
     `${apiUrl.ENABLE_USER_URL}/${data}`,
     {},
     {

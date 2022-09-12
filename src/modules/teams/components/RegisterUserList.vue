@@ -187,14 +187,18 @@ handleAllUsers();
           <td v-text="member.email" />
           <td>
             {{
-              status(member.activeStatus) === "Enable" ? "Disable" : "Enable"
+              status(member.active_status) === "Enable" ? "Disabled" : "Enabled"
             }}
           </td>
           <td>
+            <span 
+            v-if="member.id === 1"
+            class="btn btn-light btn-sm">Admin</span>
             <button
+            v-else
               class="btn btn-light btn-sm"
               @click="enableDisableUser(index)"
-              v-text="status(member.activeStatus)"
+              v-text="status(member.active_status)"
             ></button>
           </td>
           <td class="dropdown">
@@ -206,7 +210,10 @@ handleAllUsers();
               aria-expanded="true"
             ></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li>
+              <span v-if="member.id === 1">
+                Sorry!!! You can't delete admin user.
+              </span>
+              <li v-else>
                 <a class="dropdown-item" @click="userDelete(index)"> Delete</a>
               </li>
             </ul>
