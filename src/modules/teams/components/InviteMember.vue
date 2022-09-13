@@ -7,6 +7,7 @@ import validateName from "@/utils/validateName";
 import validateEmail from "@/utils/validateEmail";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
+import { useToast } from "vue-toast-notification";
 
 const name = ref("");
 const email = ref("");
@@ -17,7 +18,7 @@ const roleError = ref("");
 const successInvite = ref(false);
 const roles = ref([]);
 const errors = ref([]);
-
+const $toast = useToast();
 
 async function allRoles() {
   try {
@@ -75,13 +76,12 @@ async function handleInviteMember() {
       const response = await inviteMember(memberInfo, token);
       if (response.status === 200) {
         successInvite.value = true;
-
+        $toast.success("Invite is sent successfully!!!");
         // reset successInvite after 3 seconds
         setTimeout(() => {
           successInvite.value = false;
-        }, 3000);
-
-        location.reload();
+          location.reload();
+        }, 1500);
 
         // empty form fields
         name.value = "";
@@ -89,7 +89,7 @@ async function handleInviteMember() {
         role.value = "";
       }
     } catch (error) {
-      errors.value.push("Something went wrong, please try again later.");
+      $toast.error("Something went wrong, please try again later.");
     }
   }
 }
@@ -132,20 +132,6 @@ td {
           ></button>
         </div>
         <div class="modal-body">
-          <!-- Success invite -->
-          <BaseAlert
-            v-if="successInvite"
-            message="Invite send successfully!"
-            hex-font-color="198754"
-          />
-
-          <!-- Show error messages -->
-          <div v-if="errors.length">
-            <div v-for="error in errors" :key="error">
-              <BaseAlert :message="error" hex-font-color="ff0000" />
-            </div>
-          </div>
-
           <form @submit.prevent="handleInviteMember">
             <BaseInput
               type="text"

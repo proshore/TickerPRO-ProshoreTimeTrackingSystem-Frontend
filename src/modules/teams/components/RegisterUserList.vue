@@ -51,10 +51,10 @@ async function enableDisableUser(index) {
     isLoading.value = false;
     if (res.status == 200) {
       handleAllUsers();
-      alert(res.data["message"]);
+      $toast.success(res.data["message"]);
     }
   } catch (error) {
-    alert("Something went wrong, please try again later.");
+    $toast.error("Something went wrong, please try again later.");
   }
 }
 function status(x) {
@@ -230,7 +230,10 @@ handleAllUsers();
               aria-expanded="true"
             ></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li>
+              <li v-if="member.id === 1">
+                <span>Sorry, You can't delete Admin user!!!</span>
+              </li>
+              <li v-else>
                 <button
                       type="button"
                       class="btn btn-light btn-sm mx-2"
@@ -281,12 +284,6 @@ handleAllUsers();
                         
                         Delete
                       </button>
-                      <!-- <span v-if="member.id === 1">
-                Sorry!!! You can't delete admin user.
-              </span>
-              <li v-else>
-                <a class="dropdown-item" @click="userDelete(index)"> Delete</a>
-                </li> -->
                     </div>
                   </div>
                 </div>
