@@ -176,14 +176,26 @@ async function handleSignup() {
             data-cy="signUpName" />
           </div>
 
-        <BaseInput
-          type="email"
-          name="email"
-          label="Email address"
-          v-model="form.email"
-          :error="emailError"
-          data-cy="signUpEmail"
-        />
+          <div v-if = '!form.email'>
+            <BaseInput
+            type="text"
+            name="email"
+            label="Email Adress"
+            v-model="form.email"
+            :error="emailError"
+            :disabled = false
+            data-cy="signUpEmail" />
+          </div>
+          <div v-else>
+            <BaseInput
+            type="text"
+            name="email"
+            label="Email Address"
+            v-model="form.email"
+            :error="emailError"
+            :disabled = true
+            data-cy="signUpEmail" />
+          </div>
 
         <BaseInput
           type="password"

@@ -1,13 +1,10 @@
 <script setup>
 import { ref } from "vue";
-
 import { getAllRoles, inviteMember } from "../services";
-
 import getUser from "@/utils/getUser";
 import getToken from "@/utils/getToken";
 import validateName from "@/utils/validateName";
 import validateEmail from "@/utils/validateEmail";
-
 import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
 
@@ -20,6 +17,7 @@ const roleError = ref("");
 const successInvite = ref(false);
 const roles = ref([]);
 const errors = ref([]);
+
 
 async function allRoles() {
   try {
