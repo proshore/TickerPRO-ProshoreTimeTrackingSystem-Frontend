@@ -219,7 +219,7 @@ handleAllUsers();
                       class="btn btn-light btn-sm mx-2"
                       data-bs-toggle="modal"
                       data-bs-target="#staticBackdrop"
-                      data-cy="deleteTimeLog"
+                      data-cy="deleteRegisteredMember"
                       @click="onModalClick(index)"
                     >
                       Delete
