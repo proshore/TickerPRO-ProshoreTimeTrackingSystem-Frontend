@@ -10,7 +10,7 @@ import validateEmail from "@/utils/validateEmail";
 
 import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
-
+import { useToast } from "vue-toast-notification";
 const name = ref("");
 const email = ref("");
 const role = ref("");
@@ -20,6 +20,7 @@ const roleError = ref("");
 const successInvite = ref(false);
 const roles = ref([]);
 const errors = ref([]);
+const $toast = useToast();
 
 async function allRoles() {
   try {
@@ -91,7 +92,7 @@ async function handleInviteMember() {
         role.value = "";
       }
     } catch (error) {
-      errors.value.push("Something went wrong, please try again later.");
+      $toast.success("Something went wrong, please try again later.");
     }
   }
 }
