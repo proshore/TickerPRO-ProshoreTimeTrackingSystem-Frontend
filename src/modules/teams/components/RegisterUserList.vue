@@ -254,6 +254,7 @@ handleAllUsers();
                         type="button"
                         class="btn btn-secondary-outline"
                         data-bs-dismiss="modal"
+                        data-cy="cancelDeleteRegisteredMember"
                       >
                         Cancel
                       </button>
@@ -262,6 +263,7 @@ handleAllUsers();
                         class="btn btn-primary-outline text-primary"
                         @click="userDelete()"
                         data-bs-dismiss="modal"
+                        data-cy="deleteRegisteredUserSuccessfully"
                       >
                         
                         Delete
