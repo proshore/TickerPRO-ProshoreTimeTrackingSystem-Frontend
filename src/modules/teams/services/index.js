@@ -47,10 +47,9 @@ const allUsersList = async (token) => {
 };
 
 const deleteUser = async (token, data) => {
-  return await API.post(
+  return await API.delete(
     `${apiUrl.DELETE_USER_URL}/${data}`,
-    {},
-    {
+      {
       headers: {
         Authorization: token,
       },
@@ -61,7 +60,6 @@ const deleteUser = async (token, data) => {
 const enableDisable = async (token, data) => {
   return await API.patch(
     `${apiUrl.ENABLE_USER_URL}/${data}`,
-    {},
     {
       headers: {
         Authorization: token,

@@ -1,17 +1,23 @@
 <script setup>
 import { ref } from "vue";
-
 import getToken from "@/utils/getToken";
-
 import { allUsersList, deleteUser, enableDisable } from "../services";
+import { useToast } from "vue-toast-notification";
 
 const totalMembers = ref(0);
 const allUsers = ref([]);
 const searchedUsers = ref(allUsers.value);
 const isLoading = ref(true);
 const isInitial = ref(true);
+const $toast = useToast();
 const emailSortBy = ref('desc');
 const nameSortBy = ref('desc');
+const deletingUser = ref(null)
+
+function onModalClick(index){
+  deletingUser.value = index
+}
+
 async function handleAllUsers() {
   try {
     const token = getToken();
@@ -24,17 +30,17 @@ async function handleAllUsers() {
   }
 }
 
-async function userDelete(index) {
+async function userDelete() {
   try {
     const token = getToken();
-    const res = await deleteUser(token, allUsers.value[index]["id"]);
+    const res = await deleteUser(token, allUsers.value[deletingUser.value]["id"]);
     isLoading.value = false;
     if (res.status == 200) {
       handleAllUsers();
-      alert(res.data["message"]);
+      $toast.success(res.data["message"]);
     }
   } catch (error) {
-    alert("Something went wrong, please try again later");
+    $toast.error("Something went wrong, please try again later");
   }
 }
 
@@ -181,6 +187,7 @@ handleAllUsers();
           v-for="(member, index) in isInitial ? allUsers : searchedUsers"
           :key="member.id"
         >
+          
           <!-- <tr v-for ="(member,index) in allUsers" :key="member.id"> -->
           <th scope="row" v-text="member.id" />
           <td v-text="member.name" />
@@ -210,13 +217,67 @@ handleAllUsers();
               aria-expanded="true"
             ></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <span v-if="member.id === 1">
+              <li>
+                <button
+                      type="button"
+                      class="btn btn-light btn-sm mx-2"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop"
+                      data-cy="deleteRegisteredMember"
+                      @click="onModalClick(index)"
+                    >
+                      Delete
+                    </button>
+              
+              </li>
+            </ul>
+            <div
+                class="modal fade"
+                id="staticBackdrop"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header text-center border-0">
+                      <h5 class="modal-title w-100" id="staticBackdropLabel">
+                        Are you sure you want to delete?
+                      </h5>
+                    </div>
+                    <div
+                      class="modal-footer pull-right justify-content-center border-0"
+                    >
+                      <button
+                        type="button"
+                        class="btn btn-secondary-outline"
+                        data-bs-dismiss="modal"
+                        data-cy="cancelDeleteRegisteredMember"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-primary-outline text-primary"
+                        @click="userDelete()"
+                        data-bs-dismiss="modal"
+                        data-cy="deleteRegisteredUserSuccessfully"
+                      >
+                        
+                        Delete
+                      </button>
+                      <!-- <span v-if="member.id === 1">
                 Sorry!!! You can't delete admin user.
               </span>
               <li v-else>
                 <a class="dropdown-item" @click="userDelete(index)"> Delete</a>
-              </li>
-            </ul>
+                </li> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
           </td>
         </tr>
       </tbody>
