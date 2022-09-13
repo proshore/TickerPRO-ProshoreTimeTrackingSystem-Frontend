@@ -19,7 +19,6 @@ function onModalClick(index){
 }
 
 async function handleAllUsers() {
-  console.log(allUsers)
   try {
     const token = getToken();
     const response = await allUsersList(token);
