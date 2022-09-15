@@ -2,11 +2,9 @@
 import { ref } from "vue";
 
 import getToken from "@/utils/getToken";
-
 import InviteMember from "../components/InviteMember.vue";
 
 import {
-  getAllRoles,
   invitedMembersList,
   reinviteMember,
   revokeInvitation,
@@ -24,19 +22,6 @@ const memberStatus = (status) => {
   } else {
     return "Active";
   }
-};
-
-const getRole = (roleId) => {
-  let role = "";
-  if (roles.value.length > 0) {
-    roles.value.forEach((r) => {
-      if (r.id === roleId) {
-        role = r.role.toUpperCase();
-      }
-    });
-    return role;
-  }
-  return roleId;
 };
 
 async function handleReinviteMember(email, name) {
@@ -70,11 +55,9 @@ async function handleInvitedMembers() {
   try {
     const token = getToken();
     const response = await invitedMembersList(token);
-    const responseRoles = await getAllRoles();
 
     invitedMembers.value = response.data.invitedUsers;
     totalMembers.value = response.data.total;
-    roles.value = responseRoles.data.UserRoles;
     isLoading.value = false;
   } catch (error) {
     console.log(error);
@@ -125,7 +108,7 @@ handleInvitedMembers();
           <th scope="row" v-text="`${index + 1}`" />
           <td v-text="member.name" />
           <td class="gray-color" v-text="member.email" />
-          <td v-text="getRole(member.role_id)" />
+          <td v-text="member.role.role.toUpperCase()" />
           <td class="gray-color" v-text="memberStatus(member.inviteAccepted)" />
           <td>
             <button

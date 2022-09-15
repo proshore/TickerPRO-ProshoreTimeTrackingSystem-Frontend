@@ -13,6 +13,7 @@ const token = getToken();
 const logs = ref([]);
 const isLoading = ref(true);
 const userId = getUser().user.id;
+const modalLogId = ref(null);
 
 const tableLogs = ref([]);
 const today = new Date().toISOString().slice(0, 10);
@@ -383,6 +384,7 @@ const handleItemPerPage = (e) => {
                       data-bs-toggle="modal"
                       data-bs-target="#staticBackdrop"
                       data-cy="deleteTimeLog"
+                      @click="modalLogId = log.id"
                     >
                       Delete
                     </button>
@@ -419,8 +421,9 @@ const handleItemPerPage = (e) => {
                       <button
                         type="button"
                         class="btn btn-primary-outline text-primary"
-                        @click="handleTrackerDelete(log.id)"
+                        @click="handleTrackerDelete(modalLogId)"
                         data-bs-dismiss="modal"
+                        data-cy="deleteTrackerList"
                       >
                         Delete
                       </button>

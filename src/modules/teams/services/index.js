@@ -31,7 +31,9 @@ const reinviteMember = async (token, data) => {
 };
 
 const revokeInvitation = async (token, data) => {
-  return await API.get(apiUrl.REINVOKE_URL + data, {
+  return await API.delete(
+    `${apiUrl.REINVOKE_URL}${data}`,
+    {
     headers: {
       Authorization: token,
     },
@@ -59,7 +61,7 @@ const deleteUser = async (token, data) => {
 
 const enableDisable = async (token, data) => {
   return await API.patch(
-    `${apiUrl.ENABLE_USER_URL}/${data}`,
+    `${apiUrl.ENABLE_USER_URL}/${data}`, null,
     {
       headers: {
         Authorization: token,

@@ -117,8 +117,8 @@ async function handleStopTimeTracker() {
   try {
     const dataToStopTracker = {
       activity_name: newTimeLog.value.activity_name,
-      user_id: newTimeLog.value.user_id,
-      project_id: newTimeLog.value.project_id,
+      user_id: getUser().user.id,
+      project_id: newTimeLog.value.project.project_id,
       billable: newTimeLog.value.billable,
       start_time: newTimeLog.value.start_time,
       end_time: getTime(),
@@ -184,9 +184,9 @@ async function handleStopTimeTracker() {
           <option :value="null" disabled>Projects</option>
           <option
             v-for="project in projects"
-            :key="project.id"
+            :key="project.project_id"
             :selected="project.project_name[0]"
-            :value="project.id"
+            :value="project.project_id"
             v-text="project.project_name"
             data-cy = "selectProjectName"
             />
