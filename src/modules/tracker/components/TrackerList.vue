@@ -423,6 +423,7 @@ const handleItemPerPage = (e) => {
                         class="btn btn-primary-outline text-primary"
                         @click="handleTrackerDelete(modalLogId)"
                         data-bs-dismiss="modal"
+                        data-cy="deleteTrackerList"
                       >
                         Delete
                       </button>

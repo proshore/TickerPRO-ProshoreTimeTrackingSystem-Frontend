@@ -31,7 +31,9 @@ const reinviteMember = async (token, data) => {
 };
 
 const revokeInvitation = async (token, data) => {
-  return await API.delete(apiUrl.REINVOKE_URL + data, {
+  return await API.delete(
+    `${apiUrl.REINVOKE_URL}${data}`,
+    {
     headers: {
       Authorization: token,
     },
