@@ -253,7 +253,17 @@ const handleItemPerPage = (e) => {
               </button>
             </td>
             <td>
-              <span style="cursor: pointer;" :title="log.billable ? 'Billable' : 'Non billable'" :v-model="log.billable">
+              <span style="cursor: pointer;" :title="log.billable ? 'Billable' : 'Non billable'" 
+              @click="editLogs(
+                    $event,
+                    log.activity_name,
+                    userId,
+                    log.project.project_id,
+                    log.billable,
+                    log.start_time,
+                    log.end_time,
+                    log.id
+                  )">
                 <p
                   v-if="getBillable(log.billable) === 'Billable'"
                   style="font-size: 25px"
