@@ -253,8 +253,12 @@ const handleItemPerPage = (e) => {
               </button>
             </td>
             <td>
-              <span style="cursor: pointer;" :title="log.billable ? 'Billable' : 'Non billable'" 
-              @click="editLogs(
+              <span
+                style="cursor: pointer"
+                :title="log.billable ? 'Billable' : 'Non billable'"
+                data-cy="toggleBillablility"
+                @click="
+                  editLogs(
                     $event,
                     log.activity_name,
                     userId,
@@ -263,10 +267,12 @@ const handleItemPerPage = (e) => {
                     log.start_time,
                     log.end_time,
                     log.id
-                  )">
+                  )
+                "
+              >
                 <p
                   v-if="getBillable(log.billable) === 'Billable'"
-                  style="font-size: 25px"
+                  data-cy="toggleBillable"
                   class="my-1"
                   @click="() => (log.billable = false)"
                 >
@@ -284,7 +290,12 @@ const handleItemPerPage = (e) => {
                     />
                   </svg>
                 </p>
-                <p v-else class="my-1" style="font-size: 25px" @click="() => (log.billable = true)">
+                <p
+                  v-else
+                  class="my-1"
+                  data-cy="toggleNonBillable"
+                  @click="() => (log.billable = true)"
+                >
                   <svg
                     width="25"
                     height="25"
