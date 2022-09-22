@@ -6,7 +6,6 @@ import getToken from "@/utils/getToken";
 import getUser from "@/utils/getUser";
 
 import { projectList } from "@/modules/projects/services";
-
 import { trackerAdd, trackerEdit } from "../services";
 import { useToast } from "vue-toast-notification";
 
@@ -142,7 +141,7 @@ async function handleStopTimeTracker() {
       // stop timer
       
       stopTimer();
-      alert("Time log added successfully");
+      $toast.success("Time log added successfully");
 
       location.reload();
     }

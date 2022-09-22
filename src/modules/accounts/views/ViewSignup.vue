@@ -10,6 +10,7 @@ import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword";
 import validateName from "@/utils/validateName";
 import validateConfirmPassword from "@/utils/validateConfirmPassword";
+import PasswordToggle from "@/components/PasswordToggle.vue";
 
 import { signupUser } from "../services";
 
@@ -20,6 +21,9 @@ const route = useRoute();
 const token = route.params.token;
 const email = route.query.email;
 const name = route.query.name;
+
+let showPassword = ref(false);
+let showConfirmPassword = ref(false);
 
 const form = ref({
   name: name,
@@ -196,26 +200,40 @@ async function handleSignup() {
             :disabled = true
             data-cy="signUpEmail" />
           </div>
-
+          
+      <div class="input_form">
         <BaseInput
-          type="password"
+          :type="showPassword ? 'text' : 'password'"
           name="password"
           label="Password"
           v-model="form.password"
           :error="passwordError"
           data-cy="signUpPassword"
         />
-        <BaseInput
-          type="password"
-          name="confirm-password"
-          label="Confirm password"
-          v-model="form.passwordConfirmation"
-          :error="confirmPasswordError"
-          data-cy="signUpConfirmPassword"
-        />
+        <PasswordToggle
+          :showPassword="showPassword"
+          @togglePassword="showPassword = !showPassword"
+          >
+        </PasswordToggle>
       </div>
-
-      <div class="d-grid">
+      <div class="input_form">
+        <BaseInput
+        :type="showConfirmPassword ? 'text' : 'password'"
+        name="confirm-password"
+        label="Confirm password"
+        v-model="form.passwordConfirmation"
+        :error="confirmPasswordError"
+        data-cy="signUpConfirmPassword"
+            />
+            <PasswordToggle
+              :showPassword="showConfirmPassword"
+              @togglePassword="showConfirmPassword = !showConfirmPassword"
+              >
+            </PasswordToggle>
+        </div>
+        </div>
+          
+          <div class="d-grid">
         <button type="submit" class="btn btn-primary text-white" :disabled="disableSignupButton" data-cy="signUpSubmit">
           Sign up
         </button>
