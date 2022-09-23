@@ -1,9 +1,12 @@
-const ADD_PROJECT_URL = "/api/project/";
-const PROJECT_ENABLE_URL = "/api/project/";
-const PROJECT_LIST_URL = "/api/project/";
+const PROJECT = "/api/project";
+const ADD_PROJECT_URL = PROJECT;
+const EDIT_PROJECT_URL = PROJECT;
+const PROJECT_ENABLE_URL = PROJECT;
+const PROJECT_LIST_URL = PROJECT;
 
 export default {
-  PROJECT_ENABLE_URL,
   ADD_PROJECT_URL,
+  EDIT_PROJECT_URL,
+  PROJECT_ENABLE_URL,
   PROJECT_LIST_URL,
 };
