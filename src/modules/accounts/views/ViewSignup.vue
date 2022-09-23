@@ -13,7 +13,7 @@ import validateConfirmPassword from "@/utils/validateConfirmPassword";
 import PasswordToggle from "@/components/PasswordToggle.vue";
 
 import { signupUser } from "../services";
-
+import { useToast } from "vue-toast-notification";
 import logo from "@/assets/images/logo.svg";
 
 const route = useRoute();
@@ -24,6 +24,7 @@ const name = route.query.name;
 
 let showPassword = ref(false);
 let showConfirmPassword = ref(false);
+const $toast = useToast();
 
 const form = ref({
   name: name,
@@ -121,7 +122,7 @@ async function handleSignup() {
         errors.value.push("Please enter an valid email.");
         form.value.email = "";
       } else {
-        errors.value.push("Something went wrong, please try again later.");
+        $toast.error("You have been revoked");
         form.value.password = "";
         form.value.passwordConfirmation = "";
       }
