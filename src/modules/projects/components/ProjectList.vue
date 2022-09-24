@@ -143,7 +143,7 @@ function search(a) {
                 v-model="project.project_name"
                 style="width: fit-content"
                 data-cy="projectNameEdit"
-                @focusout="
+                @change="
                   editLogs(
                     $event,
                     project.project_name,
