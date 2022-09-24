@@ -13,8 +13,6 @@ const token = getToken();
 const searchedprojects = ref(projects.value);
 const isInitial = ref(true);
 const clients = ref([]);
-const searchedclients = ref(clients.value);
-const clientId = ref("");
 const clientNameError = ref("");
 const $toast = useToast();
 
@@ -30,7 +28,7 @@ async function loadProjects() {
 }
 loadProjects();
 
-async function handleClientList(token) {
+async function loadClients(token) {
   try {
     const response = await clientList(token);
     if (response.status === 200) {
@@ -40,7 +38,7 @@ async function handleClientList(token) {
     alert("Something went wrong, please try again later");
   }
 }
-handleClientList(token);
+loadClients(token);
 
 async function editLogs(
   $event,
@@ -63,7 +61,7 @@ async function editLogs(
     const response = await editProject(data, token, projectId);
     if (response.status == 200) {
       loadProjects();
-      $toast.success("Your Timelog updated successfully.");
+      $toast.success("Your Project updated successfully.");
     }
   } catch (err) {
     $toast.error("Unable to update Timelog.");
@@ -144,7 +142,7 @@ function search(a) {
                 type="text"
                 v-model="project.project_name"
                 style="width: fit-content"
-                data-cy="activityNameEdit"
+                data-cy="projectNameEdit"
                 @focusout="
                   editLogs(
                     $event,
@@ -176,7 +174,7 @@ function search(a) {
                 class="clientSelect"
                 v-model = "project.client.id"
                 :error="clientNameError"
-                style="border-radius: 9px"
+                data-cy="clientSelectList"
                 @change="
                   editLogs(
                     $event,
@@ -194,6 +192,7 @@ function search(a) {
                   :key="client.id"
                   :value="client.id"
                   :text="client.client_name"
+                  data-cy="clientSelectList"
                 />
               </select>
           </td>
@@ -263,6 +262,7 @@ function search(a) {
               v-text="
                 status(project.status) === 'Enable' ? 'Disable' : 'Enable'
               "
+              data-cy="toggleStatus"
             ></button>
           </td>
         </tr>
