@@ -23,7 +23,7 @@ async function loadProjects() {
       projects.value = response.data.projects;
     }
   } catch (err) {
-    alert("Something went wrong, please try again later");
+    $toast.error("Something went wrong, please try again later");
   }
 }
 loadProjects();
@@ -35,7 +35,7 @@ async function loadClients(token) {
       clients.value = response.data.clients;
     }
   } catch (err) {
-    alert("Something went wrong, please try again later");
+    $toast.error("Something went wrong, please try again later");
   }
 }
 loadClients(token);
@@ -49,7 +49,6 @@ async function editLogs(
   status,
   projectId
 ) {
-  $event.preventDefault();
   try {
     let data = {
       project_name: project_name,
@@ -80,7 +79,7 @@ async function enableDisableProject(projectId) {
       loadProjects();
     }
   } catch (error) {
-    alert("Something went wrong, please try again later");
+    $toast.error("Something went wrong, please try again later");
   }
 }
 function status(x) {
