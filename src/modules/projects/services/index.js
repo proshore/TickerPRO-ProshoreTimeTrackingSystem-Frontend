@@ -10,6 +10,14 @@ const addProject = async (data, token) => {
   });
 };
 
+const editProject = async (data, token, projectId) => {
+  return await API.patch(`${apiUrl.EDIT_PROJECT_URL}/${projectId}`, data, {
+    headers: {
+      Authorization: token,
+    },
+  });
+};
+
 const enableDisable = async (token, projectId) => {
   return await API.post(
     `${apiUrl.PROJECT_ENABLE_URL}/${projectId}`,
@@ -28,4 +36,4 @@ const projectList = async (token) => {
   });
 };
 
-export { addProject, enableDisable, projectList };
+export { addProject, editProject, enableDisable, projectList };
