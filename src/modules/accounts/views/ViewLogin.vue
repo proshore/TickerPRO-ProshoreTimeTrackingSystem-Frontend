@@ -82,7 +82,7 @@ async function handleLogin() {
       }
     } catch (error) {
       if (error.message === "Network Error") {
-        errors.value.push("Something went wrong, please try again later.");
+        errors.value.push("Server is currently under maintainance");
       } else if (error.response.status === 401) {
         errors.value.push("Please enter valid email or password.");
         form.value.email = "";
