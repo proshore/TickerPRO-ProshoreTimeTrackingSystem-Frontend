@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, toRefs } from "vue";
 import { getAllRoles, inviteMember } from "../services";
 import getUser from "@/utils/getUser";
 import getToken from "@/utils/getToken";
@@ -19,6 +19,11 @@ const successInvite = ref(false);
 const roles = ref([]);
 const errors = ref([]);
 const $toast = useToast();
+
+const props = defineProps({
+  handleInvitedMembers: Function
+})
+const {handleInvitedMembers} = props
 
 async function allRoles() {
   try {
@@ -76,11 +81,11 @@ async function handleInviteMember() {
       const response = await inviteMember(memberInfo, token);
       if (response.status === 200) {
         successInvite.value = true;
+        handleInvitedMembers();
         $toast.success("Invite is sent successfully!!!");
         // reset successInvite after 3 seconds
         setTimeout(() => {
           successInvite.value = false;
-          location.reload();
         }, 1500);
 
         // empty form fields

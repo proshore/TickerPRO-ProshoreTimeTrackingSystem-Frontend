@@ -86,7 +86,7 @@ handleInvitedMembers();
     ></button>
   </div>
 
-  <InviteMember />
+  <InviteMember :handleInvitedMembers = "handleInvitedMembers" />
   <div class="mt-3 border border-bottom-0 rounded">
     <table class="table table-hover">
       <thead class="text-primary">
