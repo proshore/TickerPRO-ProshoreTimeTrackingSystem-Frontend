@@ -470,7 +470,9 @@ const handleItemPerPage = (e) => {
           style="width: 90px"
           @change="handleItemPerPage"
         >
+          <option value="20">20</option>
           <option selected value="50">50</option>
+          <option value="100">100</option>
         </select>
       </div>
     </div>
