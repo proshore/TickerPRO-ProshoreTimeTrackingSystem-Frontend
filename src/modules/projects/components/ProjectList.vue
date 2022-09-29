@@ -285,6 +285,7 @@ const handleItemPerPage = (e) => {
     </table>
     <div class="d-flex">
       <vue-awesome-paginate
+      data-cy="paginateProjectList"
         :total-items="totalItems"
         :items-per-page="Number(itemPerPage)"
         :max-pages-shown="2"
