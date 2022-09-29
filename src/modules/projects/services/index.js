@@ -30,8 +30,8 @@ const enableDisable = async (token, projectId) => {
   );
 };
 
-const projectList = async (token) => {
-  return await API.get(apiUrl.PROJECT_LIST_URL, {
+const projectList = async (token, page) => {
+  return await API.get(`${apiUrl.PROJECT_LIST_URL}?page=${page}`, {
     headers: { Authorization: token },
   });
 };

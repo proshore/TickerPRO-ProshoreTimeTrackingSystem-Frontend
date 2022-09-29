@@ -469,10 +469,11 @@ const handleItemPerPage = (e) => {
           class="form-select"
           style="width: 90px"
           @change="handleItemPerPage"
+          data-cy="handleItemPerPage"
         >
-          <option value="20">20</option>
-          <option selected value="50">50</option>
-          <option value="100">100</option>
+          <option value="20" data-cy="sortListTwenty">20</option>
+          <option selected value="50" data-cy="sortListfifty">50</option>
+          <option value="100" data-cy="sortListHundred">100</option>
         </select>
       </div>
     </div>
