@@ -15,10 +15,13 @@ const isInitial = ref(true);
 const clients = ref([]);
 const clientNameError = ref("");
 const $toast = useToast();
+const totalItems = ref();
+const itemPerPage = ref(50);
+const currentPage = ref(1);
 
 async function loadProjects() {
   try {
-    const response = await projectList(token);
+    const response = await projectList(token, currentPage?.["_rawValue"]);
     if (response.status === 200) {
       projects.value = response.data.projects;
     }
@@ -105,6 +108,18 @@ function search(a) {
     isInitial.value = false;
   });
 }
+
+const onClickHandler = (page) => {
+  currentPage.value = page;
+  loadProjects();
+};
+
+const handleItemPerPage = (e) => {
+  itemPerPage.value = e.target.value;
+  onClickHandler(1);
+  // currentPage.value = 1;
+  // loadProject();
+};
 </script>
 
 <template>
@@ -117,6 +132,7 @@ function search(a) {
         v-on:input="search(value)"
         data-cy="projectsSearchButton"
       />
+    </div>
     </div>
     <table class="table table-hover">
       <thead class="text-primary">
@@ -267,6 +283,14 @@ function search(a) {
         </tr>
       </tbody>
     </table>
+    <div class="d-flex">
+      <vue-awesome-paginate
+        :total-items="totalItems"
+        :items-per-page="Number(itemPerPage)"
+        :max-pages-shown="2"
+        :current-page="currentPage"
+        :on-click="onClickHandler"
+      />
   </div>
 </template>
 <style>
