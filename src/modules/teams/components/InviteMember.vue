@@ -98,6 +98,12 @@ async function handleInviteMember() {
     }
   }
 }
+
+function closeModel() { 
+    name.value = "";
+    email.value = "";
+    role.value = "";
+}
 </script>
 <style>
 th,
@@ -126,14 +132,16 @@ td {
     aria-hidden="true"
   >
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" >
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Add New Member</h5>
           <button
+            @click="closeModel"
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
+            data-cy = "clearFieldWhenClose"
           ></button>
         </div>
         <div class="modal-body">
