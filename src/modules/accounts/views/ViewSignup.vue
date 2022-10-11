@@ -141,7 +141,7 @@ async function handleSignup() {
     <div v-if="signupSuccess" class="alert alert-success" role="alert" >
       Signup successfully!
       <RouterLink :to="{ name: 'login' }" class="alert-link text-decoration-underline" >Login</RouterLink>
-      to start using TIme Tracker.
+      to start using Time Tracker.
     </div>
 
     <!-- Reset success -->
