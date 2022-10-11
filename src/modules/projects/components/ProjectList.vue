@@ -4,7 +4,7 @@ import { ref } from "vue";
 import getToken from "@/utils/getToken";
 
 import { clientList } from "@/modules/clients/services";
-import { editProject, enableDisable, projectList } from "../services";
+import { editProject, enableDisable, projectList, deleteProject } from "../services";
 import { useToast } from "vue-toast-notification";
 
 const isLoading = ref(true);
@@ -18,6 +18,7 @@ const $toast = useToast();
 const totalItems = ref();
 const itemPerPage = ref(50);
 const currentPage = ref(1);
+const modalLogId = ref(null);
 
 async function loadProjects() {
   try {
@@ -30,6 +31,22 @@ async function loadProjects() {
   }
 }
 loadProjects();
+
+async function handleProjectDelete(projectId) {
+  try {
+    const response = await deleteProject(token, projectId);
+    if (response.status === 204) {
+      loadProjects();
+      $toast.success("Your Timelog deleted successfully.");
+
+      if (projects.value.length === 1) {
+        location.reload();
+      }
+    }
+  } catch (err) {
+    $toast.error("Unable to delete your Timelog.");
+  }
+}
 
 async function loadClients(token) {
   try {
@@ -280,6 +297,75 @@ const handleItemPerPage = (e) => {
               data-cy="toggleStatus"
             ></button>
           </td>
+          <td>
+              <button
+                class="btn btn-sm bg-transparent rounded"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="true"
+              >
+                <i class="bi bi-three-dots-vertical"></i>
+              </button>
+              <div></div>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <div class="d-flex gap-4">
+                  <li>
+                    <!-- Button trigger modal -->
+                    <button
+                      type="button"
+                      class="btn btn-light btn-sm mx-2"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop"
+                      data-cy="deleteTimeLog"
+                      @click="modalLogId = project.project_id"
+                    >
+                      Delete
+                    </button>
+                  </li>
+                </div>
+              </ul>
+              <!-- Modal -->
+              <div
+                class="modal fade"
+                id="staticBackdrop"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header text-center border-0">
+                      <h5 class="modal-title w-100" id="staticBackdropLabel">
+                        Are you sure you want to delete?
+                      </h5>
+                    </div>
+                    <div
+                      class="modal-footer pull-right justify-content-center border-0"
+                    >
+                      <button
+                        type="button"
+                        class="btn btn-secondary-outline"
+                        data-bs-dismiss="modal"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-primary-outline text-primary"
+                        @click="handleProjectDelete(modalLogId)"
+                        data-bs-dismiss="modal"
+                        data-cy="deleteTrackerList"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
         </tr>
       </tbody>
     </table>
