@@ -135,20 +135,20 @@ async function handleSignup() {
   <img :src="logo" alt="Ticker logo" class="logo" />
 
   <div class="d-grid col-md-8 col-lg-5 mx-auto">
-    <BaseFormHeading title="Sign up" shortDesc="Start using Ticker for free."  />
+    <BaseFormHeading title="Sign up" shortDesc="Start using Time Tracker for free."  />
 
     <!-- Signup success -->
     <div v-if="signupSuccess" class="alert alert-success" role="alert" >
       Signup successfully!
       <RouterLink :to="{ name: 'login' }" class="alert-link text-decoration-underline" >Login</RouterLink>
-      to start using Ticker.
+      to start using Time Tracker.
     </div>
 
     <!-- Reset success -->
     <div v-if="passwordResetSuccess" class="alert alert-success" role="alert" >
       Password reset successfully!
       <RouterLink :to="{ name: 'login' }" class="alert-link text-decoration-underline">Login</RouterLink>
-      to start using Ticker.
+      to start using Time Tracker.
     </div>
 
     <!-- Show error messages -->
