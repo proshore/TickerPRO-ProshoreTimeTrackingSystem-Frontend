@@ -37,14 +37,14 @@ async function handleProjectDelete(projectId) {
     const response = await deleteProject(token, projectId);
     if (response.status === 204) {
       loadProjects();
-      $toast.success("Your Timelog deleted successfully.");
+      $toast.success("Your Project deleted successfully.");
 
       if (projects.value.length === 1) {
         location.reload();
       }
     }
   } catch (err) {
-    $toast.error("Unable to delete your Timelog.");
+    $toast.error("Unable to delete your Project.");
   }
 }
 
