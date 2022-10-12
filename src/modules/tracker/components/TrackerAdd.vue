@@ -152,16 +152,17 @@ async function handleStopTimeTracker() {
 </script>
 
 <template>
-  <div class="tracker px-3 py-2 border rounded shadow-sm">
+  <div class="tracker border rounded shadow-sm">
 
     <form
       @submit.prevent="handleTimeTracker"
       class="d-flex justify-content-between gap-4"
     >
-      <div class="my-2" style="width: 60vmax">
+      <div class="my-2 mx-2" style="width: 60vmax">
         <input
           type="text"
           class="form-control"
+          style="height: 50px;"
           id="description"
           aria-describedby="description"
           placeholder="What are you working on?"
