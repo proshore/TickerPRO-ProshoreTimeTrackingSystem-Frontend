@@ -14,7 +14,7 @@ import { useToast } from "vue-toast-notification";
 const description = ref("");
 const projectId = ref(null);
 const projects = ref([]);
-const isBillable = ref(false);
+const isBillable = ref(true);
 const showStartButton = ref(true);
 const showStopButton = ref(false);
 const newTimeLog = ref(null);
