@@ -37,7 +37,7 @@ async function handleProjectDelete(projectId) {
     const response = await deleteProject(token, projectId);
     if (response.status === 204) {
       loadProjects();
-      $toast.success("Your Project deleted successfully.");
+      $toast.success("Your project deleted successfully.");
 
       if (projects.value.length === 1) {
         location.reload();
@@ -304,6 +304,7 @@ const handleItemPerPage = (e) => {
                 id="dropdownMenuButton1"
                 data-bs-toggle="dropdown"
                 aria-expanded="true"
+                data-cy="deletedropdown"
               >
                 <i class="bi bi-three-dots-vertical"></i>
               </button>
@@ -349,6 +350,7 @@ const handleItemPerPage = (e) => {
                         type="button"
                         class="btn btn-secondary-outline"
                         data-bs-dismiss="modal"
+                        data-cy = "cancelProjectListdelete"
                       >
                         Cancel
                       </button>
@@ -357,7 +359,7 @@ const handleItemPerPage = (e) => {
                         class="btn btn-primary-outline text-primary"
                         @click="handleProjectDelete(modalLogId)"
                         data-bs-dismiss="modal"
-                        data-cy="deleteTrackerList"
+                        data-cy="deleteProjectList"
                       >
                         Delete
                       </button>
