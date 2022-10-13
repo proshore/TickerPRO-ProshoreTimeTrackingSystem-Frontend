@@ -36,4 +36,12 @@ const projectList = async (token, page) => {
   });
 };
 
-export { addProject, editProject, enableDisable, projectList };
+const deleteProject = async (token, projectId) => {
+  return await API.delete(`${apiUrl.DELETE_PROJECT_URL}/${projectId}`, {
+    headers: {
+      authorization: token,
+    },
+  });
+};
+
+export { addProject, editProject, enableDisable, projectList, deleteProject };
