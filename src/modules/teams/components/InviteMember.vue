@@ -19,11 +19,12 @@ const successInvite = ref(false);
 const roles = ref([]);
 const errors = ref([]);
 const $toast = useToast();
+const modalStatus = ref(false);
 
 const props = defineProps({
-  handleInvitedMembers: Function
-})
-const {handleInvitedMembers} = props
+  handleInvitedMembers: Function,
+});
+const { handleInvitedMembers } = props;
 
 async function allRoles() {
   try {
@@ -83,15 +84,12 @@ async function handleInviteMember() {
         successInvite.value = true;
         handleInvitedMembers();
         $toast.success("Invite is sent successfully!!!");
+        clearModal();
+        modalStatus.value = false;
         // reset successInvite after 3 seconds
         setTimeout(() => {
           successInvite.value = false;
         }, 1500);
-
-        // empty form fields
-        name.value = "";
-        email.value = "";
-        role.value = "";
       }
     } catch (error) {
       $toast.error("Something went wrong, please try again later.");
@@ -99,16 +97,35 @@ async function handleInviteMember() {
   }
 }
 
-function closeModel() { 
-    name.value = "";
-    email.value = "";
-    role.value = "";
+function showModal() {
+  modalStatus.value = true;
+}
+
+function closeModal() {
+  modalStatus.value = false;
+  clearModal();
+}
+
+function clearModal() {
+  name.value = "";
+  email.value = "";
+  role.value = "";
 }
 </script>
 <style>
 th,
 td {
   cursor: pointer;
+}
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.2);
+  align-items: center;
 }
 </style>
 
@@ -117,31 +134,25 @@ td {
   <button
     type="button"
     class="btn btn-sm btn-primary text-white"
-    data-bs-toggle="modal"
-    data-bs-target="#exampleModal"
+    @click="showModal"
+    data-cy="AddNewMemberModal"
   >
     Add New Member
   </button>
 
   <!-- Modal -->
-  <div
-    class="modal fade"
-    id="exampleModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
+  <div v-if="modalStatus" class="popup">
     <div class="modal-dialog">
-      <div class="modal-content" >
+      <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Add New Member</h5>
           <button
-            @click="closeModel"
+            @click="closeModal"
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
-            data-cy = "clearFieldWhenClose"
+            data-cy="clearFieldWhenClose"
           ></button>
         </div>
         <div class="modal-body">
