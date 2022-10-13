@@ -19,6 +19,7 @@ const successInvite = ref(false);
 const roles = ref([]);
 const errors = ref([]);
 const $toast = useToast();
+const modalStatus = ref(false);
 
 const props = defineProps({
   handleInvitedMembers: Function,
@@ -95,8 +96,6 @@ async function handleInviteMember() {
     }
   }
 }
-
-const modalStatus = ref(false);
 
 function showModal() {
   modalStatus.value = true;
