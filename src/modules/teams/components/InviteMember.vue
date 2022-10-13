@@ -98,11 +98,11 @@ async function handleInviteMember() {
 
 const modalStatus = ref(false);
 
-function showModal(){
+function showModal() {
   modalStatus.value = true;
 }
 
-function closeModal(){
+function closeModal() {
   modalStatus.value = false;
   clearModal();
 }
@@ -112,7 +112,6 @@ function clearModal() {
   email.value = "";
   role.value = "";
 }
-
 </script>
 <style>
 th,
@@ -133,7 +132,12 @@ td {
 
 <template>
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-sm btn-primary text-white" @click="showModal">
+  <button
+    type="button"
+    class="btn btn-sm btn-primary text-white"
+    @click="showModal"
+    data-cy="AddNewMemberModal"
+  >
     Add New Member
   </button>
 
