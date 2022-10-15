@@ -63,7 +63,7 @@ onBeforeMount(async () => {
   try {
     const response = await projectList(token);
     if (response.status === 200) {
-      projects.value = response.data.projects;
+      projects.value = response.data.data;
     }
   } catch (err) {
     $toast.info("Server Down. Please try again later.");
@@ -148,15 +148,16 @@ async function handleStopTimeTracker() {
 </script>
 
 <template>
-  <div class="tracker px-3 py-2 border rounded shadow-sm d-flex justify-content-between">
+  <div
+    class="tracker px-3 py-2 border rounded shadow-sm d-flex justify-content-between"
+  >
     <form
       id="myForm"
       @submit.prevent="handleTimeTracker"
-      style="width: 100%;"
-      class="d-flex  gap-4"
+      style="width: 100%"
+      class="d-flex gap-4"
     >
-      <div class="my-2"
-      style="width: 80%;">
+      <div class="my-2" style="width: 80%">
         <input
           type="text"
           class="form-control"
