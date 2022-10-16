@@ -17,9 +17,10 @@ import logo from "@/assets/images/logo.svg";
 const route = useRoute();
 
 const token = route.query.token;
+const email = route.query.email;
 
 const form = ref({
-  email: "",
+  email: email,
   password: "",
   passwordConfirmation: "",
 });
@@ -33,7 +34,7 @@ async function handlePasswordReset() {
   emailError.value = "";
   passwordError.value = "";
   passwordConfirmationError.value = "";
-  error.value = "";
+  error.value = [];
   passwordResetSuccess.value = false;
 
   const { isValid: validEmail, errorMessage: errorEmail } = validateEmail(
@@ -64,8 +65,10 @@ async function handlePasswordReset() {
 
   // if no errors
   if (
-    (emailError.value === "") & (passwordError.value === "") &&
-    passwordConfirmationError.value === ""
+    error.value.length === 0 &&
+    !emailError.value && 
+    !passwordError.value &&
+    !passwordConfirmationError.value
   ) {
     const data = {
       email: form.value.email,
@@ -106,18 +109,49 @@ async function handlePasswordReset() {
     <BaseAlert :message="error" hex-font-color="ff0000" />
 
     <form @submit.prevent="handlePasswordReset">
-      <BaseInput type="email" name="email" label="Email address" v-model="form.email" :error="emailError" data-cy="passwordResetEmail"/>
+      <div class="mb-3">
+      <div v-if = '!form.email'>
+        <BaseInput 
+        type="email" 
+        name="email" 
+        label="Email address" 
+        v-model="form.email" 
+        :error="emailError" 
+        data-cy="passwordResetEmail"/>
+    </div>
+    <div v-else>
+            <BaseInput
+            type="email"
+            name="email"
+            label="Email address"
+            v-model="form.email"
+            :error="emailError"
+            :disabled = true
+            data-cy="passwordResetEmail" />
+          </div>
 
-      <BaseInput type="password" name="password" label="New password" v-model="form.password" :error="passwordError" data-cy="passwordResetPassword" />
+      <BaseInput 
+      type="password" 
+      name="password" 
+      label="New password" 
+      v-model="form.password" 
+      :error="passwordError" 
+      data-cy="passwordResetPassword" />
 
-      <BaseInput type="password" name="password-confirmation" label="Confirm password"
-        v-model="form.passwordConfirmation" :error="passwordConfirmationError" data-cy="passwordResetConfirmation" />
+      <BaseInput 
+      type="password" 
+      name="password-confirmation" 
+      label="Confirm password"
+      v-model="form.passwordConfirmation" 
+      :error="passwordConfirmationError" 
+      data-cy="passwordResetConfirmation" />
 
       <div class="d-grid">
         <button type="submit" class="btn btn-primary text-white mt-3" data-cy="passwordResetSubmit">
           Password reset
         </button>
       </div>
+    </div>
 
       <p class="mt-4">
         Never mind!
