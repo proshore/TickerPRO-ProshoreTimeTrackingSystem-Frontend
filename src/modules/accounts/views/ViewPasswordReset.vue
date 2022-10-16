@@ -121,9 +121,9 @@ async function handlePasswordReset() {
     </div>
     <div v-else>
             <BaseInput
-            type="text"
-            name="name"
-            label="Full Name"
+            type="email"
+            name="email"
+            label="Email address"
             v-model="form.email"
             :error="emailError"
             :disabled = true
