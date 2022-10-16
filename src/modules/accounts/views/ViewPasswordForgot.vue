@@ -44,7 +44,7 @@ async function handlePasswordForgot() {
       } else {
         errors.value.push("Something went wrong, please try again later");
       }
-      email.value = validEmail;
+      email.value = email;
     }
   }
 }
