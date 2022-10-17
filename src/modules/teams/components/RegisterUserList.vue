@@ -188,6 +188,7 @@ handleAllUsers();
               />
             </svg>
           </th>
+          <th scope="col">Role</th>
           <th scope="col">Status</th>
           <th scope="col">Action</th>
         </tr>
@@ -205,6 +206,7 @@ handleAllUsers();
           <th scope="row" v-text="index +1" />
           <td v-text="member.name" />
           <td v-text="member.email" />
+          <td>{{member.role[0].role.toUpperCase()}}</td>
           <td>
             {{
               status(member.active_status) === "Enable" ? "Disabled" : "Enabled"
