@@ -52,6 +52,7 @@ async function handleLogin() {
   if (!validEmail) {
     emailError.value = errorEmail;
     form.value.email = "";
+    
   }
 
   if (!validPassword) {

@@ -7,7 +7,7 @@ import BaseFormHeading from "@/components/BaseFormHeading.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
 
 import validateEmail from "@/utils/validateEmail";
-import validatePassword from "@/utils/validatePassword";
+import signUpPassword from "@/utils/signUpPassword";
 import validateName from "@/utils/validateName";
 import validateConfirmPassword from "@/utils/validateConfirmPassword";
 import PasswordToggle from "@/components/PasswordToggle.vue";
@@ -67,7 +67,7 @@ async function handleSignup() {
     form.value.email
   );
   const { isValid: validPassword, errorMessage: errorPassword } =
-    validatePassword(form.value.password);
+    signUpPassword(form.value.password);
   const { isValid: validConfirmPassword, errorMessage: errorConfirmPassword } =
     validateConfirmPassword(
       form.value.password,
@@ -121,7 +121,8 @@ async function handleSignup() {
       if (error.response.status === 401) {
         errors.value.push("Please enter an valid email.");
         form.value.email = "";
-      } else {
+      } 
+      else {
         $toast.error("You have been revoked");
         form.value.password = "";
         form.value.passwordConfirmation = "";
