@@ -18,9 +18,10 @@ import PasswordToggle from "@/components/PasswordToggle.vue";
 const route = useRoute();
 
 const token = route.query.token;
+const email = route.query.email;
 
 const form = ref({
-  email: "",
+  email: email,
   password: "",
   passwordConfirmation: "",
 });
@@ -38,7 +39,7 @@ async function handlePasswordReset() {
   emailError.value = "";
   passwordError.value = "";
   passwordConfirmationError.value = "";
-  error.value = "";
+  error.value = [];
   passwordResetSuccess.value = false;
 
   const { isValid: validEmail, errorMessage: errorEmail } = validateEmail(
@@ -69,8 +70,10 @@ async function handlePasswordReset() {
 
   // if no errors
   if (
-    (emailError.value === "") & (passwordError.value === "") &&
-    passwordConfirmationError.value === ""
+    error.value.length === 0 &&
+    !emailError.value && 
+    !passwordError.value &&
+    !passwordConfirmationError.value
   ) {
     const data = {
       email: form.value.email,
@@ -166,6 +169,7 @@ async function handlePasswordReset() {
           Password reset
         </button>
       </div>
+    </div>
 
       <p class="mt-4">
         Never mind!

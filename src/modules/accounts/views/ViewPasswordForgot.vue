@@ -44,7 +44,7 @@ async function handlePasswordForgot() {
       } else {
         errors.value.push("Something went wrong, please try again later");
       }
-      email.value = "";
+      email.value = email;
     }
   }
 }
@@ -67,14 +67,16 @@ async function handlePasswordForgot() {
     </div>
 
     <form @submit.prevent="handlePasswordForgot">
+      <div v-if="form.email">
       <BaseInput
         type="email"
         name="email"
         label="Email address"
-        v-model="email"
+        v-model= "form.email"
         :error="emailError"
         data-cy="forgetPasswordEmail"
       />
+    </div>
 
       <div class="d-grid">
         <button class="btn btn-primary mt-3 text-white" data-cy="forgetPasswordResetButton">Get reset link</button>
