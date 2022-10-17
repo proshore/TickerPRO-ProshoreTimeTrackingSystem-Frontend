@@ -214,8 +214,8 @@ handleAllUsers();
           </td>
           <td>
             <span 
-            v-if="member.id === 1"
-            class="btn btn-light btn-sm">Admin</span>
+            v-if="member.role[0].role === 'admin'"
+            class="btn btn-light btn-sm text-primary">Admin</span>
             <button
             v-else
               class="btn btn-light btn-sm"
@@ -232,7 +232,7 @@ handleAllUsers();
               aria-expanded="true"
             ></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li v-if="member.id === 1">
+              <li v-if="member.role[0].role === 'admin'">
                 <span>Sorry, You can't delete Admin user!!!</span>
               </li>
               <li v-else>
