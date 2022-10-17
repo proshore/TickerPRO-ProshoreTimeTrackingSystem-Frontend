@@ -60,7 +60,7 @@ async function handleProjectDelete(projectId) {
     const response = await deleteProject(token, projectId);
     if (response.status === 204) {
       loadProjects();
-      $toast.success("Your project deleted successfully.");
+      $toast.success("Your project has been deleted successfully.");
 
       if (projects.value.length === 1) {
         location.reload();
@@ -103,7 +103,7 @@ async function editLogs(
     const response = await editProject(data, token, projectId);
     if (response.status == 200) {
       loadProjects();
-      $toast.success("Your Project updated successfully.");
+      $toast.success("Your Project has been updated successfully.");
     }
   } catch (err) {
     $toast.error("Unable to update Timelog.");
@@ -117,7 +117,7 @@ async function enableDisableProject(projectId) {
     const response = await enableDisable(token, projectId);
     isLoading.value = false;
     if (response.status == 200) {
-      alert("Project status changed successfully");
+      alert("Project status has been changed successfully");
       loadProjects();
     }
   } catch (error) {

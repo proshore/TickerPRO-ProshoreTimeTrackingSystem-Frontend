@@ -140,7 +140,7 @@ async function editLogs(
     const response = await trackerEdit(data, token, id);
     if (response.status == 200) {
       handleTimeLog();
-      $toast.success("Your Timelog updated successfully.");
+      $toast.success("Your timelog has been updated successfully.");
     }
   } catch (err) {
     $toast.error("Unable to update Timelog.");
@@ -154,7 +154,7 @@ async function handleTrackerDelete(trackerId) {
     const response = await deleteLog(token, trackerId);
     if (response.status === 200) {
       handleTimeLog();
-      $toast.success("Your Timelog deleted successfully.");
+      $toast.success("Your time log has been deleted successfully.");
 
       if (logs.value.length === 1) {
         location.reload();
