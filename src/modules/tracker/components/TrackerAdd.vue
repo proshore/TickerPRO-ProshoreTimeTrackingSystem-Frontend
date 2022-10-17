@@ -137,7 +137,7 @@ async function handleStopTimeTracker() {
       // stop timer
 
       stopTimer();
-      $toast.success("Time log added successfully");
+      $toast.success("Time log has been added successfully");
 
       location.reload();
     }
