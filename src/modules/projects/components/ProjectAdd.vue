@@ -67,6 +67,7 @@ async function handleAddProject() {
       if (response.status === 200) {
         successAdd.value = true;
         location.reload();
+        
 
         // reset successInvite after 3 seconds
         setTimeout(() => {
@@ -79,7 +80,9 @@ async function handleAddProject() {
         billable.value = "";
       }
     } catch (error) {
-      errors.value.push(response.data["message"]);
+      if (error.response.status === 422) {
+        errors.value.push(error.response.data.message);
+      }
     }
   }
 }
