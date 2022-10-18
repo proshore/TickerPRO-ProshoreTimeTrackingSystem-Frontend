@@ -60,7 +60,7 @@ async function handleProjectDelete(projectId) {
     const response = await deleteProject(token, projectId);
     if (response.status === 204) {
       loadProjects();
-      $toast.success(response.data["message"]);
+      $toast.success("Project deleted.");
 
       if (projects.value.length === 1) {
         location.reload();
@@ -117,7 +117,7 @@ async function enableDisableProject(projectId) {
     const response = await enableDisable(token, projectId);
     isLoading.value = false;
     if (response.status == 200) {
-      alert(response.data["message"]);
+      $toast.success(response.data["message"]);
       loadProjects();
     }
   } catch (error) {
