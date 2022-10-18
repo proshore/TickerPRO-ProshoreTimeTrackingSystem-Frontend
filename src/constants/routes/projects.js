@@ -1,7 +1,7 @@
 const PROJECT = "/api/project";
 const ADD_PROJECT_URL = PROJECT;
 const EDIT_PROJECT_URL = PROJECT;
-const PROJECT_ENABLE_URL = "/api/project/project-status";
+const PROJECT_ENABLE_URL = PROJECT;
 const PROJECT_LIST_URL = PROJECT;
 const DELETE_PROJECT_URL = PROJECT;
 
