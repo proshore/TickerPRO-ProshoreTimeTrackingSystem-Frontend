@@ -29,6 +29,9 @@ function togglePassword() {
 .input_form {
   position: relative;
 }
+.input_form_confirmPassword {
+  position: relative;
+}
 
 .toggle_button {
   position: absolute;
