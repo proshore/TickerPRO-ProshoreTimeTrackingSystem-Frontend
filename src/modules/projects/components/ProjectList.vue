@@ -117,7 +117,7 @@ async function enableDisableProject(projectId) {
     const response = await enableDisable(token, projectId);
     isLoading.value = false;
     if (response.status == 200) {
-      alert("Project status has been changed successfully");
+      $toast.success("Project status has been changed successfully");
       loadProjects();
     }
   } catch (error) {
@@ -126,9 +126,9 @@ async function enableDisableProject(projectId) {
 }
 function status(x) {
   if (x == "1") {
-    return "Disable";
+    return "Disabled";
   } else {
-    return "Enable";
+    return "Enabled";
   }
 }
 function billablestatus(x) {
@@ -303,8 +303,8 @@ const handleItemPerPage = (e) => {
         <td>
           <button
             class="btn btn-light btn-sm"
-            @click="enableDisableProject(project.id)"
-            v-text="status(project.status) === 'Enable' ? 'Disable' : 'Enable'"
+            @click="enableDisableProject(project.project_id)"
+            v-text="status(project.status) === 'Enabled' ? 'Disable' : 'Enable'"
             data-cy="toggleStatus"
           ></button>
         </td>
