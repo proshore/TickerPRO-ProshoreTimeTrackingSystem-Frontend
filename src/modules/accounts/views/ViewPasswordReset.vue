@@ -13,13 +13,15 @@ import validatePasswordConfirm from "@/utils/validatePasswordConfirm";
 import { passwordReset } from "../services";
 
 import logo from "@/assets/images/logo.svg";
+import PasswordToggle from "@/components/PasswordToggle.vue";
 
 const route = useRoute();
 
 const token = route.query.token;
+const email = route.query.email;
 
 const form = ref({
-  email: "",
+  email: email,
   password: "",
   passwordConfirmation: "",
 });
@@ -29,11 +31,15 @@ const passwordConfirmationError = ref("");
 const error = ref("");
 const passwordResetSuccess = ref(false);
 
+// FOR PASSWORD HIDE/SHOW TOGGLE FUNCTIONALITY
+let showPassword = ref(false);
+let showConfirmPassword = ref(false);
+
 async function handlePasswordReset() {
   emailError.value = "";
   passwordError.value = "";
   passwordConfirmationError.value = "";
-  error.value = "";
+  error.value = [];
   passwordResetSuccess.value = false;
 
   const { isValid: validEmail, errorMessage: errorEmail } = validateEmail(
@@ -64,8 +70,10 @@ async function handlePasswordReset() {
 
   // if no errors
   if (
-    (emailError.value === "") & (passwordError.value === "") &&
-    passwordConfirmationError.value === ""
+    error.value.length === 0 &&
+    !emailError.value && 
+    !passwordError.value &&
+    !passwordConfirmationError.value
   ) {
     const data = {
       email: form.value.email,
@@ -92,13 +100,20 @@ async function handlePasswordReset() {
   <img :src="logo" alt="Ticker logo" class="logo" />
 
   <div class="d-grid col-md-8 col-lg-5 mx-auto">
-    <BaseFormHeading title="Password Reset" shortDesc="Reset password to restart your journey with Ticker."
-     />
+    <BaseFormHeading
+      title="Password Reset"
+      shortDesc="Reset password to restart your journey with Ticker."
+    />
 
     <!-- Reset success -->
     <div v-if="passwordResetSuccess" class="alert alert-success" role="alert">
       Password reset successfully!
-      <RouterLink :to="{ name: 'login' }" class="alert-link text-decoration-underline">Login</RouterLink>
+      <RouterLink
+        :to="{ name: 'login' }"
+        class="alert-link text-decoration-underline"
+        data-cy="loginAfterResetButton"
+        >Login</RouterLink
+      >
       to start using Ticker.
     </div>
 
@@ -106,22 +121,61 @@ async function handlePasswordReset() {
     <BaseAlert :message="error" hex-font-color="ff0000" />
 
     <form @submit.prevent="handlePasswordReset">
-      <BaseInput type="email" name="email" label="Email address" v-model="form.email" :error="emailError" data-cy="passwordResetEmail"/>
+      <BaseInput
+        type="email"
+        name="email"
+        label="Email address"
+        v-model="form.email"
+        :error="emailError"
+        data-cy="passwordResetEmail"
+      />
 
-      <BaseInput type="password" name="password" label="New password" v-model="form.password" :error="passwordError" data-cy="passwordResetPassword" />
-
-      <BaseInput type="password" name="password-confirmation" label="Confirm password"
-        v-model="form.passwordConfirmation" :error="passwordConfirmationError" data-cy="passwordResetConfirmation" />
+      <div class="input_form">
+        <BaseInput
+          :type="showPassword ? 'text' : 'password'"
+          name="password"
+          label="New password"
+          v-model="form.password"
+          :error="passwordError"
+          data-cy="passwordResetPassword"
+        />
+        <PasswordToggle
+          :showPassword="showPassword"
+          @togglePassword="showPassword = !showPassword"
+        >
+        </PasswordToggle>
+      </div>
+      <div class="input_form_confirmPassword">
+        <BaseInput
+          :type="showConfirmPassword ? 'text' : 'password'"
+          name="password-confirmation"
+          label="Confirm password"
+          v-model="form.passwordConfirmation"
+          :error="passwordConfirmationError"
+          data-cy="passwordResetConfirmation"
+        />
+        <PasswordToggle
+          :showPassword="showConfirmPassword"
+          @togglePassword="showConfirmPassword = !showConfirmPassword"
+        >
+        </PasswordToggle>
+      </div>
 
       <div class="d-grid">
-        <button type="submit" class="btn btn-primary text-white mt-3" data-cy="passwordResetSubmit">
+        <button
+          type="submit"
+          class="btn btn-primary text-white mt-3"
+          data-cy="passwordResetSubmit"
+        >
           Password reset
         </button>
       </div>
 
       <p class="mt-4">
         Never mind!
-        <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal" ><u> Take me back to login</u></RouterLink>
+        <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal"
+          data-cy="backToLoginButton"><u> Take me back to login</u></RouterLink
+        >
       </p>
     </form>
   </div>

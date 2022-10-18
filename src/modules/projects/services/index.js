@@ -19,7 +19,7 @@ const editProject = async (data, token, projectId) => {
 };
 
 const enableDisable = async (token, projectId) => {
-  return await API.post(
+  return await API.patch(
     `${apiUrl.PROJECT_ENABLE_URL}/${projectId}`,
     {},
     {
@@ -44,4 +44,12 @@ const deleteProject = async (token, projectId) => {
   });
 };
 
-export { addProject, editProject, enableDisable, projectList, deleteProject };
+const searchProject = async (token, search, page) => {
+  return await API.get(`${apiUrl.PROJECT_LIST_URL}?search=${search}&page=${page}`, {
+    headers: {
+      authorization: token,
+    },
+  });
+}
+
+export { addProject, editProject, enableDisable, projectList, deleteProject, searchProject };

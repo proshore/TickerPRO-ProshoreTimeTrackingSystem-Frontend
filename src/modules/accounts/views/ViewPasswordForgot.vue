@@ -12,15 +12,22 @@ import { passwordResetSend } from "../services";
 
 import logo from "@/assets/images/logo.svg";
 
+
+
+const router = useRouter();
 const email = ref("");
+
+
+const form = ref({
+  email: email,
+})
+
 const emailError = ref("");
 const errors = ref([]);
 
-const router = useRouter();
-
 async function handlePasswordForgot() {
   emailError.value = "";
-  errors.value = [];
+  errors.value = "";
 
   const { isValid: validEmail, errorMessage: errorEmail } = validateEmail(
     email.value
@@ -31,7 +38,7 @@ async function handlePasswordForgot() {
     email.value = "";
   }
 
-  if (emailError.value === "" && errors.value.length === 0) {
+  if (!emailError.value && errors.value.length === 0) {
     try {
       const response = await passwordResetSend(email.value);
       const { status, statusText } = response;
@@ -67,14 +74,27 @@ async function handlePasswordForgot() {
     </div>
 
     <form @submit.prevent="handlePasswordForgot">
+      <div v-if="!form.email">
       <BaseInput
         type="email"
         name="email"
         label="Email address"
-        v-model="email"
+        v-model= "form.email"
         :error="emailError"
         data-cy="forgetPasswordEmail"
       />
+    </div>
+      <div v-else>
+            <BaseInput
+            type="email"
+            name="email"
+            label="Email Address"
+            v-model="form.email"
+            :error="emailError"
+            :disabled = true
+            data-cy="signUpEmail" />
+          </div>
+    
 
       <div class="d-grid">
         <button class="btn btn-primary mt-3 text-white" data-cy="forgetPasswordResetButton">Get reset link</button>

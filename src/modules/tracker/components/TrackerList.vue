@@ -225,12 +225,12 @@ const handleItemPerPage = (e) => {
                     log.billable,
                     log.start_time,
                     log.end_time,
-                    log.id
+                    log.id,
                   )
                 "
                 @keyup.enter="
                   editLogs(
-                    $event,
+                    $event.target.blur(),
                     log.activity_name,
                     userId,
                     log.project.project_id,
@@ -333,7 +333,7 @@ const handleItemPerPage = (e) => {
                 "
                 @keyup.enter="
                   editLogs(
-                    $event,
+                    $event.target.blur(),
                     log.activity_name,
                     userId,
                     log.project.project_id,
@@ -366,7 +366,7 @@ const handleItemPerPage = (e) => {
                 "
                 @keyup.enter="
                   editLogs(
-                    $event,
+                    $event.target.blur(),
                     log.activity_name,
                     userId,
                     log.project.project_id,
