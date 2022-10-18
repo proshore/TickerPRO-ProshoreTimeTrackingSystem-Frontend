@@ -102,7 +102,7 @@ async function handlePasswordReset() {
   <div class="d-grid col-md-8 col-lg-5 mx-auto">
     <BaseFormHeading
       title="Password Reset"
-      shortDesc="Reset password to restart your journey with Ticker."
+      shortDesc="Reset password to restart your journey with Time Tracker."
     />
 
     <!-- Reset success -->
@@ -114,7 +114,7 @@ async function handlePasswordReset() {
         data-cy="loginAfterResetButton"
         >Login</RouterLink
       >
-      to start using Ticker.
+      to start using Time Tracker.
     </div>
 
     <!-- Error -->
