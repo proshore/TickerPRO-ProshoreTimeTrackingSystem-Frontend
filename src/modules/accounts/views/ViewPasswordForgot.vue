@@ -89,7 +89,7 @@ async function handlePasswordForgot() {
     
     <p class="mt-4">
       Never mind!
-      <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal" 
+      <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal" data-cy="getBackToLogin" 
         ><u> Take me back to login</u></RouterLink
       >
     </p>
