@@ -111,6 +111,7 @@ async function handlePasswordReset() {
       <RouterLink
         :to="{ name: 'login' }"
         class="alert-link text-decoration-underline"
+        data-cy="loginAfterResetButton"
         >Login</RouterLink
       >
       to start using Ticker.
@@ -174,7 +175,7 @@ async function handlePasswordReset() {
       <p class="mt-4">
         Never mind!
         <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal"
-          ><u> Take me back to login</u></RouterLink
+          data-cy="backToLoginButton"><u> Take me back to login</u></RouterLink
         >
       </p>
     </form>
