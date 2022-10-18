@@ -140,10 +140,11 @@ async function editLogs(
     const response = await trackerEdit(data, token, id);
     if (response.status == 200) {
       handleTimeLog();
-      $toast.success("Your timelog has been updated successfully.");
+      // $toast.success("Your timelog has been updated successfully.");
+      $toast.success(response.data["message"]);
     }
   } catch (err) {
-    $toast.error("Unable to update Timelog.");
+    $toast.error(response.data["message"]);
   } finally {
     $event.target.blur();
   }
@@ -154,14 +155,14 @@ async function handleTrackerDelete(trackerId) {
     const response = await deleteLog(token, trackerId);
     if (response.status === 200) {
       handleTimeLog();
-      $toast.success("Your time log has been deleted successfully.");
+      $toast.success(response.data["message"]);
 
       if (logs.value.length === 1) {
         location.reload();
       }
     }
   } catch (err) {
-    $toast.error("Unable to delete your Timelog.");
+    $toast.error(response.data["message"]);
   }
 }
 

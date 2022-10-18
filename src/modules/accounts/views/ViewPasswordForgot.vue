@@ -49,7 +49,7 @@ async function handlePasswordForgot() {
       if (error.response.status === 404) {
         errors.value.push(error.response.data.message);
       } else {
-        errors.value.push("Something went wrong, please try again later");
+        errors.value.push(response.data["message"]);
       }
       email.value = "";
     }

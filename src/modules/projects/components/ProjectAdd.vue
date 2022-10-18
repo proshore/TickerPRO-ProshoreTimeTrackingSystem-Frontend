@@ -27,7 +27,7 @@ async function handleClientList(token) {
       clients.value = response.data.clients;
     }
   } catch (err) {
-    alert("Something went wrong, please try again later");
+    alert(response.data["message"]);
   }
 }
 
@@ -79,7 +79,7 @@ async function handleAddProject() {
         billable.value = "";
       }
     } catch (error) {
-      errors.value.push("Something went wrong, please try again later.");
+      errors.value.push(response.data["message"]);
     }
   }
 }

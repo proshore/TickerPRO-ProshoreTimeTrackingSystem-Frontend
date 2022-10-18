@@ -31,7 +31,7 @@ async function allRoles() {
     const response = await getAllRoles();
     roles.value = response.data.UserRoles;
   } catch (error) {
-    errors.value.push("Something went wrong, please try again later.");
+    errors.value.push(response.data["message"]);
   }
 }
 
@@ -92,7 +92,7 @@ async function handleInviteMember() {
         }, 1500);
       }
     } catch (error) {
-      $toast.error("Something went wrong, please try again later.");
+      $toast.error(response.data["message"]);
     }
   }
 }
