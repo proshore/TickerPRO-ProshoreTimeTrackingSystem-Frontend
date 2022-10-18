@@ -1,1 +1,0 @@
-function a(s){const e={isValid:!0,errorMessage:""};let r=/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,15}$/;if(s){if(!r.test(s))return e.isValid=!1,e.errorMessage="Please use atleast one numeric digit and one special character",e}else return e.isValid=!1,e.errorMessage="Password field is required",e;return e}export{a as s};
