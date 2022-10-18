@@ -27,7 +27,7 @@ async function loadProjects() {
       projects.value = response.data.projects;
     }
   } catch (err) {
-    $toast.error("Something went wrong, please try again later");
+    $toast.error(response.data["message"]);
   }
 }
 loadProjects();
@@ -37,14 +37,14 @@ async function handleProjectDelete(projectId) {
     const response = await deleteProject(token, projectId);
     if (response.status === 204) {
       loadProjects();
-      $toast.success("Your project deleted successfully.");
+      $toast.success(response.data["message"]);
 
       if (projects.value.length === 1) {
         location.reload();
       }
     }
   } catch (err) {
-    $toast.error("Unable to delete your Project.");
+    $toast.error(response.data["message"]);
   }
 }
 
@@ -55,7 +55,7 @@ async function loadClients(token) {
       clients.value = response.data.clients;
     }
   } catch (err) {
-    $toast.error("Something went wrong, please try again later");
+    $toast.error(response.data["message"]);
   }
 }
 loadClients(token);
@@ -80,10 +80,10 @@ async function editLogs(
     const response = await editProject(data, token, projectId);
     if (response.status == 200) {
       loadProjects();
-      $toast.success("Your Project updated successfully.");
+      $toast.success(response.data["message"]);
     }
   } catch (err) {
-    $toast.error("Unable to update Timelog.");
+    $toast.error(response.data["message"]);
   } finally {
     $event.target.blur();
   }
@@ -95,11 +95,11 @@ async function enableDisableProject(projectId) {
     const response = await enableDisable(token, projectId);
     isLoading.value = false;
     if (response.status == 200) {
-      alert("Project status changed successfully");
+      alert(response.data["message"]);
       loadProjects();
     }
   } catch (error) {
-    $toast.error("Something went wrong, please try again later");
+    $toast.error(response.data["message"]);
   }
 }
 function status(x) {

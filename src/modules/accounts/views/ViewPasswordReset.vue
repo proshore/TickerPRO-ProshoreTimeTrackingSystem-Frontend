@@ -82,7 +82,7 @@ async function handlePasswordReset() {
       form.value.password = "";
       form.value.passwordConfirmation = "";
     } catch (err) {
-      error.value = "Something went wrong, please try again later.";
+      error.value(response.data["message"]);
     }
   }
 }

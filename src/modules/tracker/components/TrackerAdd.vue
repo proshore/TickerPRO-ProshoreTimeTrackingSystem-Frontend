@@ -104,7 +104,7 @@ async function handleTimeTracker() {
       newTimeLog.value = response.data.log;
     }
   } catch (err) {
-    $toast.error("Something went wrong, please try again later");
+    $toast.error(response.data["message"]);
   }
 }
 
@@ -137,12 +137,12 @@ async function handleStopTimeTracker() {
       // stop timer
 
       stopTimer();
-      $toast.success("Time log added successfully");
+      $toast.success(response.data["message"]);
 
       location.reload();
     }
   } catch (err) {
-    $toast.error("Something went wrong, please try again later");
+    $toast.error(response.data["message"]);
   }
 }
 </script>

@@ -26,7 +26,7 @@ async function handleAllUsers() {
     totalMembers.value = response.data.total;
     isLoading.value = false;
   } catch (error) {
-    alert("Something went wrong, please try again later");
+    alert(response.data["message"]);
   }
 }
 
@@ -40,7 +40,7 @@ async function userDelete() {
       $toast.success(res.data["message"]);
     }
   } catch (error) {
-    $toast.error("Something went wrong, please try again later");
+    $toast.error("User could not be deleted, please try again later");
   }
 }
 
@@ -54,7 +54,7 @@ async function enableDisableUser(index) {
       $toast.success(res.data["message"]);
     }
   } catch (error) {
-    $toast.error("Something went wrong, please try again later.");
+    $toast.error("User status could not be changed, please try again later.");
   }
 }
 function status(x) {
