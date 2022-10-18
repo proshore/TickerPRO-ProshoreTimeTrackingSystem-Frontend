@@ -7,7 +7,7 @@ import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
 
 import validateEmail from "@/utils/validateEmail";
-import validatePassword from "@/utils/validatePassword";
+import signUpPassword from "@/utils/signUpPassword";
 import validatePasswordConfirm from "@/utils/validatePasswordConfirm";
 
 import { passwordReset } from "../services";
@@ -39,14 +39,14 @@ async function handlePasswordReset() {
   emailError.value = "";
   passwordError.value = "";
   passwordConfirmationError.value = "";
-  error.value = [];
+  error.value = "";
   passwordResetSuccess.value = false;
 
   const { isValid: validEmail, errorMessage: errorEmail } = validateEmail(
     form.value.email
   );
   const { isValid: validPassword, errorMessage: errorPassword } =
-    validatePassword(form.value.password);
+    signUpPassword(form.value.password);
   const { isValid: validConfirmPassword, errorMessage: errorConfirmPassword } =
     validatePasswordConfirm(
       form.value.passwordConfirmation,
@@ -170,7 +170,6 @@ async function handlePasswordReset() {
           Password reset
         </button>
       </div>
-    </div>
 
       <p class="mt-4">
         Never mind!

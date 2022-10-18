@@ -57,7 +57,7 @@ async function handleSignup() {
   nameError.value = "";
   emailError.value = "";
   passwordError.value = "";
-  confirmPasswordError.value = "";
+  passwordConfirmationError.value = "";
   signupSuccess.value = false;
 
   const { isValid: validName, errorMessage: errorName } = validateName(

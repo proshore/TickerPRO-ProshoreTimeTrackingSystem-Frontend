@@ -74,7 +74,6 @@ async function handlePasswordForgot() {
     </div>
 
     <form @submit.prevent="handlePasswordForgot">
-      <div v-if="!form.email">
       <BaseInput
         type="email"
         name="email"
@@ -82,29 +81,18 @@ async function handlePasswordForgot() {
         v-model= "form.email"
         :error="emailError"
         data-cy="forgetPasswordEmail"
-      />
-    </div>
-      <div v-else>
-            <BaseInput
-            type="email"
-            name="email"
-            label="Email Address"
-            v-model="form.email"
-            :error="emailError"
-            :disabled = true
-            data-cy="signUpEmail" />
-          </div>
-    
+      />    
 
       <div class="d-grid">
         <button class="btn btn-primary mt-3 text-white" data-cy="forgetPasswordResetButton">Get reset link</button>
       </div>
-    </form>
+    
     <p class="mt-4">
       Never mind!
       <RouterLink :to="{ name: 'login' }" class="text-secondary fw-normal" 
         ><u> Take me back to login</u></RouterLink
       >
     </p>
+  </form>
   </div>
 </template>
