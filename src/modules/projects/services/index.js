@@ -20,7 +20,7 @@ const editProject = async (data, token, projectId) => {
 
 const enableDisable = async (token, projectId) => {
   return await API.patch(
-    `${apiUrl.PROJECT_ENABLE_URL}/project-status/${projectId}`,
+    `${apiUrl.PROJECT_ENABLE_URL}/${projectId}`,
     {},
     {
       headers: {
