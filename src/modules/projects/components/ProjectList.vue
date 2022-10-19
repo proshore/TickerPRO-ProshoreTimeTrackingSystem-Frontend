@@ -28,10 +28,10 @@ const keyword = ref("");
 const searchedProjects = ref([]);
 
 const props = defineProps({
-  openProject: Function
-})
+  openProject: Function,
+});
 
-const {openProject} = props;
+const { openProject } = props;
 
 async function loadProjects() {
   try {
@@ -104,7 +104,7 @@ async function editLogs(
       client_id: client_id,
       client_name: client_name,
       billable: billable,
-      status: status
+      status: status,
     };
     const response = await editProject(data, token, projectId);
     if (response.status == 200) {
@@ -340,7 +340,13 @@ const handleItemPerPage = (e) => {
                 >
                   Delete
                 </button>
-                <button class="btn btn-light btn-sm" @click="openProject">View</button>
+                <button
+                  class="btn btn-light btn-sm"
+                  data-cy="ViewProjectDetail"
+                  @click="openProject"
+                >
+                  View
+                </button>
               </li>
             </div>
           </ul>
