@@ -27,6 +27,12 @@ const modalLogId = ref(null);
 const keyword = ref("");
 const searchedProjects = ref([]);
 
+const props = defineProps({
+  openProject: Function,
+});
+
+const { openProject } = props;
+
 async function loadProjects() {
   try {
     const response = await projectList(token, currentPage?.["_rawValue"]);
@@ -98,7 +104,7 @@ async function editLogs(
       client_id: client_id,
       client_name: client_name,
       billable: billable,
-      status: status
+      status: status,
     };
     const response = await editProject(data, token, projectId);
     if (response.status == 200) {
@@ -333,6 +339,13 @@ const handleItemPerPage = (e) => {
                   @click="modalLogId = project.project_id"
                 >
                   Delete
+                </button>
+                <button
+                  class="btn btn-light btn-sm"
+                  data-cy="ViewProjectDetail"
+                  @click="openProject"
+                >
+                  View
                 </button>
               </li>
             </div>
