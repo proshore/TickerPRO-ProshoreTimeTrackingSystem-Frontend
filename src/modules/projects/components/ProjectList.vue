@@ -27,6 +27,12 @@ const modalLogId = ref(null);
 const keyword = ref("");
 const searchedProjects = ref([]);
 
+const props = defineProps({
+  openProject: Function
+})
+
+const {openProject} = props;
+
 async function loadProjects() {
   try {
     const response = await projectList(token, currentPage?.["_rawValue"]);
@@ -334,6 +340,7 @@ const handleItemPerPage = (e) => {
                 >
                   Delete
                 </button>
+                <button class="btn btn-light btn-sm" @click="openProject">View</button>
               </li>
             </div>
           </ul>
