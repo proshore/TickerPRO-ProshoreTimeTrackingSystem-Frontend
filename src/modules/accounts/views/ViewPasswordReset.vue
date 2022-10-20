@@ -128,6 +128,7 @@ async function handlePasswordReset() {
         v-model="form.email"
         :error="emailError"
         data-cy="passwordResetEmail"
+        :disabled="true"
       />
 
       <div class="input_form">

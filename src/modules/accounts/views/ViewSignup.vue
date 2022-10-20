@@ -9,7 +9,7 @@ import BaseAlert from "@/components/BaseAlert.vue";
 import validateEmail from "@/utils/validateEmail";
 import signUpPassword from "@/utils/signUpPassword";
 import validateName from "@/utils/validateName";
-import validatePasswordConfirm from "@/utils/validatePasswordConfirm";
+import validateConfirmPassword from "@/utils/validateConfirmPassword";
 import PasswordToggle from "@/components/PasswordToggle.vue";
 
 import { signupUser } from "../services";
@@ -25,7 +25,7 @@ const name = route.query.name;
 let showPassword = ref(false);
 let showConfirmPassword = ref(false);
 const $toast = useToast();
-const passwordConfirmationError = ref("");
+
 
 const form = ref({
   name: name,
@@ -58,7 +58,7 @@ async function handleSignup() {
   nameError.value = "";
   emailError.value = "";
   passwordError.value = "";
-  passwordConfirmationError.value = "";
+  confirmPasswordError.value = "";
   signupSuccess.value = false;
 
   const { isValid: validName, errorMessage: errorName } = validateName(
@@ -70,7 +70,7 @@ async function handleSignup() {
   const { isValid: validPassword, errorMessage: errorPassword } =
     signUpPassword(form.value.password);
   const { isValid: validConfirmPassword, errorMessage: errorConfirmPassword } =
-  validatePasswordConfirm(
+  validateConfirmPassword(
       form.value.password,
       form.value.passwordConfirmation
     );
