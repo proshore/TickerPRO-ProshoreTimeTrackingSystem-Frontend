@@ -66,7 +66,7 @@ async function handleProjectDelete(projectId) {
     const response = await deleteProject(token, projectId);
     if (response.status === 204) {
       loadProjects();
-      $toast.success("Project deleted.");
+      $toast.success("Project deleted successfully.");
 
       if (projects.value.length === 1) {
         location.reload();
@@ -150,12 +150,6 @@ const onClickHandler = (page) => {
   loadProjects();
 };
 
-const handleItemPerPage = (e) => {
-  itemPerPage.value = e.target.value;
-  onClickHandler(1);
-  // currentPage.value = 1;
-  // loadProject();
-};
 </script>
 
 <template>
@@ -400,7 +394,7 @@ const handleItemPerPage = (e) => {
       data-cy="paginateProjectList"
       :total-items="totalItems"
       :items-per-page="Number(itemPerPage)"
-      :max-pages-shown="2"
+      :max-pages-shown="1"
       :current-page="currentPage"
       :on-click="onClickHandler"
     />

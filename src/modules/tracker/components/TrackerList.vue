@@ -144,7 +144,6 @@ async function editLogs(
     const response = await trackerEdit(data, token, id);
     if (response.status == 200) {
       handleTimeLog();
-      // $toast.success("Your timelog has been updated successfully.");
       $toast.success(response.data["message"]);
     }
   } catch (err) {
