@@ -11,7 +11,7 @@ import BaseAlert from "@/components/BaseAlert.vue";
 
 const project_name = ref("");
 const clientId = ref("");
-const billable = ref("0");
+const billable = ref(true);
 const status = ref(1);
 const clients = ref([]);
 const projectNameError = ref("");
@@ -77,7 +77,7 @@ async function handleAddProject() {
         // empty form fields
         project_name.value = "";
         clientId.value = "";
-        billable.value = "";
+        billable.value = true;
       }
     } catch (error) {
       if (error.response.status === 422) {
