@@ -2,6 +2,7 @@
 import { ref, onBeforeMount, watch } from "vue";
 
 import getTime from "@/utils/getTime";
+import getDate from "@/utils/getDate";
 import getToken from "@/utils/getToken";
 import getUser from "@/utils/getUser";
 
@@ -38,7 +39,7 @@ function timer() {
   if (minutes < 10) minutes = "0" + minutes;
   if (hours < 10) hours = "0" + hours;
 
-  stopWatch.value = `${hours}:${minutes}:${second}`;
+  stopWatch.value = `${hours}:${minutes}:${seconds}`;
 }
 
 function startTimer() {
@@ -80,15 +81,17 @@ watch(projectId, () => {
 });
 
 async function handleTimeTracker() {
-  const start_time = getTime();
+  const started_time = getTime();
   const user_id = getUser().user.id;
+  const start_date= getDate();
 
   const data = {
     activity_name: description.value,
     user_id,
     project_id: projectId.value,
     billable: isBillable.value,
-    start_time,
+    started_time,
+    start_date,
   };
 
   try {
@@ -115,8 +118,10 @@ async function handleStopTimeTracker() {
       user_id: getUser().user.id,
       project_id: newTimeLog.value.project.project_id,
       billable: newTimeLog.value.billable,
-      start_time: newTimeLog.value.start_time,
-      end_time: getTime(),
+      started_time: newTimeLog.value.started_time,
+      ended_time: getTime(),
+      start_date: newTimeLog.value.start_date,
+      end_date: getDate(),
     };
 
     // edit tracker
