@@ -10,4 +10,12 @@ const clientList = async (token) => {
   });
 };
 
-export { clientList };
+const addClient = async (data, token) => {
+  return await API.post(apiUrl.CLIENT_LIST_URL, data, {
+    headers: {
+      Authorization: token
+    },
+  });
+}
+
+export { clientList, addClient };
