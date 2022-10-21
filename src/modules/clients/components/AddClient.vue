@@ -49,9 +49,10 @@ async function handleAddClient() {
       name=""
       id=""
       class="form-control"
+      data-cy="SearchClients"
       placeholder="Search Client"
     />
-    <button class="btn btn-primary">
+    <button class="btn btn-primary" data-cy="SeachClientsButton">
       <i class="bi bi-search text-white"></i>
     </button>
   </div>
@@ -76,6 +77,7 @@ async function handleAddClient() {
           type="text"
           name="name"
           label="Client name"
+          data-cy="ClientNameBox"
           v-model="name"
           :error="nameError"
         />
@@ -83,6 +85,7 @@ async function handleAddClient() {
           type="email"
           name="name"
           label="Client Email"
+          data-cy="ClientEmailBox"
           v-model="email"
           :error="emailError"
         />
@@ -90,6 +93,7 @@ async function handleAddClient() {
           type="text"
           name="name"
           label="Client Number"
+          data-cy="ClientNumberBox"
           v-model="number"
           :error="Error"
         />
