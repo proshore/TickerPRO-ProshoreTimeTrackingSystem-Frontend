@@ -192,7 +192,12 @@ const handleItemPerPage = (e) => {
     <p class="h5 my-4">This week</p>
   </div>
   <div v-if="tableLogs.length">
-    <table class="table table-hover" v-for="log in tableLogs" :key="log.id">
+    <table
+      class="table table-hover"
+      v-for="log in tableLogs"
+      :key="log.id"
+      style="border-collapse: separate; border-spacing: 0px 10px"
+    >
       <tr>
         <th colspan="7" style="background: #f6f6f6" class="border">
           <div class="d-flex justify-content-between">
@@ -225,7 +230,7 @@ const handleItemPerPage = (e) => {
                     log.billable,
                     log.start_time,
                     log.end_time,
-                    log.id,
+                    log.id
                   )
                 "
                 @keyup.enter="
@@ -492,17 +497,12 @@ input {
   padding: 5px;
   font-size: 16px;
 }
-
 .edit {
   border: none;
   width: 5em;
 }
 .edit :hover {
   border: 1px solid grey;
-}
-table {
-  border-collapse: separate;
-  border-spacing: 0 10px;
 }
 .pagination-container {
   display: flex;
