@@ -431,4 +431,36 @@ th,
 td {
   cursor: pointer;
 }
+table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.pagination-container {
+  display: flex;
+  column-gap: 10px;
+}
+.paginate-buttons {
+  font-weight: 900;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0px solid rgb(217, 217, 217);
+  color: black;
+}
+.paginate-buttons:hover {
+  background-color: #d8d8d8;
+}
+.active-page {
+  background-color: #040458;
+  border: 1px solid #040458;
+  color: white;
+}
+.active-page:hover {
+  background-color: #040458;
+}
+
+
 </style>
