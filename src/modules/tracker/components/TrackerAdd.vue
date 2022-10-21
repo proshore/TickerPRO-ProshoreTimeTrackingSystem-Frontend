@@ -108,6 +108,7 @@ async function handleTimeTracker() {
     }
   } catch (err) {
     $toast.error(response.data["message"]);
+    // console.log(err.response.data.message || "Something went wrong");
   }
 }
 
@@ -131,23 +132,24 @@ async function handleStopTimeTracker() {
       newTimeLog.value.id
     );
 
-    if (response_two.status === 200) {
+    if (response_two.status === 200) {  
       showStopButton.value = false;
       showStartButton.value = true;
 
       description.value = "";
       projectId.value = "";
-      isBillable.value = false;
+      isBillable.value = true;
 
       // stop timer
 
       stopTimer();
-      $toast.success(response.data["message"]);
-
+      
+      $toast.success(response_two.data["message"]);
       location.reload();
+      
     }
-  } catch (err) {
-    $toast.error(response.data["message"]);
+  } catch (error) {
+    $toast.error(response_two.data["message"]);
   }
 }
 </script>
