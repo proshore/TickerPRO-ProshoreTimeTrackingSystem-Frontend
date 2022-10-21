@@ -39,7 +39,7 @@ async function handleAddClient() {
   <div class="d-flex gap-2 justify-content-end my-5">
     <button
       class="btn btn-outline-primary d-flex"
-      data-cy="AddNewClients"
+      data-cy="addNewClients"
       @click="showAddClient = true"
     >
       Add New Client
@@ -49,10 +49,10 @@ async function handleAddClient() {
       name=""
       id=""
       class="form-control"
-      data-cy="SearchClients"
+      data-cy="searchClientName"
       placeholder="Search Client"
     />
-    <button class="btn btn-primary" data-cy="SeachClientsButton">
+    <button class="btn btn-primary" data-cy="searchClientsButton">
       <i class="bi bi-search text-white"></i>
     </button>
   </div>
@@ -77,7 +77,7 @@ async function handleAddClient() {
           type="text"
           name="name"
           label="Client name"
-          data-cy="ClientNameBox"
+          data-cy="clientNameBox"
           v-model="name"
           :error="nameError"
         />
@@ -85,7 +85,7 @@ async function handleAddClient() {
           type="email"
           name="name"
           label="Client Email"
-          data-cy="ClientEmailBox"
+          data-cy="clientEmailBox"
           v-model="email"
           :error="emailError"
         />
@@ -93,7 +93,7 @@ async function handleAddClient() {
           type="text"
           name="name"
           label="Client Number"
-          data-cy="ClientNumberBox"
+          data-cy="clientNumberBox"
           v-model="number"
           :error="Error"
         />
@@ -102,14 +102,14 @@ async function handleAddClient() {
       <div class="my-3 p-2">
         <button
           class="btn btn-outline-secondary"
-          data-cy="CancelAddingMember"
+          data-cy="cancelAddingMember"
           @click="closeDialog"
         >
           Cancel
         </button>
         <button
           class="btn btn-outline-primary mx-2"
-          data-cy="ConfirmAddingMember"
+          data-cy="confirmAddingMember"
           form="myForm"
           type="submit"
         >
