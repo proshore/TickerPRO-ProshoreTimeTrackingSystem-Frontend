@@ -125,6 +125,8 @@ async function editLogs(
   billable,
   start,
   end,
+  start_date,
+  end_date,
   id
 ) {
   $event.preventDefault();
@@ -134,8 +136,10 @@ async function editLogs(
       user_id: userid,
       project_id: projectid,
       billable: billable,
-      start_time: start,
-      end_time: end,
+      started_time: start,
+      ended_time: end,
+      start_date,
+      end_date,
     };
     const response = await trackerEdit(data, token, id);
     if (response.status == 200) {
@@ -182,8 +186,8 @@ const onClickHandler = (page) => {
 const handleItemPerPage = (e) => {
   itemPerPage.value = e.target.value;
   onClickHandler(1);
-  // currentPage.value = 1;
-  // handleTimeLog();
+  currentPage.value = 1;
+  handleTimeLog();
 };
 </script>
 
@@ -228,8 +232,10 @@ const handleItemPerPage = (e) => {
                     userId,
                     log.project.project_id,
                     log.billable,
-                    log.start_time,
-                    log.end_time,
+                    log.started_time,
+                    log.ended_time,
+                    log.start_date,
+                    log.end_date,
                     log.id
                   )
                 "
@@ -240,8 +246,10 @@ const handleItemPerPage = (e) => {
                     userId,
                     log.project.project_id,
                     log.billable,
-                    log.start_time,
-                    log.end_time,
+                    log.started_time,
+                    log.ended_time,
+                    log.start_date,
+                    log.end_date,
                     log.id
                   )
                 "
@@ -270,8 +278,10 @@ const handleItemPerPage = (e) => {
                     userId,
                     log.project.project_id,
                     log.billable,
-                    log.start_time,
-                    log.end_time,
+                    log.started_time,
+                    log.ended_time,
+                    log.start_date,
+                    log.end_date,
                     log.id
                   )
                 "
@@ -331,8 +341,10 @@ const handleItemPerPage = (e) => {
                     userId,
                     log.project.project_id,
                     log.billable,
-                    log.start_time,
-                    log.end_time,
+                    log.started_time,
+                    log.ended_time,
+                    log.start_date,
+                    log.end_date,
                     log.id
                   )
                 "
@@ -343,8 +355,10 @@ const handleItemPerPage = (e) => {
                     userId,
                     log.project.project_id,
                     log.billable,
-                    log.start_time,
-                    log.end_time,
+                    log.started_time,
+                    log.ended_time,
+                    log.start_date,
+                    log.end_date,
                     log.id
                   )
                 "
@@ -358,14 +372,16 @@ const handleItemPerPage = (e) => {
                 v-model="log.eTime"
                 data-cy="endTimeEdit"
                 @focusout="
-                  editLogs(
+                 editLogs(
                     $event,
                     log.activity_name,
                     userId,
                     log.project.project_id,
                     log.billable,
-                    log.start_time,
-                    log.end_time,
+                    log.started_time,
+                    log.ended_time,
+                    log.start_date,
+                    log.end_date,
                     log.id
                   )
                 "
@@ -376,8 +392,10 @@ const handleItemPerPage = (e) => {
                     userId,
                     log.project.project_id,
                     log.billable,
-                    log.start_time,
-                    log.end_time,
+                    log.started_time,
+                    log.ended_time,
+                    log.start_date,
+                    log.end_date,
                     log.id
                   )
                 "
@@ -385,7 +403,7 @@ const handleItemPerPage = (e) => {
             </td>
 
             <td class="text-secondary" style="font-weight: 600">
-              {{ convertMsToHM(getTotalTime(log.start_time, log.end_time)) }}
+              {{ getTotalTime(log.start_time, log.end_time) }}
             </td>
 
             <td>
