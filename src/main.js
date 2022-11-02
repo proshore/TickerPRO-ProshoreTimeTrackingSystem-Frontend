@@ -10,6 +10,8 @@ import 'vue-toast-notification/dist/theme-sugar.css';
 
 import "bootstrap/dist/js/bootstrap.min.js";
 
+import '@vuepic/vue-datepicker/dist/main.css';
+
 const app = createApp(App);
 
 
