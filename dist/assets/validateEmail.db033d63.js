@@ -1,0 +1,1 @@
+function i(r){const e={isValid:!0,errorMessage:""},s=/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;if(r){if(!s.test(r))return e.isValid=!1,e.errorMessage="Please enter an valid email.",e}else return e.isValid=!1,e.errorMessage="Email field is required.",e;return e}export{i as v};
