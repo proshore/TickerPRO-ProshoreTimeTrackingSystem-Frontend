@@ -50,7 +50,7 @@ async function handleTimeLog() {
     );
 
     const groups = sortedTableLogs.reduce((groups, item) => {
-      const date = item?.end_time?.split(" ")[0];
+      const date = item?.end_date;
       if (!groups[date]) {
         groups[date] = [];
       }
@@ -71,20 +71,9 @@ async function handleTimeLog() {
       return {
         date: newDate,
         logs: groups[date]?.map((item) => {
-          item.sTime = item?.start_time
-            ? new Date(item?.start_time)?.toLocaleString("en-NP", {
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-              })
-            : null;
-          item.eTime = item?.end_time
-            ? new Date(item?.end_time)?.toLocaleString("en-NP", {
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-              })
-            : null;
+          item.sTime = moment(item.started_time, "hh:mm").format("hh:mm A");
+          item.eTime = moment(item.ended_time, "hh:mm").format("hh:mm A");
+          item.diffTime = convertMsToHM(getTotalTime(item.started_time, item.ended_time,));
           return item;
         }),
         time: convertMsToHM(
@@ -96,7 +85,7 @@ async function handleTimeLog() {
                     .duration(acc?.time)
                     ?.add(
                       moment.duration(
-                        moment(log?.end_time)?.diff(moment(log?.start_time))
+                        (log?.diffTime)
                       )
                     ),
                 };
@@ -116,6 +105,7 @@ async function handleTimeLog() {
   }
 }
 handleTimeLog();
+console.log(tableLogs)
 
 async function editLogs(
   $event,
@@ -188,6 +178,7 @@ const handleItemPerPage = (e) => {
   currentPage.value = 1;
   handleTimeLog();
 };
+
 </script>
 
 <template>
@@ -402,7 +393,7 @@ const handleItemPerPage = (e) => {
             </td>
 
             <td class="text-secondary" style="font-weight: 600">
-              {{ getTotalTime(log.start_time, log.end_time) }}
+              {{ log.diffTime}}
             </td>
 
             <td>
