@@ -29,6 +29,7 @@ const $toast = useToast();
 // For DatePicker
 const datePicker = ref(new Date().toISOString().slice(0, 10));
 
+
 async function handleTimeLog() {
   try {
     const response = await timeLog(

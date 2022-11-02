@@ -1,16 +1,28 @@
 <script setup>
 import { ref } from "vue";
-import {trackerEdit } from "../services";
+import { trackerEdit, deleteLog, timeLog } from "../services";
 import getToken from "@/utils/getToken";
 import getUser from "@/utils/getUser";
 import { useToast } from "vue-toast-notification";
 import Datepicker from "@vuepic/vue-datepicker";
+import sortTimeLog from "../utils/sortTimeLog";
+import convertMsToHM from "../utils/convertMsToHM";
+import getTotalTime from "../utils/getTotalTime";
+import moment from "moment";
 
 const $toast = useToast();
 const token = getToken();
 const userId = getUser().user.id;
 const datePicker = ref(new Date().toISOString().slice(0, 10));
-console.log(datePicker);
+const tableLogs = ref([]);
+const logs = ref([]);
+const currentPage = ref(1);
+const itemPerPage = ref(50);
+const totalItems = ref();
+const today = new Date().toISOString().slice(0, 10);
+const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+const isLoading = ref(true);
+
 const props = defineProps({
   log: {
     type: Object,
@@ -20,6 +32,7 @@ const props = defineProps({
 const { log } = props;
 
 const emit = defineEmits(["handleTimeLog"]);
+const modalLogId = ref(null);
 
 function getBillable(x) {
   if (x == true) {
@@ -29,7 +42,99 @@ function getBillable(x) {
   }
 }
 
-async function editLogs(date = log.start_date) {
+async function handleTimeLog() {
+  try {
+    const response = await timeLog(
+      token,
+      userId,
+      currentPage?.["_rawValue"],
+      itemPerPage?.["_rawValue"]
+    );
+    if (response.status === 200 && response.data.logs) {
+      logs.value = response.data.logs;
+      totalItems.value = response.data.total;
+    }
+
+    let sortedTableLogs = sortTimeLog(
+      response.data.logs?.filter((item, index) => {
+        if (index < itemPerPage?.["_rawValue"]) {
+          return item;
+        } else {
+          return null;
+        }
+      })
+    );
+
+    const groups = sortedTableLogs.reduce((groups, item) => {
+      const date = item?.end_date;
+      if (!groups[date]) {
+        groups[date] = [];
+      }
+      groups[date].push(item);
+      return groups;
+    }, {});
+
+    // Edit: to add it in the array format instead
+    const groupArrays = Object.keys(groups).map((date) => {
+      let newDate;
+      if (today == date) {
+        newDate = "Today";
+      } else if (yesterday == date) {
+        newDate = "Yesterday";
+      } else {
+        newDate = date;
+      }
+      return {
+        date: newDate,
+        logs: groups[date]?.map((item) => {
+          item.sTime = moment(item.started_time, "hh:mm").format("hh:mm A");
+          item.eTime = moment(item.ended_time, "hh:mm").format("hh:mm A");
+          item.diffTime = convertMsToHM(
+            getTotalTime(item.started_time, item.ended_time)
+          );
+          return item;
+        }),
+        time: convertMsToHM(
+          moment.duration(
+            groups[date].reduce(
+              (acc, log) => {
+                return {
+                  time: moment
+                    .duration(acc?.time)
+                    ?.add(moment.duration(log?.diffTime)),
+                };
+              },
+              { time: null }
+            )?.time,
+            "HH:mm:ss"
+          )
+        ),
+      };
+    });
+    tableLogs.value = groupArrays;
+    isLoading.value = false;
+  } catch (err) {
+    $toast.info("Cannot show log at the moment.");
+  }
+}
+
+async function handleTrackerDelete(trackerId) {
+  try {
+    const response = await deleteLog(token, trackerId);
+    if (response.status === 200) {
+      await handleTimeLog();
+      $toast.success(response.data["message"]);
+
+      if (logs.value.length) {
+        location.reload();
+      }
+    }
+  } catch (err) {
+    $toast.error(err.data["message"]);
+  }
+}
+
+async function editLogs() {
   try {
     let data = {
       activity_name: log.activity_name,
@@ -38,10 +143,14 @@ async function editLogs(date = log.start_date) {
       billable: log.billable,
       started_time: log.started_time,
       ended_time: log.ended_time,
-      start_date: date,
-      end_date: date,
+      start_date: log.start_date,
+      end_date: log.start_date,
     };
+
     const response = await trackerEdit(data, token, log.id);
+    document.getElementById("editActivityName").blur();
+    document.getElementById("editStartTime").blur();
+    document.getElementById("editEndTime").blur();
     if (response.status == 200) {
       emit("handleTimeLog");
       $toast.success(response.data["message"]);
@@ -62,11 +171,12 @@ function handleDate(date) {
     <td>
       <input
         class="edit"
+        id="editActivityName"
         type="text"
         v-model="log.activity_name"
         style="width: fit-content"
         data-cy="activityNameEdit"
-        @change="editLogs"
+        @keyup.enters="editLogs"
       />
     </td>
   </div>
@@ -129,10 +239,10 @@ function handleDate(date) {
     <td>
       <input
         class="edit"
+        id="editStartTime"
         type="text"
         v-model="log.sTime"
         data-cy="startTimeEdit"
-        @focusout="editLogs"
         @keyup.enter="editLogs"
       />
     </td>
@@ -140,10 +250,10 @@ function handleDate(date) {
     <td>
       <input
         class="edit"
+        id="editEndTime"
         type="text"
         v-model="log.ended_time"
         data-cy="endTimeEdit"
-        @focusout="editLogs"
         @keyup.enter="editLogs"
       />
     </td>
