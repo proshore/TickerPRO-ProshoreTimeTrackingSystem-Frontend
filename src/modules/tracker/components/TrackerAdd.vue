@@ -32,14 +32,14 @@ function timer() {
 
   // format our time
   let hours = Math.floor(seconds / 3600);
-  let minutes = Math.floor((seconds - hours * 3600) / 60);
-  let second = seconds % 60;
+  let minutes = Math.floor( (seconds - (hours * 3600)) / 60);
+  let second = (seconds) % 60;
 
   if (second < 10) second = "0" + second;
   if (minutes < 10) minutes = "0" + minutes;
   if (hours < 10) hours = "0" + hours;
 
-  stopWatch.value = `${hours}:${minutes}:${seconds}`;
+  stopWatch.value = `${hours}:${minutes}:${second}`;
 }
 
 function startTimer() {

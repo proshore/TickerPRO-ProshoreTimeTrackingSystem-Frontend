@@ -153,9 +153,10 @@ const onClickHandler = (page) => {
 </script>
 
 <template>
-  <div class="mt-3 border border-bottom-0 rounded">
+  <div class="mt-3 ">
     <div class="topnav">
       <input
+        class="searchButton"
         type="text"
         placeholder="Search.."
         v-model="keyword"
@@ -406,8 +407,14 @@ input {
   font-size: 16px;
 }
 
+.searchButton{
+  margin-left: 1128px;
+  width: 500px;
+  margin-bottom: 12px;
+}
+
 .clientSelect {
-  border: 0px;
+  border: 1px;
   width: max-width;
   padding: 6px;
   appearance: none;
@@ -426,8 +433,9 @@ td {
   cursor: pointer;
 }
 table {
-  border-collapse: separate;
+  /* border-collapse: separate; */
   border-spacing: 0 10px;
+  border: 1px solid black;
 }
 
 .pagination-container {

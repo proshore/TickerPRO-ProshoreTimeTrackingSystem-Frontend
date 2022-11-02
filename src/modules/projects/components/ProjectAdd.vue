@@ -90,7 +90,7 @@ async function handleAddProject() {
 
 <template>
   <form @submit.prevent="handleAddProject">
-    <div class="border rounded shadow-sm">
+    <div class="project px-3 py-2 border rounded shadow-sm d-flex justify-content-between">
       <!-- Success invite -->
       <BaseAlert
         v-if="successAdd"
@@ -104,7 +104,7 @@ async function handleAddProject() {
           <BaseAlert :message="error" hex-font-color="ff0000" />
         </div>
       </div>
-      <div class="my-2 mx-2 d-flex justify-content-between gap-4">
+      <div class="my-2" style="width: 80%">
         <input
           type="text"
           class="form-control"
@@ -115,6 +115,8 @@ async function handleAddProject() {
           data-cy="addProjectname"
           required
         />
+        </div>
+        <div class="d-flex align-items-center gap-4">
         <select
           v-if="clients.length"
           id="client-id"
@@ -173,17 +175,33 @@ async function handleAddProject() {
         <!-- create new project button -->
         <button
           type="submit"
-          class="btn btn-secondary"
-          style="width: 15%"
+          class="btn btn-secondary mb-2 mx-4 mt-2"
+          
           data-cy="newProjectCreateButton"
         >
-          ADD PROJECT
+          Create
         </button>
       </div>
     </div>
   </form>
 </template>
 <style>
+.project {
+  width: 100%;
+}
+.form-select {
+  border: 0px;
+  width: 113px;
+}
+
+input[type="text"] {
+  display: inline;
+}
+
+select {
+  display: inline;
+  width: 10em;
+}
   .dollar {
   color: #9d9d9d;
   font-size: 1.7rem;
