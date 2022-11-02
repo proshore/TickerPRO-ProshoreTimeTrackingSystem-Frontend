@@ -120,7 +120,7 @@ async function handleAddClient() {
   </div>
 </template>
 
-<style>
+<style scoped>
 .form-control {
   width: 40vh;
 }

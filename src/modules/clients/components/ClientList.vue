@@ -57,6 +57,7 @@ const clientStatus = (status) => {
 </template>
 
 <style scoped>
+
 tr,
 th,
 td {
@@ -65,6 +66,6 @@ td {
 }
 table {
   width: 100%;
-  border-spacing: px;
+  border-spacing: 0 10px;
 }
 </style>
