@@ -23,6 +23,7 @@ const today = new Date().toISOString().slice(0, 10);
 const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
 const isLoading = ref(true);
 
+
 const props = defineProps({
   log: {
     type: Object,
@@ -30,7 +31,8 @@ const props = defineProps({
   },
 });
 const { log } = props;
-
+let abc = new Date(log.start_date);
+const date = ref(String(abc.toISOString().slice(0, 10)))
 const emit = defineEmits(["handleTimeLog"]);
 const modalLogId = ref(null);
 
@@ -135,6 +137,7 @@ async function handleTrackerDelete(trackerId) {
 }
 
 async function editLogs() {
+
   try {
     let data = {
       activity_name: log.activity_name,
@@ -143,8 +146,8 @@ async function editLogs() {
       billable: log.billable,
       started_time: log.started_time,
       ended_time: log.ended_time,
-      start_date: log.start_date,
-      end_date: log.start_date,
+      start_date: date.value,
+      end_date: date.value,
     };
 
     const response = await trackerEdit(data, token, log.id);
@@ -160,9 +163,9 @@ async function editLogs() {
   }
 }
 
-function handleDate(date) {
-  let abc = date.toISOString().slice(0, 10);
-  editLogs(abc);
+function handleDate(updatedDate) {
+  date.value = String(updatedDate.toISOString().slice(0, 10));
+  editLogs();
 }
 </script>
 
@@ -176,7 +179,7 @@ function handleDate(date) {
         v-model="log.activity_name"
         style="width: fit-content"
         data-cy="activityNameEdit"
-        @keyup.enters="editLogs"
+        @keyup.enter="editLogs"
       />
     </td>
   </div>
@@ -296,7 +299,7 @@ function handleDate(date) {
               data-bs-toggle="modal"
               data-bs-target="#staticBackdrop"
               data-cy="deleteTimeLog"
-              @click="modalLogId = log.id"
+              @click="handleTrackerDelete(log.id)"
             >
               Delete
             </button>
