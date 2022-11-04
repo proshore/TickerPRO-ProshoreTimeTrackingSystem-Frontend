@@ -180,12 +180,14 @@ async function handleAddProject() {
         v-if="successAdd"
         message="Project added successfully!"
         hex-font-color="198754"
+        style="width:20%"
       />
 
       <!-- Show error messages -->
       <div v-if="errors.length">
         <div v-for="error in errors" :key="error">
-          <BaseAlert :message="error" hex-font-color="ff0000" />
+          <BaseAlert :message="error" hex-font-color="ff0000" style="width:30%" />
+          
         </div>
       </div>
 </template>

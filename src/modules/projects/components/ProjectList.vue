@@ -67,7 +67,7 @@ async function handleProjectDelete(projectId) {
     const response = await deleteProject(token, projectId);
     if (response.status === 204) {
       loadProjects();
-      $toast.success("Project deleted successfully.");
+      $toast.success("Project has been deleted successfully.");
 
       if (projects.value.length === 1) {
         location.reload();
@@ -154,7 +154,7 @@ const onClickHandler = (page) => {
 
 <template>
   <ProjectAdd :loadProjects="loadProjects" />
-  <div class="mt-3">
+  <div class="my-3">
     <div class="topnav">
       <input
         class="searchButton"
@@ -409,9 +409,14 @@ input {
 }
 
 .searchButton {
-  margin-left: 1128px;
-  width: 500px;
-  margin-bottom: 12px;
+   border: 1px solid #D0D6DB;
+}
+
+.topnav {
+  display: flex;
+  justify-content: flex-end;
+ 
+ 
 }
 
 .clientSelect {
