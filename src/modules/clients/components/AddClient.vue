@@ -15,6 +15,12 @@ const emailError = ref("");
 const numberError = ref("");
 const errors = ref([]);
 const successAdd = ref(false);
+const token = getToken();
+
+const props = defineProps({
+  loadClients: Function
+})
+const {loadClients} = props
 
 const showAddClient = ref(false);
 function closeDialog() {
@@ -31,7 +37,11 @@ async function handleAddClient() {
   };
   const response = await addClient(clientInfo, token);
   if (response.status === 200) {
-    location.reload();
+    loadClients(token);
+    closeDialog();
+  }
+  else{
+    console.log("There's an error.")
   }
 }
 </script>

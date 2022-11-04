@@ -191,11 +191,10 @@ async function handleStopTimeTracker() {
           data-cy="selectProject"
           required
         >
-          <option :value="projectId" disabled>Projects</option>
+          <option :value="null" disabled>Projects</option>
           <option
             v-for="project in projects"
             :key="project.project_id"
-            :selected="project.project_name[0]"
             :value="project.project_id"
             v-text="project.project_name"
             data-cy="selectProjectName"

@@ -4,6 +4,7 @@ import { ref } from "vue";
 import getToken from "@/utils/getToken";
 
 import { clientList } from "@/modules/clients/services";
+import ProjectAdd from "./ProjectAdd.vue";
 import {
   editProject,
   enableDisable,
@@ -149,11 +150,11 @@ const onClickHandler = (page) => {
   currentPage.value = page;
   loadProjects();
 };
-
 </script>
 
 <template>
-  <div class="mt-3 ">
+  <ProjectAdd :loadProjects="loadProjects" />
+  <div class="mt-3">
     <div class="topnav">
       <input
         class="searchButton"
@@ -407,7 +408,7 @@ input {
   font-size: 16px;
 }
 
-.searchButton{
+.searchButton {
   margin-left: 1128px;
   width: 500px;
   margin-bottom: 12px;
@@ -463,6 +464,4 @@ table {
 .active-page:hover {
   background-color: #040458;
 }
-
-
 </style>

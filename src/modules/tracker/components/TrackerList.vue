@@ -122,7 +122,7 @@ async function handleTrackerDelete(trackerId) {
       $toast.success(response.data["message"]);
 
       if (logs.value.length === 1) {
-        location.reload();
+        handleTimeLog();
       }
     }
   } catch (err) {

@@ -3,6 +3,7 @@ import { clientList } from "@/modules/clients/services";
 import { ref } from "vue";
 import getToken from "@/utils/getToken";
 import { useToast } from "vue-toast-notification";
+import AddClient from "../components/AddClient.vue"
 
 const clients = ref([]);
 const token = getToken();
@@ -31,6 +32,7 @@ const clientStatus = (status) => {
 </script>
 
 <template>
+  <AddClient :loadClients = "loadClients"/>
   <div v-if="clients.length">
     <table>
       <thead class="hey">

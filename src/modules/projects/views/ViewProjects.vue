@@ -27,7 +27,6 @@ storeToggleContainer.userStatus = false;
 
     <div v-else>
       <BaseHeading title="Projects" />
-      <ProjectAdd />
       <ProjectList :openProject="openProject"/>
     </div>
   </main>

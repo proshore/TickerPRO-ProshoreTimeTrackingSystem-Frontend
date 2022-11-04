@@ -20,6 +20,11 @@ const successAdd = ref(false);
 const errors = ref([]);
 const token = getToken();
 
+const props = defineProps({
+  loadProjects: Function
+})
+const {loadProjects} = props;
+
 async function handleClientList(token) {
   try {
     const response = await clientList(token);
@@ -66,9 +71,8 @@ async function handleAddProject() {
       const response = await addProject(projectInfo, token);
       if (response.status === 200) {
         successAdd.value = true;
-        location.reload();
+        loadProjects();
         
-
         // reset successInvite after 3 seconds
         setTimeout(() => {
           successAdd.value = false;
@@ -92,18 +96,6 @@ async function handleAddProject() {
   <form @submit.prevent="handleAddProject">
     <div class="project px-3 py-2 border rounded shadow-sm d-flex justify-content-between">
       <!-- Success invite -->
-      <BaseAlert
-        v-if="successAdd"
-        message="Project added successfully!"
-        hex-font-color="198754"
-      />
-
-      <!-- Show error messages -->
-      <div v-if="errors.length">
-        <div v-for="error in errors" :key="error">
-          <BaseAlert :message="error" hex-font-color="ff0000" />
-        </div>
-      </div>
       <div class="my-2" style="width: 80%">
         <input
           type="text"
@@ -184,6 +176,18 @@ async function handleAddProject() {
       </div>
     </div>
   </form>
+  <BaseAlert
+        v-if="successAdd"
+        message="Project added successfully!"
+        hex-font-color="198754"
+      />
+
+      <!-- Show error messages -->
+      <div v-if="errors.length">
+        <div v-for="error in errors" :key="error">
+          <BaseAlert :message="error" hex-font-color="ff0000" />
+        </div>
+      </div>
 </template>
 <style>
 .project {
