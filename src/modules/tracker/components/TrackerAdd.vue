@@ -27,6 +27,10 @@ let seconds = 0;
 let interval = null;
 let changeDisable = ref(false);
 
+const props = defineProps({
+  handleTimeLog: Function
+})
+const {handleTimeLog} = props;
 function timer() {
   seconds++;
 
@@ -145,7 +149,8 @@ async function handleStopTimeTracker() {
       stopTimer();
       
       $toast.success(response_two.data["message"]);
-      location.reload();
+      handleTimeLog();
+      stopWatch.value = "00:00:00";
       
     }
   } catch (error) {
@@ -186,7 +191,7 @@ async function handleStopTimeTracker() {
           data-cy="selectProject"
           required
         >
-          <option :value="null" disabled>Projects</option>
+          <option :value="projectId" disabled>Projects</option>
           <option
             v-for="project in projects"
             :key="project.project_id"

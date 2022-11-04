@@ -10,6 +10,7 @@ import getTotalTime from "../utils/getTotalTime";
 import { useToast } from "vue-toast-notification";
 import Datepicker from "@vuepic/vue-datepicker";
 import TrackerItem from "./TrackerItem.vue";
+import TrackerAdd from "./TrackerAdd.vue";
 
 const token = getToken();
 const logs = ref([]);
@@ -112,7 +113,6 @@ async function handleTimeLog() {
 
 // console.log(tableLogs);
 handleTimeLog();
-console.log(tableLogs);
 
 async function handleTrackerDelete(trackerId) {
   try {
@@ -152,6 +152,7 @@ const handleItemPerPage = (e) => {
 </script>
 
 <template>
+  <TrackerAdd :handleTimeLog = "handleTimeLog"/>
   <div class="d-flex justify-content-between">
     <p class="h5 my-4">This week</p>
   </div>
