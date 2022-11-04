@@ -161,12 +161,12 @@ const handleItemPerPage = (e) => {
       class="table table-hover"
       v-for="log in tableLogs"
       :key="log.id"
-      style="border-collapse: separate; border-spacing: 0px 10px"
+      style="border-collapse: collapse; border-spacing: 0px 15px;"
     >
       <tr>
         <th colspan="7" style="background: #f6f6f6" class="border">
           <div class="d-flex justify-content-between">
-            <p class="h6 my-2">{{ log.date }}</p>
+            <p class="h6 my-2 text-primary">{{ log.date }}</p>
             <p class="text-primary my-2">{{ log.time }}</p>
           </div>
         </th>
