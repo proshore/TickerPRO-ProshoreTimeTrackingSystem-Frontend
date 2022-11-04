@@ -6,6 +6,7 @@ import getUser from "@/utils/getUser";
 import validateName from "@/utils/validateName";
 import validateEmail from "@/utils/validateEmail";
 import getToken from "../../../utils/getToken";
+import { useToast } from "vue-toast-notification";
 
 const name = ref("");
 const email = ref("");
@@ -16,6 +17,7 @@ const numberError = ref("");
 const errors = ref([]);
 const successAdd = ref(false);
 const token = getToken();
+const $toast = useToast();
 
 const props = defineProps({
   loadClients: Function
@@ -41,7 +43,7 @@ async function handleAddClient() {
     closeDialog();
   }
   else{
-    console.log("There's an error.")
+    $toast.info("Server Down. Please try again later.")
   }
 }
 </script>
