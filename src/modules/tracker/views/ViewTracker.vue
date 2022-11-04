@@ -19,7 +19,6 @@ storeToggleContainer.userStatus = false;
   <main>
     <BaseHeading title="Time Tracker" />
 
-    <TrackerAdd />
     <TrackerList />
   </main>
 </template>
