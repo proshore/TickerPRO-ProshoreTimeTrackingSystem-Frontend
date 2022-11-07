@@ -1,0 +1,1 @@
+import{bz as a}from"./index.9db0d09c.js";const n="/api/client";var i={CLIENT_LIST_URL:n};const e=async t=>await a.get(i.CLIENT_LIST_URL,{headers:{Authorization:t}}),o=async(t,r)=>await a.post(i.CLIENT_LIST_URL,t,{headers:{Authorization:r}});export{o as a,e as c};
