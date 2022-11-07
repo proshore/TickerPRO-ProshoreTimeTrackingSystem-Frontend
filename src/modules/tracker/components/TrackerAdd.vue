@@ -141,7 +141,7 @@ async function handleStopTimeTracker() {
       showStartButton.value = true;
 
       description.value = "";
-      projectId.value = "";
+      projectId.value = null;
       isBillable.value = true;
 
       // stop timer
@@ -151,6 +151,7 @@ async function handleStopTimeTracker() {
       $toast.success(response_two.data["message"]);
       handleTimeLog();
       stopWatch.value = "00:00:00";
+      seconds = 0;
       
     }
   } catch (error) {

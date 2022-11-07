@@ -244,7 +244,7 @@ function handleDate(updatedDate) {
         class="edit"
         id="editStartTime"
         type="text"
-        v-model="log.sTime"
+        v-model="log.started_time"
         data-cy="startTimeEdit"
         @keyup.enter="editLogs"
       />
