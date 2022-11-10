@@ -111,7 +111,6 @@ async function handleTimeLog() {
   }
 }
 
-// console.log(tableLogs);
 handleTimeLog();
 
 async function handleTrackerDelete(trackerId) {

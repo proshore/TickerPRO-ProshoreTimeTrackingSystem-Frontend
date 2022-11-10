@@ -120,9 +120,9 @@ async function handleTimeLog() {
   }
 }
 
-async function handleTrackerDelete(trackerId) {
+async function handleTrackerDelete() {
   try {
-    const response = await deleteLog(token, trackerId);
+    const response = await deleteLog(token, log.id);
     if (response.status === 200) {
       await handleTimeLog();
       $toast.success(response.data["message"]);
@@ -297,9 +297,9 @@ function handleDate(updatedDate) {
               type="button"
               class="btn btn-light btn-sm mx-2"
               data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop"
+              :data-bs-target="'#staticBackdrop' + log.id "
               data-cy="deleteTimeLog"
-              @click="handleTrackerDelete(log.id)"
+           
             >
               Delete
             </button>
@@ -309,7 +309,7 @@ function handleDate(updatedDate) {
       <!-- Modal -->
       <div
         class="modal fade"
-        id="staticBackdrop"
+        :id="'staticBackdrop'+ log.id"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
         tabindex="-1"
@@ -336,7 +336,7 @@ function handleDate(updatedDate) {
               <button
                 type="button"
                 class="btn btn-primary-outline text-primary"
-                @click="handleTrackerDelete(modalLogId)"
+                @click="handleTrackerDelete()"
                 data-bs-dismiss="modal"
                 data-cy="deleteTrackerList"
               >

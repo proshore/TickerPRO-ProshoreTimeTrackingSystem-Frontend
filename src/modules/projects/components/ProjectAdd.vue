@@ -4,7 +4,7 @@ import { addProject } from "../services";
 import getUser from "@/utils/getUser";
 import getToken from "@/utils/getToken";
 import { clientList } from "@/modules/clients/services";
-
+import { useToast } from "vue-toast-notification";
 import validateName from "@/utils/validateName";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
@@ -19,11 +19,11 @@ const clientNameError = ref("");
 const successAdd = ref(false);
 const errors = ref([]);
 const token = getToken();
-
+const $toast = useToast();
 const props = defineProps({
-  loadProjects: Function
-})
-const {loadProjects} = props;
+  loadProjects: Function,
+});
+const { loadProjects } = props;
 
 async function handleClientList(token) {
   try {
@@ -72,7 +72,8 @@ async function handleAddProject() {
       if (response.status === 200) {
         successAdd.value = true;
         loadProjects();
-        
+        $toast.success("Project has been added successfully!");
+
         // reset successInvite after 3 seconds
         setTimeout(() => {
           successAdd.value = false;
@@ -85,7 +86,7 @@ async function handleAddProject() {
       }
     } catch (error) {
       if (error.response.status === 422) {
-        errors.value.push(error.response.data.message);
+        $toast.error(error.response.data.message);
       }
     }
   }
@@ -94,7 +95,9 @@ async function handleAddProject() {
 
 <template>
   <form @submit.prevent="handleAddProject">
-    <div class="project px-3 py-2 border rounded shadow-sm d-flex justify-content-between">
+    <div
+      class="project px-3 py-2 border rounded shadow-sm d-flex justify-content-between"
+    >
       <!-- Success invite -->
       <div class="my-2" style="width: 80%">
         <input
@@ -107,8 +110,8 @@ async function handleAddProject() {
           data-cy="addProjectname"
           required
         />
-        </div>
-        <div class="d-flex align-items-center gap-4">
+      </div>
+      <div class="d-flex align-items-center gap-4">
         <select
           v-if="clients.length"
           id="client-id"
@@ -168,7 +171,6 @@ async function handleAddProject() {
         <button
           type="submit"
           class="btn btn-secondary mb-2 mx-4 mt-2"
-          
           data-cy="newProjectCreateButton"
         >
           Create
@@ -176,20 +178,6 @@ async function handleAddProject() {
       </div>
     </div>
   </form>
-  <BaseAlert
-        v-if="successAdd"
-        message="Project added successfully!"
-        hex-font-color="198754"
-        style="width:20%"
-      />
-
-      <!-- Show error messages -->
-      <div v-if="errors.length">
-        <div v-for="error in errors" :key="error">
-          <BaseAlert :message="error" hex-font-color="ff0000" style="width:30%" />
-          
-        </div>
-      </div>
 </template>
 <style>
 .project {
@@ -208,7 +196,7 @@ select {
   display: inline;
   width: 10em;
 }
-  .dollar {
+.dollar {
   color: #9d9d9d;
   font-size: 1.7rem;
   cursor: pointer;
