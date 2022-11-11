@@ -124,7 +124,7 @@ async function handleTrackerDelete() {
   try {
     const response = await deleteLog(token, log.id);
     if (response.status === 200) {
-      await handleTimeLog();
+      emit("handleTimeLog");
       $toast.success(response.data["message"]);
 
       if (logs.value.length) {

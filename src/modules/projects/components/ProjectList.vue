@@ -166,7 +166,7 @@ const onClickHandler = (page) => {
       />
     </div>
   </div>
-  <table class="table table-hover">
+  <table class="table table-hover border">
     <thead class="text-primary">
       <tr>
         <th scope="col">#</th>
@@ -415,8 +415,6 @@ input {
 .topnav {
   display: flex;
   justify-content: flex-end;
- 
- 
 }
 
 .clientSelect {
@@ -424,6 +422,7 @@ input {
   width: max-width;
   padding: 6px;
   appearance: none;
+  background: transparent;
 }
 
 .edit {
@@ -441,7 +440,6 @@ td {
 table {
   /* border-collapse: separate; */
   border-spacing: 0 10px;
-  border: 1px solid black;
 }
 
 .pagination-container {
