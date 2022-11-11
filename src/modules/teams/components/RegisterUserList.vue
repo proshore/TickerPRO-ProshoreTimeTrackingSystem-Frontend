@@ -132,15 +132,17 @@ handleAllUsers();
     All Members <span v-if="totalMembers" v-text="`(${totalMembers})`" />
   </div>
 
-  <div class="mt-3 border border-bottom-0 rounded">
-    <div class="topnav">
+  <div class="my-3">
       <input
+      style="width: 20rem; height: 2.5rem;"
+      class="searchButton"
         type="text"
         placeholder="Search.."
         v-model="value"
         v-on:input="search(value)"
       />
     </div>
+  <div class="mt-3 border border-bottom-0 rounded">
     <table class="table table-hover">
       <thead class="text-primary">
         <tr>

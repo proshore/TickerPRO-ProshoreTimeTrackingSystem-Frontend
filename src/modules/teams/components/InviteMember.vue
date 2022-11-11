@@ -130,15 +130,18 @@ td {
 </style>
 
 <template>
+  <div class="my-3">
+    <button
+      style="height: 2.5rem; width: 10rem"
+      type="button my-2"
+      class="btn btn-sm btn-primary text-white"
+      @click="showModal"
+      data-cy="AddNewMemberModal"
+    >
+      Add New Member
+    </button>
+  </div>
   <!-- Button trigger modal -->
-  <button
-    type="button"
-    class="btn btn-sm btn-primary text-white"
-    @click="showModal"
-    data-cy="AddNewMemberModal"
-  >
-    Add New Member
-  </button>
 
   <!-- Modal -->
   <div v-if="modalStatus" class="popup">
