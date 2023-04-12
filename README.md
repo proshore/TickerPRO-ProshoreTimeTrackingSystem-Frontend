@@ -7,6 +7,7 @@
 ```sh
 > git clone https://github.com/rabirajkhadka/TickerPRO-ProshoreTimeTrackingSystem-Frontend.git
 > cd TickerPRO-ProshoreTimeTrackingSystem-Frontend
+> cp .env.example .env
 > npm install
 > npm run dev
 ```
